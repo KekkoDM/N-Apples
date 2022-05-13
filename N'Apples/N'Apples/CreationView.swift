@@ -14,14 +14,16 @@ struct CreationView: View {
     @State var address: String = ""
     @State var info: String = ""
     @State var capability: String = ""
-    @State var poster: UIImage
+    //    @State var poster: UIImage
     @State var dateEvents: Date = Date()
     @State var timePrices: [Date] = [Date()]
     @State var prices: [String] = [""]
     @State var tables: [String] = [""]
-    
+    @State var image:UIImage?
     @State var eventModel : EventModel = EventModel()
-    
+    @State var isPresenting: Bool = false
+    @State var sourceType: UIImagePickerController.SourceType = .photoLibrary
+
     var body: some View {
         
         NavigationView{
@@ -39,7 +41,7 @@ struct CreationView: View {
                     }
                     
                     TextField("Capability", text: $capability)
-//                    TextField("Poster", text: $poster)
+                    //                    TextField("Poster", text: $poster)
                     
                     Text("\(formattedDate(date:dateEvents,format: "dd/MM HH:mm"))")
                     DatePicker(selection: $dateEvents, displayedComponents:.date, label: {
@@ -47,6 +49,19 @@ struct CreationView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.black)
                     })
+                    VStack{
+                    Button(action: {
+                        
+//                        image = UIImage(named: "Giorgio.jpeg") ?? UIImage()
+                        isPresenting.toggle()
+
+                    }, label: {Text("Add Image")
+                        Image(uiImage: image ?? UIImage())
+                            .resizable()
+                            .frame(width: 200, height: 200, alignment: .center)
+                    })
+                    
+                    }
                     Button(action: {
                         timePrices.append(timePrices[0])
                         prices.append(prices[0])
@@ -74,7 +89,7 @@ struct CreationView: View {
                     
                     Button(action: {
                         Task{
-                            try await eventModel.insertEvent(name: name, address: address, location: location, info: info, poster: poster, capability: Int(capability) ?? 0, date: dateEvents, timeForPrice: timePrices, price: prices.map{Int($0) ?? 0}, table: tables)
+                            try await eventModel.insertEvent(name: name, address: address, location: location, info: info, imagePoster: image, capability: Int(capability) ?? 0, date: dateEvents, timeForPrice: timePrices, price: prices.map{Int($0) ?? 0}, table: tables)
                         }
                     }, label: {
                         ZStack {
@@ -85,9 +100,14 @@ struct CreationView: View {
                                 .foregroundColor(.white)
                         }.padding(.bottom, 40)
                     })
+                    
+                    
+                    
+                    
+                    
                 }
-                
-                
+                .fullScreenCover(isPresented: $isPresenting){
+                    ImagePicker(uiImage: $image, isPresenting:  $isPresenting, sourceType: $sourceType)}
             }
             
         }}

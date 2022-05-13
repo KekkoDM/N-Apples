@@ -30,6 +30,9 @@
 		3EAD4F9328268D76007496B8 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD4F9228268D76007496B8 /* EventModel.swift */; };
 		3EAD4F9528268D85007496B8 /* ReservationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD4F9428268D85007496B8 /* ReservationEntity.swift */; };
 		3EAD4F9728268D90007496B8 /* ReservationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD4F9628268D90007496B8 /* ReservationModel.swift */; };
+		411F7722282E45BC00B49E4D /* QuickSignInWithApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F7721282E45BC00B49E4D /* QuickSignInWithApple.swift */; };
+		411F7726282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F7725282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift */; };
+		41F3F623282E68FE003D0170 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F3F622282E68FE003D0170 /* ImagePicker.swift */; };
 		478586CE282D5CC20087B268 /* RoleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478586CD282D5CC20087B268 /* RoleEntity.swift */; };
 		478586D0282D5DC00087B268 /* RoleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478586CF282D5DC00087B268 /* RoleModel.swift */; };
 /* End PBXBuildFile section */
@@ -60,6 +63,9 @@
 		3EAD4F9228268D76007496B8 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		3EAD4F9428268D85007496B8 /* ReservationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationEntity.swift; sourceTree = "<group>"; };
 		3EAD4F9628268D90007496B8 /* ReservationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationModel.swift; sourceTree = "<group>"; };
+		411F7721282E45BC00B49E4D /* QuickSignInWithApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSignInWithApple.swift; sourceTree = "<group>"; };
+		411F7725282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSIgnUpCoordinator.swift; sourceTree = "<group>"; };
+		41F3F622282E68FE003D0170 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		478586CD282D5CC20087B268 /* RoleEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleEntity.swift; sourceTree = "<group>"; };
 		478586CF282D5DC00087B268 /* RoleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,6 +106,7 @@
 				3E3C33E7282BB6B40073B6E8 /* QrCodeView.swift */,
 				3E3C33E8282BB6B40073B6E8 /* QrCodeScannerView.swift */,
 				3E3C33E5282BB6B30073B6E8 /* RecapView.swift */,
+				411F7725282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift */,
 				3E3C33E9282BB6B40073B6E8 /* ScannerView.swift */,
 				3E3C33EA282BB6B40073B6E8 /* ScannerViewModel.swift */,
 			);
@@ -131,6 +138,8 @@
 		3EAD4F6E282679BF007496B8 = {
 			isa = PBXGroup;
 			children = (
+				41F3F622282E68FE003D0170 /* ImagePicker.swift */,
+				411F7721282E45BC00B49E4D /* QuickSignInWithApple.swift */,
 				3EAD4F79282679BF007496B8 /* N'Apples */,
 				3EAD4F78282679BF007496B8 /* Products */,
 				3EAD4F8928268671007496B8 /* Frameworks */,
@@ -253,7 +262,9 @@
 			files = (
 				3EAD4F7D282679BF007496B8 /* ContentView.swift in Sources */,
 				3E3C33EF282BB6B40073B6E8 /* ScannerView.swift in Sources */,
+				41F3F623282E68FE003D0170 /* ImagePicker.swift in Sources */,
 				478586CE282D5CC20087B268 /* RoleEntity.swift in Sources */,
+				411F7726282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift in Sources */,
 				3EAD4F9128268D6B007496B8 /* EventEntity.swift in Sources */,
 				3EAD4F7B282679BF007496B8 /* N_ApplesApp.swift in Sources */,
 				3E3C33DA282B9F6C0073B6E8 /* ReservationView.swift in Sources */,
@@ -264,6 +275,7 @@
 				3E3C33EB282BB6B40073B6E8 /* RecapView.swift in Sources */,
 				3E3C33EE282BB6B40073B6E8 /* QrCodeScannerView.swift in Sources */,
 				3EAD4F9528268D85007496B8 /* ReservationEntity.swift in Sources */,
+				411F7722282E45BC00B49E4D /* QuickSignInWithApple.swift in Sources */,
 				3E636C08282A584B00CC0CED /* CreationView.swift in Sources */,
 				3E3C33E3282BB5AC0073B6E8 /* QrCodeCameraDelegate.swift in Sources */,
 				3E3C33E1282BB5AC0073B6E8 /* CameraPreview.swift in Sources */,

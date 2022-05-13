@@ -12,7 +12,9 @@ struct ContentView: View {
     @State var altezza: CGFloat = 40
     @State var larghezza: CGFloat = 150
     @State var username = ""
+    @State var mail = ""
     @State var password = ""
+    @State var surname = ""
     @State var showingAlert: Bool = false
     @State var showingAlertRegister: Bool = false
     @State var showingAlertField: Bool = false
@@ -25,7 +27,7 @@ struct ContentView: View {
     var body: some View {
         
         ZStack {
-            
+            VStack{
             VStack {
                 Text("N'Apples")
                     .foregroundColor(.black)
@@ -36,7 +38,10 @@ struct ContentView: View {
                 
                 TextField("Username", text: $username)
                     .padding(.leading,50)
-                
+                TextField("Surname", text: $surname)
+                    .padding(.leading,50)
+                TextField("Password", text: $mail)
+                    .padding(.leading,50)
                 RoundedRectangle(cornerRadius: 25)
                     .foregroundColor(.black)
                     .frame(width: 300, height: 0.5, alignment: .leading)
@@ -51,6 +56,30 @@ struct ContentView: View {
                     .padding(.trailing, 80)
                 
                 Spacer()
+                VStack{
+                //
+                    //
+                    //
+                    if self.username.isEmpty {
+                        SignUpWithAppleView(username: $username,mail:$mail, surname: $surname)
+                         .frame(width: 200, height: 50)
+                    }
+                else{
+                    Text("Welcome\n\(self.username)")
+                        .font(.headline)
+                        .onAppear{Task {
+                            try await userModel.insert(username: username, password: surname)
+//                            try await UserModel.retrieveAllId(id: "456")
+                            print(userModel.user)
+                        }}
+                  }
+
+                    //
+                    //
+                    //
+                }
+            }
+            VStack{
                 VStack {
                 HStack (spacing: 15){
                     Button (action: {
@@ -118,7 +147,7 @@ struct ContentView: View {
                     })
                 }
                 
-                Button(action: {
+                 Button(action: {
                     cameraQr = true
                 }, label: {
                     ZStack {
@@ -130,8 +159,9 @@ struct ContentView: View {
                 }
                 })
                 
-            }
-            
+                
+                    
+            }}
 //            if showingAlert == true {
 //                AlertErrorLogin(showingAlert: $showingAlert)
 //            }
@@ -166,3 +196,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+private func showAppleLoginView() {
+    print("ShowAppleLoginView")
+ }

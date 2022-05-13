@@ -58,14 +58,14 @@ class EventModel: ObservableObject {
         self.updateEvent()
     }
     
-    func insertAll(name: String, address: String, location: String, info: String, poster: CKAsset, capability: Int, date: Date, lists: [String], table: [String], price: [Int], timeForPrice: [Date]) async throws {
+    func insertAll(name: String, address: String, location: String, info: String,/* poster: CKAsset,*/ capability: Int, date: Date, lists: [String], table: [String], price: [Int], timeForPrice: [Date]) async throws {
         
         var createEvent = Event()
         createEvent.name = name
         createEvent.address = address
         createEvent.location = location
         createEvent.info = info
-        createEvent.poster = poster
+//        createEvent.poster = poster
         createEvent.capability = capability
         createEvent.date = date
         createEvent.lists = lists
@@ -84,31 +84,41 @@ class EventModel: ObservableObject {
         return
     }
     
-    func insertEvent(name: String, address: String, location: String, info: String, poster: CKAsset, capability: Int, date: Date, timeForPrice: [Date], price: [Int], table: [String]) async throws {
-        
-        var createEvent = Event()
-        createEvent.id = UUID().uuidString
-        createEvent.name = name
-        createEvent.address = address
-        createEvent.location = location
-        createEvent.info = info
-        createEvent.poster = poster
-        createEvent.capability = capability
-        createEvent.date = date
-        createEvent.timeForPrice = timeForPrice
-        createEvent.price = price
-        createEvent.table = table
-        
-        do {
-            let _ = try await database.save(createEvent.record)
-        } catch let error {
-            print(error)
+    func insertEvent(name: String, address: String, location: String, info: String, imagePoster: UIImage?, capability: Int, date: Date, timeForPrice: [Date], price: [Int], table: [String]) async throws {
+
+            var createEvent = Event()
+            createEvent.id = UUID().uuidString
+            createEvent.name = name
+            createEvent.address = address
+            createEvent.location = location
+            createEvent.info = info
+            createEvent.capability = capability
+            createEvent.date = date
+            createEvent.timeForPrice = timeForPrice
+            createEvent.price = price
+            createEvent.table = table
+
+            guard
+    //            let image = UIImage(named: "Giorgio.jpeg")
+                let image = imagePoster,
+                let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first?.appendingPathComponent("Giorgio.jpeg"),
+                let data = image.jpegData(compressionQuality: 1.0) else { return }
+
+            do {
+
+                try data.write(to: url)
+                let asset = CKAsset(fileURL: url)
+                createEvent.poster = asset
+
+                let _ = try await database.save(createEvent.record)
+            } catch let error {
+                print(error)
+                return
+            }
+            self.insertedObjects.append(createEvent)
+            self.updateEvent()
             return
         }
-        self.insertedObjects.append(createEvent)
-        self.updateEvent()
-        return
-    }
     
     func delete(at index : Int) async throws {
         let recordId = self.event[index].record.recordID
