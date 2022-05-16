@@ -31,7 +31,7 @@ class EventModel: ObservableObject {
     
     func retrieveAllName(name: String) async throws {
         let predicate: NSPredicate = NSPredicate(format: "name == %@", name)
-        let query = CKQuery(recordType: User.recordType, predicate: predicate)
+        let query = CKQuery(recordType: Event.recordType, predicate: predicate)
         
         let tmp = try await self.database.records(matching: query)
         
@@ -45,7 +45,7 @@ class EventModel: ObservableObject {
     
     func retrieveAllId(id: String) async throws {
         let predicate: NSPredicate = NSPredicate(format: "id == %@", id)
-        let query = CKQuery(recordType: User.recordType, predicate: predicate)
+        let query = CKQuery(recordType: Event.recordType, predicate: predicate)
         
         
         let tmp = try await self.database.records(matching: query)

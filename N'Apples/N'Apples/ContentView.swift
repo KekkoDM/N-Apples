@@ -24,6 +24,8 @@ struct ContentView: View {
     @State var cameraQr: Bool = false
     @State var userModel : UserModel = UserModel()
     
+    @State var testdownload: Bool = false
+
     var body: some View {
         
         ZStack {
@@ -146,7 +148,7 @@ struct ContentView: View {
                     }
                     })
                 }
-                
+                HStack{
                  Button(action: {
                     cameraQr = true
                 }, label: {
@@ -159,9 +161,19 @@ struct ContentView: View {
                 }
                 })
                 
-                
+                    Button(action: {
+                        testdownload = true
+                    }, label: {
+                        ZStack {
+                        RoundedRectangle(cornerRadius: 25)
+                            .foregroundColor(.blue)
+                            .frame(width: larghezza, height: altezza, alignment: .center)
+                        Text("Test Download Image ")
+                            .foregroundColor(.white)
+                    }
+                    })
                     
-            }}
+                }}}
 //            if showingAlert == true {
 //                AlertErrorLogin(showingAlert: $showingAlert)
 //            }
@@ -185,6 +197,9 @@ struct ContentView: View {
             }
             if (cameraQr == true) {
                 ScannerView()
+            }
+            if ( testdownload == true) {
+                TestDownloadImage()
             }
         }.navigationBarHidden(true)
         

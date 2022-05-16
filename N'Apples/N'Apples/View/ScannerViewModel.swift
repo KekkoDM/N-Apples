@@ -6,6 +6,8 @@
 //
 
 import Foundation
+var reservationModel : ReservationModel = ReservationModel()
+
 
 class ScannerViewModel: ObservableObject {
     /// Defines how often we are going to try looking for a new QR-code in the camera feed.
@@ -14,15 +16,17 @@ class ScannerViewModel: ObservableObject {
     @Published var torchIsOn: Bool = false
     @Published var lastQrCode: String = "QR Value"
     
-    @Published var reservationModel : ReservationModel = ReservationModel()
+//    @Published var reservationModel : ReservationModel = ReservationModel()
     
     var back = false
     
     func onFoundQrCode(_ code: String) {
         self.lastQrCode = code
+    
+            backToContent.toggle()
+
         
-        backToContent.toggle()
-        
+                
     }
     
 }

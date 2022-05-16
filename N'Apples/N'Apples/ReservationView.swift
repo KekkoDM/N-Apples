@@ -17,7 +17,7 @@ struct ReservationView: View {
     @State var qrNumber = UUID()
     @State var show = showSaved
     @State var showqr:Bool = false
-    @State var reservationModel : ReservationModel = ReservationModel()
+//    @State var reservationModel : ReservationModel = ReservationModel()
     
     var body: some View {
         
@@ -63,6 +63,21 @@ struct ReservationView: View {
                                 .foregroundColor(.blue)
                                 .frame(width: 200, height: 100, alignment: .center)
                             Text("Confirm")
+                                .foregroundColor(.white)
+                        }.padding(.bottom, 40)
+                    })
+                    Button(action: {
+                        Task{
+                            try await reservationModel.retrieveAllId(id:qrNumber.uuidString)
+                            try await reservationModel.updatepzzot(at: 0, id: qrNumber.uuidString)
+
+                        }
+                    }, label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 25)
+                                .foregroundColor(.blue)
+                                .frame(width: 200, height: 100, alignment: .center)
+                            Text("Update")
                                 .foregroundColor(.white)
                         }.padding(.bottom, 40)
                     })

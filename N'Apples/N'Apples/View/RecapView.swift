@@ -11,27 +11,37 @@ import SwiftUI
 struct RecapView: View {
     
     @State var viewModel:ScannerViewModel
-    var reservationModel : ReservationModel = ReservationModel()
+//    var reservationModel : ReservationModel = ReservationModel()
     @State var reservation = Reservation()
     @State var showRecap: Bool = false
+    @State var ingress = 1
     var body: some View {
         ZStack { Color.red
             VStack {
                 if(showRecap){
-                    Text("Name: " + reservation.name)
-                    Text("Surname: " + reservation.surname)
-                    Text("Email: " + reservation.email)
-                    Text("List: " + reservation.nameList)
-                    Text("Entrance: \(reservation.numScan)/\(reservation.numFriends)")
-                    Button (action: {
-                        Task {
-                            try await reservationModel.retrieveAllId(id: viewModel.lastQrCode)
+                    Text("Name: " + reservationModel.reservation.first!.name)
+                    Text("Surname: " + reservationModel.reservation.first!.surname)
+                    Text("Email: " + reservationModel.reservation.first!.email)
+                    Text("List: " + reservationModel.reservation.first!.nameList)
+                    Text("Entrance: \(reservationModel.reservation.first!.numScan)/\(reservationModel.reservation.first!.numFriends)")
+                   
+                    Button(action: {
+                      ingress = ingress + 1
+                    }) {
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 25)
+                                .foregroundColor(Color.blue)
+                                .frame(width: 300, height: 50, alignment: .center)
+                            Text( "Ingress + 1 = \(ingress)")
+                                .foregroundColor(Color.white)
+                        }
+                    }
+                    
+                    Button(action: {
+                        Task{
                             
-                            reservation = reservationModel.reservation.first!
-                            
-                            try await reservationModel.update(reservation1: reservation, id: reservation.id ,name: reservation.name, surname: reservation.surname, email: reservation.email, nameList: reservation.nameList, timeScan: Date(), numFriends: reservation.numFriends, numScan: reservation.numScan + 1)
-                            
-                            reservation = reservationModel.reservation.first!
+                            try await reservationModel.updatepzzot(at: 0, id: viewModel.lastQrCode)
+
                         }
                     }) {
                         ZStack{
@@ -45,16 +55,18 @@ struct RecapView: View {
                 }
             }
             
-        }.onAppear(){
+        }
+        .onAppear() {
             
             Task {
-                try await reservationModel.retrieveAllId(id: viewModel.lastQrCode)
                 
-                reservation = reservationModel.reservation.first!
+//                try await reservationModel.retrieveAllId(id: viewModel.lastQrCode)
                 
-                try await reservationModel.update(reservation1: reservation, id: reservation.id ,name: reservation.name, surname: reservation.surname, email: reservation.email, nameList: reservation.nameList, timeScan: Date(), numFriends: reservation.numFriends, numScan: reservation.numScan + 1)
+//                print("MANNAGGIA CRISTO: \(reservationModel.reservation)")
                 
-                reservation = reservationModel.reservation.first!
+                try await reservationModel.updatepzzot(at: 0, id: viewModel.lastQrCode)
+                
+//                reservation = reservationModel.reservation.first!
                 
                 showRecap.toggle()
             }
