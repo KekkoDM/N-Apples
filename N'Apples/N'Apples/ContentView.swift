@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+//MODELs to interact with CloudKit
+var reservationModel : ReservationModel = ReservationModel()
+var eventModel = EventModel()
+var roleModel = Role()
+var userModel = User()
+
+
 struct ContentView: View {
     
     @State var altezza: CGFloat = 40
@@ -70,7 +77,7 @@ struct ContentView: View {
                     Text("Welcome\n\(self.username)")
                         .font(.headline)
                         .onAppear{Task {
-                            try await userModel.insert(username: username, password: surname)
+                            try await userModel.insert(username: username, password: surname, email: mail)
 //                            try await UserModel.retrieveAllId(id: "456")
                             print(userModel.user)
                         }}
@@ -107,7 +114,7 @@ struct ContentView: View {
                     
                     Button (action: {
                         Task {
-                            try await userModel.insert(username: username, password: password)
+                            try await userModel.insert(username: username, password: password, email: mail)
 //                            try await UserModel.retrieveAllId(id: "456")
                             print(userModel.user)
                         }

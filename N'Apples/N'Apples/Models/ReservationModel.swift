@@ -59,22 +59,7 @@ class ReservationModel: ObservableObject {
         }
     }
     
- 
-    
-    //    func retrieveAllName(name: String) async throws {
-    //        let predicate: NSPredicate = NSPredicate(format: "name == %@", name)
-    //        let query = CKQuery(recordType: Event.recordType, predicate: predicate)
-    //
-    //        let tmp = try await self.database.records(matching: query)
-    //
-    //        for tmp1 in tmp.matchResults{
-    //            if let data = try? tmp1.1.get() {
-    //                self.records = [data]
-    //            }
-    //        }
-    //        self.updateEvent()
-    //    }
-    
+
     func retrieveAllName(name: String) async throws {
         let predicate: NSPredicate = NSPredicate(format: "name == %@", name)
         let query = CKQuery(recordType: Reservation.recordType, predicate: predicate)

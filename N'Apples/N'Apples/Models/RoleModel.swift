@@ -19,7 +19,7 @@ class RoleModel: ObservableObject {
             }
         }
     }
-        
+    
     var onChange : (() -> Void)?
     var onError : ((Error) -> Void)?
     var notificationQueue = OperationQueue.main
@@ -110,9 +110,9 @@ class RoleModel: ObservableObject {
     
     
     
-    func update(usename: String, idEvent: String, permission: [Int]) async throws {
-            
-
+    func update(idEvent: String, usename: String, permission: [Int]) async throws {
+        
+        
         try await retrieveOneCollaborator(idEvent: idEvent, username: usename)
         
         if(!role.isEmpty){

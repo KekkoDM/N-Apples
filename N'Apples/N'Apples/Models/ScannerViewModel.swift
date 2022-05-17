@@ -6,7 +6,6 @@
 //
 
 import Foundation
-var reservationModel : ReservationModel = ReservationModel()
 
 
 class ScannerViewModel: ObservableObject {

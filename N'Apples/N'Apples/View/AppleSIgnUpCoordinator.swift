@@ -25,7 +25,7 @@ init(_ parent: SignUpWithAppleView) {
         defaults.set(credentials.user, forKey: "userId" )
         parent?.username = "\(credentials.fullName?.givenName ?? "" ) "
         parent?.mail = "\(credentials.email ?? "" ) "
-        parent?.surname = "\(credentials.user.description ?? "" ) "
+        parent?.surname = "\(credentials.user.description ) "
 
     }
     //If authorization faced any issue then this method will get triggered

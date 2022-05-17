@@ -114,7 +114,6 @@
 				3E3C33E5282BB6B30073B6E8 /* RecapView.swift */,
 				411F7725282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift */,
 				3E3C33E9282BB6B40073B6E8 /* ScannerView.swift */,
-				3E3C33EA282BB6B40073B6E8 /* ScannerViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -122,6 +121,7 @@
 		3E58E7FC2826AA2800971B6E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3E3C33EA282BB6B40073B6E8 /* ScannerViewModel.swift */,
 				3EAD4F8E28268D5D007496B8 /* UserModel.swift */,
 				3EAD4F9228268D76007496B8 /* EventModel.swift */,
 				3EAD4F9628268D90007496B8 /* ReservationModel.swift */,

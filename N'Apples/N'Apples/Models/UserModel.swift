@@ -58,11 +58,12 @@ class UserModel: ObservableObject {
         self.updateUser()
     }
     
-    func insert(username: String, password: String) async throws {
+    func insert(username: String, password: String, email: String) async throws {
         
         var createUser = User()
         createUser.username = username
         createUser.password = password
+        createUser.email = email
         
         do {
             let _ = try await database.save(createUser.record)
