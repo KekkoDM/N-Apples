@@ -11,7 +11,6 @@ import SwiftUI
 struct RecapView: View {
     
     @State var viewModel:ScannerViewModel
-//    var reservationModel : ReservationModel = ReservationModel()
     @State var reservation = Reservation()
     @State var showRecap: Bool = false
     @State var ingress = 1
@@ -62,7 +61,6 @@ struct RecapView: View {
                 
 //                try await reservationModel.retrieveAllId(id: viewModel.lastQrCode)
                 
-//                print("MANNAGGIA CRISTO: \(reservationModel.reservation)")
                 
                 try await reservationModel.updatepzzot(at: 0, id: viewModel.lastQrCode)
                 

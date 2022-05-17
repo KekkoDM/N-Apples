@@ -8,7 +8,6 @@
 import UIKit
 import AVFoundation
 
-
 class CameraPreview: UIView {
     
     private var label:UILabel?
@@ -21,7 +20,7 @@ class CameraPreview: UIView {
         super.init(frame: .zero)
         self.session = session
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -47,10 +46,10 @@ class CameraPreview: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        #if targetEnvironment(simulator)
-            label?.frame = self.bounds
-        #else
-            previewLayer?.frame = self.bounds
-        #endif
+#if targetEnvironment(simulator)
+        label?.frame = self.bounds
+#else
+        previewLayer?.frame = self.bounds
+#endif
     }
 }

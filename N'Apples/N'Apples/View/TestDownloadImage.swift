@@ -9,12 +9,16 @@ import Foundation
 import SwiftUI
 import CloudKit
 import CoreLocation
+
 struct TestDownloadImage: View {
     @State var eventModel : EventModel = EventModel()
     @State var event = Event()
     @State var name:String = ""
     @State var mappa:String = ""
-   @State var image:UIImage = UIImage()
+    @State var notification :Bool = false
+    
+    @State var image:UIImage = UIImage()
+    
     var body: some View {
         ZStack{Color.black
             VStack{
@@ -42,15 +46,21 @@ struct TestDownloadImage: View {
                         print("Lat: \(lat ?? 40.8525858), Lon: \(lon ?? 14.2515941)")
                         let url = URL(string: "maps://?saddr=&daddr=\(lat ?? 40.8525858),\(lon ?? 14.2515941)")
                         if UIApplication.shared.canOpenURL(url!) {
-                              UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+                            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
                         }
                     }
                 }, label: {Text("Open in maps")})
                 
-             
+                Button(action: {notification = true }, label: {Text("View Notification")})
                 Image(uiImage: image )
+                    .resizable()
                     .frame(width: 100, height: 100, alignment: .center)
             }
+            if notification == true {
+                CloudkitPushNotification()
+            }
         }
-    } }
+    }
+    
+}
 

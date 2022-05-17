@@ -85,6 +85,7 @@ class EventModel: ObservableObject {
     }
     
     func insertEvent(name: String, address: String, location: String, info: String, imagePoster: UIImage?, capability: Int, date: Date, timeForPrice: [Date], price: [Int], table: [String]) async throws {
+        print("insertevent 1")
 
             var createEvent = Event()
             createEvent.id = UUID().uuidString
@@ -98,19 +99,28 @@ class EventModel: ObservableObject {
             createEvent.price = price
             createEvent.table = table
 
-            guard
+   
+             
+
     //            let image = UIImage(named: "Giorgio.jpeg")
+        
+        guard
                 let image = imagePoster,
                 let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first?.appendingPathComponent("Giorgio.jpeg"),
                 let data = image.jpegData(compressionQuality: 1.0) else { return }
-
+        
+        print("insertevent 3")
+ 
             do {
+                print("insertevent 4")
 
                 try data.write(to: url)
                 let asset = CKAsset(fileURL: url)
                 createEvent.poster = asset
 
                 let _ = try await database.save(createEvent.record)
+                print("insertevent 5")
+
             } catch let error {
                 print(error)
                 return

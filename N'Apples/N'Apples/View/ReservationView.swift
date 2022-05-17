@@ -7,6 +7,8 @@
 
 import Foundation
 import SwiftUI
+
+
 struct ReservationView: View {
     
     @State var name: String = ""
@@ -17,7 +19,6 @@ struct ReservationView: View {
     @State var qrNumber = UUID()
     @State var show = showSaved
     @State var showqr:Bool = false
-//    @State var reservationModel : ReservationModel = ReservationModel()
     
     var body: some View {
         

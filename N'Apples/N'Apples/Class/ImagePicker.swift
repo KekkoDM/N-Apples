@@ -1,7 +1,6 @@
 import SwiftUI
 import UIKit
 
-
 struct ImagePicker: UIViewControllerRepresentable {
     
     @Binding var uiImage: UIImage?
@@ -43,7 +42,6 @@ struct ImagePicker: UIViewControllerRepresentable {
             self.parent = imagePicker
         }
         
-    }
-    
+    }    
     
 }

@@ -7,6 +7,8 @@
 
 import Foundation
 import SwiftUI
+
+
 struct CreationView: View {
     
     @State var name: String = ""
@@ -14,7 +16,6 @@ struct CreationView: View {
     @State var address: String = ""
     @State var info: String = ""
     @State var capability: String = ""
-    //    @State var poster: UIImage
     @State var dateEvents: Date = Date()
     @State var timePrices: [Date] = [Date()]
     @State var prices: [String] = [""]
