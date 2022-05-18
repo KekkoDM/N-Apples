@@ -49,6 +49,7 @@ struct UpdateView: View {
                             .foregroundColor(.blue)
                         Text(userModel.user.first?.password ?? "")
                             .foregroundColor(.black)
+                        
                     }.padding(.bottom, 16)
                     
                     SecureField("New password",text: $password)

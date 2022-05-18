@@ -7,6 +7,9 @@
 
 import Foundation
 import CloudKit
+import CryptoKit
+import SwiftUI
+
 
 class UserModel: ObservableObject {
     
@@ -19,6 +22,7 @@ class UserModel: ObservableObject {
             }
         }
     }
+    
         
     var onChange : (() -> Void)?
     var onError : ((Error) -> Void)?
@@ -29,7 +33,17 @@ class UserModel: ObservableObject {
     var deletedObjectIds = Set<CKRecord.ID>()
     
     func retrieveAllUsernamePassword(username: String, password: String) async throws {
-        let predicate: NSPredicate = NSPredicate(format: "username == %@ AND password == %@", username, password)
+        
+        let key = keyFromPassword(password)
+        
+        print("KEY UPDATE: \(key)" )
+//
+//
+//        let encryptedPassword = try encryptCodableObject(password, usingKey: key)
+//
+//        print("PAssword: " + encryptedPassword)
+        
+        let predicate: NSPredicate = NSPredicate(format: "username == %@ ", username)
         let query = CKQuery(recordType: User.recordType, predicate: predicate)
         
         let tmp = try await self.database.records(matching: query)
@@ -39,8 +53,19 @@ class UserModel: ObservableObject {
                 self.records = [data]
             }
         }
-        
+    
         self.updateUser()
+        
+        for i in 0..<user.count {
+            let tmpPass = try decryptStringToCodableOject(String.self, from: user[i].password, usingKey: key)
+            
+            if(tmpPass == password){
+                user[i].password = tmpPass
+            }
+        }
+            
+            
+        
     }
     
     func retrieveAllId(username: String) async throws {
@@ -62,7 +87,15 @@ class UserModel: ObservableObject {
         
         var createUser = User()
         createUser.username = username
-        createUser.password = password
+
+        let key = keyFromPassword(password)
+        
+        print("KEY Insert: \(key)" )
+
+        
+        let encryptedPassword = try encryptCodableObject(password, usingKey: key)
+        
+        createUser.password = encryptedPassword
         
         do {
             let _ = try await database.save(createUser.record)
@@ -92,7 +125,12 @@ class UserModel: ObservableObject {
             
         var singleUser = User()
         singleUser.username = username
-        singleUser.password = password
+        
+        let key = keyFromPassword(password)
+        
+        let encryptedPassword = try encryptCodableObject(password, usingKey: key)
+        
+        singleUser.password = encryptedPassword
           
         let _ = try await self.database.modifyRecords(saving: [singleUser.record], deleting: [user.record.recordID], savePolicy: .changedKeys, atomically: true)
             self.updateUser()
@@ -102,7 +140,13 @@ class UserModel: ObservableObject {
             
         var singleUser = User()
         singleUser.username = user.username
-        singleUser.password = password
+        print("Password bella: " + password)
+        let key = keyFromPassword(password)
+        
+        let encryptedPassword = try encryptCodableObject(password, usingKey: key)
+        
+        singleUser.password = encryptedPassword
+        print("Password bella cryptata: " + singleUser.password)
           
         let _ = try await self.database.modifyRecords(saving: [singleUser.record], deleting: [user.record.recordID], savePolicy: .changedKeys, atomically: true)
             self.updateUser()

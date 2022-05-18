@@ -6,6 +6,10 @@
 //
 
 import SwiftUI
+var reservationModel : ReservationModel = ReservationModel()
+var userModel = UserModel()
+var eventModel = EventModel()
+var roleModel = RoleModel()
 
 
 struct ContentView: View {
@@ -15,7 +19,6 @@ struct ContentView: View {
     @State var username = ""
     @State var mail = ""
     @State var password = ""
-    @State var surname = ""
     @State var showingAlert: Bool = false
     @State var showingAlertRegister: Bool = false
     @State var showingAlertField: Bool = false
@@ -41,9 +44,9 @@ struct ContentView: View {
                     
                     TextField("Username", text: $username)
                         .padding(.leading,50)
-                    TextField("Surname", text: $surname)
-                        .padding(.leading,50)
-                    TextField("Password", text: $mail)
+//                    TextField("Surname", text: $surname)
+//                        .padding(.leading,50)
+                    TextField("Mail", text: $mail)
                         .padding(.leading,50)
                     RoundedRectangle(cornerRadius: 25)
                         .foregroundColor(.black)
@@ -64,16 +67,16 @@ struct ContentView: View {
                         //
                         //
                         if self.username.isEmpty {
-                            SignUpWithAppleView(username: $username,mail:$mail, surname: $surname)
+                            SignUpWithAppleView(username: $username,mail:$mail, surname: $password)
                                 .frame(width: 200, height: 50)
                         }
                         else{
                             Text("Welcome\n\(self.username)")
                                 .font(.headline)
                                 .onAppear{Task {
-                                    try await userModel.insert(username: username, password: surname)
+//                                    try await userModel.insert(username: username, password: surname)
                                     //                            try await UserModel.retrieveAllId(id: "456")
-                                    print(userModel.user)
+//                                    print(userModel.user)
                                 }}
                         }
                         
@@ -84,14 +87,11 @@ struct ContentView: View {
                         HStack (spacing: 15){
                             Button (action: {
                                 Task {
-                                    //                            try await UserModel.update(User: UserModel.User.first!, username: "Gin", password: "Bo")
-                                    try await userModel.retrieveAllUsernamePassword(username: username, password: password)
-                                    print(userModel.user.first?.username ?? "")
-                                    print(userModel.user.first?.password ?? "")
                                     
-                                    updateView = true
-                                    //        FAI IL CATCH
+                                     try await userModel.retrieveAllUsernamePassword(username: username, password: password)
                                     
+//                                    try decryptStringToCodableOject(String.self, from: userModel.user.first?.password ?? "", usingKey: key)
+                                    updateView.toggle()
                                 }
                             }) {
                                 ZStack {
