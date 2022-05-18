@@ -39,6 +39,7 @@
 		478586CE282D5CC20087B268 /* RoleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478586CD282D5CC20087B268 /* RoleEntity.swift */; };
 		478586D0282D5DC00087B268 /* RoleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478586CF282D5DC00087B268 /* RoleModel.swift */; };
 		47B3031E2834E71700BEE78D /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B3031D2834E71700BEE78D /* Crypto.swift */; };
+		47F118FB283501AE00D094B9 /* ApplePayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F118FA283501AE00D094B9 /* ApplePayController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		478586CD282D5CC20087B268 /* RoleEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleEntity.swift; sourceTree = "<group>"; };
 		478586CF282D5DC00087B268 /* RoleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleModel.swift; sourceTree = "<group>"; };
 		47B3031D2834E71700BEE78D /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
+		47F118FA283501AE00D094B9 /* ApplePayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 		3E3C33DD282BB5A00073B6E8 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				47F118FA283501AE00D094B9 /* ApplePayController.swift */,
 				3E3C33EA282BB6B40073B6E8 /* ScannerViewModel.swift */,
 				411DB3C82833A0380021869D /* CloudkitPushNotification.swift */,
 				41F3F622282E68FE003D0170 /* ImagePicker.swift */,
@@ -295,6 +298,7 @@
 				3EAD4F9528268D85007496B8 /* ReservationEntity.swift in Sources */,
 				411F7722282E45BC00B49E4D /* QuickSignInWithApple.swift in Sources */,
 				3E636C08282A584B00CC0CED /* CreationView.swift in Sources */,
+				47F118FB283501AE00D094B9 /* ApplePayController.swift in Sources */,
 				3E3C33E3282BB5AC0073B6E8 /* QrCodeCameraDelegate.swift in Sources */,
 				3E3C33E1282BB5AC0073B6E8 /* CameraPreview.swift in Sources */,
 				3E3C33F0282BB6B40073B6E8 /* ScannerViewModel.swift in Sources */,
