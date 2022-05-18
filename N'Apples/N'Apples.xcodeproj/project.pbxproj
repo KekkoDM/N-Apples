@@ -31,6 +31,7 @@
 		3EAD4F9528268D85007496B8 /* ReservationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD4F9428268D85007496B8 /* ReservationEntity.swift */; };
 		3EAD4F9728268D90007496B8 /* ReservationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD4F9628268D90007496B8 /* ReservationModel.swift */; };
 		411DB3C92833A0380021869D /* CloudkitPushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411DB3C82833A0380021869D /* CloudkitPushNotification.swift */; };
+		411DB3CD2833B5340021869D /* ApplePayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411DB3CC2833B5340021869D /* ApplePayController.swift */; };
 		411F7722282E45BC00B49E4D /* QuickSignInWithApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F7721282E45BC00B49E4D /* QuickSignInWithApple.swift */; };
 		411F7726282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F7725282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift */; };
 		41F3F623282E68FE003D0170 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F3F622282E68FE003D0170 /* ImagePicker.swift */; };
@@ -67,6 +68,7 @@
 		3EAD4F9428268D85007496B8 /* ReservationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationEntity.swift; sourceTree = "<group>"; };
 		3EAD4F9628268D90007496B8 /* ReservationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationModel.swift; sourceTree = "<group>"; };
 		411DB3C82833A0380021869D /* CloudkitPushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudkitPushNotification.swift; sourceTree = "<group>"; };
+		411DB3CC2833B5340021869D /* ApplePayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayController.swift; sourceTree = "<group>"; };
 		411F7721282E45BC00B49E4D /* QuickSignInWithApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSignInWithApple.swift; sourceTree = "<group>"; };
 		411F7725282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSIgnUpCoordinator.swift; sourceTree = "<group>"; };
 		41F3F622282E68FE003D0170 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				3E3C33DE282BB5AC0073B6E8 /* CameraPreview.swift */,
 				3E3C33DF282BB5AC0073B6E8 /* ImageSaver.swift */,
 				3E3C33E0282BB5AC0073B6E8 /* QrCodeCameraDelegate.swift */,
+				411DB3CC2833B5340021869D /* ApplePayController.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				411DB3C92833A0380021869D /* CloudkitPushNotification.swift in Sources */,
 				3EAD4F9328268D76007496B8 /* EventModel.swift in Sources */,
 				3E3C33EB282BB6B40073B6E8 /* RecapView.swift in Sources */,
+				411DB3CD2833B5340021869D /* ApplePayController.swift in Sources */,
 				3E3C33EE282BB6B40073B6E8 /* QrCodeScannerView.swift in Sources */,
 				3EAD4F9528268D85007496B8 /* ReservationEntity.swift in Sources */,
 				411F7722282E45BC00B49E4D /* QuickSignInWithApple.swift in Sources */,

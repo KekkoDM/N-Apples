@@ -9,14 +9,18 @@ import Foundation
 import SwiftUI
 import CloudKit
 import CoreLocation
-
+import PassKit
 struct TestDownloadImage: View {
     @State var eventModel : EventModel = EventModel()
     @State var event = Event()
     @State var name:String = ""
     @State var mappa:String = ""
     @State var notification :Bool = false
-    
+    let amount = PKPaymentSummaryItem(label: "Amount", amount: NSDecimalNumber(string: "39"), type: .final)
+      let tax = PKPaymentSummaryItem(label: "Tax", amount: NSDecimalNumber(string: "11"), type: .final)
+      let total = PKPaymentSummaryItem(label: "Total", amount: NSDecimalNumber(string: "50.00"), type: .final)
+    let paymentHandler = PaymentHandler()
+
     @State var image:UIImage = UIImage()
     
     var body: some View {
@@ -52,15 +56,39 @@ struct TestDownloadImage: View {
                 }, label: {Text("Open in maps")})
                 
                 Button(action: {notification = true }, label: {Text("View Notification")})
+
+
+//                Button(action: {
+//                          self.paymentHandler.startPayment { (success) in
+//                              if success {
+//                                  print("Success")
+//                              } else {
+//                                  print("Failed")
+//                              }
+//                          }
+//                      }, label: {
+//                          Text("PAY WITH  APPLE")
+//                          .font(Font.custom("HelveticaNeue-Bold", size: 16))
+//                          .padding(10)
+//                          .foregroundColor(.white)
+//                  })
+                PaymentButton()
+                    .frame(width: 228, height: 40, alignment: .center)
+                    .onTapGesture {
+                        paymentHandler.startPayment(paymentSummaryItems: [amount,tax,total])
+                    }
                 Image(uiImage: image )
                     .resizable()
                     .frame(width: 100, height: 100, alignment: .center)
             }
+
             if notification == true {
                 CloudkitPushNotification()
             }
+            
         }
     }
+    
     
 }
 
