@@ -23,7 +23,7 @@ class UserModel: ObservableObject {
         }
     }
     
-        
+    
     var onChange : (() -> Void)?
     var onError : ((Error) -> Void)?
     var notificationQueue = OperationQueue.main
@@ -37,23 +37,18 @@ class UserModel: ObservableObject {
         let key = keyFromPassword(password)
         
         print("KEY UPDATE: \(key)" )
-//
-//
-//        let encryptedPassword = try encryptCodableObject(password, usingKey: key)
-//
-//        print("PAssword: " + encryptedPassword)
         
         let predicate: NSPredicate = NSPredicate(format: "username == %@ ", username)
         let query = CKQuery(recordType: User.recordType, predicate: predicate)
         
         let tmp = try await self.database.records(matching: query)
-       
+        
         for tmp1 in tmp.matchResults{
             if let data = try? tmp1.1.get() {
                 self.records = [data]
             }
         }
-    
+        
         self.updateUser()
         
         for i in 0..<user.count {
@@ -63,8 +58,6 @@ class UserModel: ObservableObject {
                 user[i].password = tmpPass
             }
         }
-            
-            
         
     }
     
@@ -87,11 +80,10 @@ class UserModel: ObservableObject {
         
         var createUser = User()
         createUser.username = username
-
+        
         let key = keyFromPassword(password)
         
         print("KEY Insert: \(key)" )
-
         
         let encryptedPassword = try encryptCodableObject(password, usingKey: key)
         
@@ -108,6 +100,42 @@ class UserModel: ObservableObject {
         return
     }
     
+    func insertPhoto(username: String, password: String, imageUser: UIImage?) async throws {
+        
+        var createUser = User()
+        createUser.username = username
+        
+        let key = keyFromPassword(password)
+        
+        print("KEY Insert: \(key)" )
+        
+        let encryptedPassword = try encryptCodableObject(password, usingKey: key)
+        
+        createUser.password = encryptedPassword
+        
+        guard
+            let image = imageUser,
+            let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first?.appendingPathComponent("Giorgio.jpeg"),
+            let data = image.jpegData(compressionQuality: 1.0) else { return }
+        
+        do {
+            
+            try data.write(to: url)
+            let asset = CKAsset(fileURL: url)
+            createUser.photo = asset
+            
+            let _ = try await database.save(createUser.record)
+        } catch let error {
+            print(error)
+            return
+        }
+        self.insertedObjects.append(createUser)
+        self.updateUser()
+        return
+        
+        
+    }
+    
     func delete(at index : Int) async throws {
         let recordId = self.user[index].record.recordID
         do {
@@ -122,7 +150,7 @@ class UserModel: ObservableObject {
     }
     
     func update(user: User, username: String, password: String) async throws {
-            
+        
         var singleUser = User()
         singleUser.username = username
         
@@ -131,13 +159,13 @@ class UserModel: ObservableObject {
         let encryptedPassword = try encryptCodableObject(password, usingKey: key)
         
         singleUser.password = encryptedPassword
-          
+        
         let _ = try await self.database.modifyRecords(saving: [singleUser.record], deleting: [user.record.recordID], savePolicy: .changedKeys, atomically: true)
-            self.updateUser()
+        self.updateUser()
     }
     
     func updatePw(user: User, password: String) async throws {
-            
+        
         var singleUser = User()
         singleUser.username = user.username
         print("Password bella: " + password)
@@ -147,9 +175,9 @@ class UserModel: ObservableObject {
         
         singleUser.password = encryptedPassword
         print("Password bella cryptata: " + singleUser.password)
-          
+        
         let _ = try await self.database.modifyRecords(saving: [singleUser.record], deleting: [user.record.recordID], savePolicy: .changedKeys, atomically: true)
-            self.updateUser()
+        self.updateUser()
     }
     
     private func updateUser() {

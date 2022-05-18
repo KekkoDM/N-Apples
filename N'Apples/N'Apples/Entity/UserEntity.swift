@@ -15,7 +15,7 @@ struct User {
     fileprivate static let keyUsername = "username"
     fileprivate static let keyPassword = "password"
     fileprivate static let keyEmail = "email"
-
+    fileprivate static let keyPhoto = "photo"
     
     var record : CKRecord
 
@@ -60,6 +60,15 @@ struct User {
         }
         set {
             self.record.setValue(newValue, forKey: User.keyEmail)
+        }
+    }
+    
+    var photo : CKAsset {
+        get {
+            return self.record.value(forKey: User.keyPhoto) as! CKAsset
+        }
+        set {
+            self.record.setValue(newValue, forKey: User.keyPhoto)
         }
     }
 

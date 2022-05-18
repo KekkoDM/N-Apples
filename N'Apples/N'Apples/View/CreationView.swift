@@ -53,7 +53,7 @@ struct CreationView: View {
                     VStack{
                     Button(action: {
                         
-//                        image = UIImage(named: "Giorgio.jpeg") ?? UIImage()
+//                         image = UIImage(named: "Giorgio.jpeg") ?? UIImage()
                         isPresenting.toggle()
 
                     }, label: {Text("Add Image")

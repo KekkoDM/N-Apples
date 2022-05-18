@@ -65,7 +65,6 @@ class EventModel: ObservableObject {
         createEvent.address = address
         createEvent.location = location
         createEvent.info = info
-//        createEvent.poster = poster
         createEvent.capability = capability
         createEvent.date = date
         createEvent.lists = lists
@@ -99,10 +98,6 @@ class EventModel: ObservableObject {
             createEvent.price = price
             createEvent.table = table
 
-   
-             
-
-    //            let image = UIImage(named: "Giorgio.jpeg")
         
         guard
                 let image = imagePoster,
