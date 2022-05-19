@@ -70,7 +70,7 @@ struct ReservationView: View {
                     Button(action: {
                         Task{
                             try await reservationModel.retrieveAllId(id:qrNumber.uuidString)
-                            try await reservationModel.updatepzzot(at: 0, id: qrNumber.uuidString)
+                            try await reservationModel.updateNumScan(id: qrNumber.uuidString)
 
                         }
                     }, label: {

@@ -24,6 +24,13 @@ func keyFromPassword(_ password: String) -> SymmetricKey {
 }
 
 
+func encryptParameter<T: Codable>(_ password: String, _ parameter: T) throws -> String  {
+    let key = keyFromPassword(password)
+        
+    return try encryptCodableObject(parameter, usingKey: key)
+    
+}
+
 /// Encrypt the given object that must be Codable and
 /// return the encrypted object as a base64 string
 /// - Parameters:

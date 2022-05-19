@@ -44,6 +44,42 @@ class ReservationModel: ObservableObject {
         }
     }
     
+    func retrieveAllIdDecrypt(id: String) async throws {
+        let predicate: NSPredicate = NSPredicate(format: "id == %@", id)
+        let query = CKQuery(recordType: Reservation.recordType, predicate: predicate)
+        
+        
+        let tmp = try await self.database.records(matching: query)
+        print(tmp.matchResults)
+        for tmp1 in tmp.matchResults{
+            if let data = try? tmp1.1.get() {
+                self.records = [data]
+                
+            }
+
+        }
+        
+        self.updateReservation()
+
+        let key = keyFromPassword(id)
+        for i in 0..<reservation.count {
+            print("PROVIAMO NAME: " + reservation[i].name )
+            print("PROVIAMO SURNAME: "  + reservation[i].surname )
+            print("PROVIAMO EMAIL: "  + reservation[i].email )
+
+            reservation[i].name = try decryptStringToCodableOject(String.self, from: reservation[i].name, usingKey: key)
+            reservation[i].surname = try decryptStringToCodableOject(String.self, from: reservation[i].surname, usingKey: key)
+            reservation[i].email = try decryptStringToCodableOject(String.self, from: reservation[i].email, usingKey: key)
+
+            print("PROVIAMO NAME DOPO: "  + reservation[i].name )
+            print("PROVIAMO SURNAME DOPO: "  + reservation[i].surname )
+            print("PROVIAMO EMAIL DOPO: "  + reservation[i].email )
+            
+        }
+
+    }
+    
+ 
     func retrieveAllId(id: String) async throws {
         let predicate: NSPredicate = NSPredicate(format: "id == %@", id)
         let query = CKQuery(recordType: Reservation.recordType, predicate: predicate)
@@ -54,26 +90,16 @@ class ReservationModel: ObservableObject {
         for tmp1 in tmp.matchResults{
             if let data = try? tmp1.1.get() {
                 self.records = [data]
-                self.updateReservation()
+                
             }
+
         }
+        
+        self.updateReservation()
+
+
     }
     
- 
-    
-    //    func retrieveAllName(name: String) async throws {
-    //        let predicate: NSPredicate = NSPredicate(format: "name == %@", name)
-    //        let query = CKQuery(recordType: Event.recordType, predicate: predicate)
-    //
-    //        let tmp = try await self.database.records(matching: query)
-    //
-    //        for tmp1 in tmp.matchResults{
-    //            if let data = try? tmp1.1.get() {
-    //                self.records = [data]
-    //            }
-    //        }
-    //        self.updateEvent()
-    //    }
     
     func retrieveAllName(name: String) async throws {
         let predicate: NSPredicate = NSPredicate(format: "name == %@", name)
@@ -97,9 +123,9 @@ class ReservationModel: ObservableObject {
         
         var createReservation = Reservation()
         createReservation.id = id
-        createReservation.name = name
-        createReservation.surname = surname
-        createReservation.email = email
+        createReservation.name = try encryptParameter(id, name)
+        createReservation.surname = try encryptParameter(id, surname)
+        createReservation.email = try encryptParameter(id, email)
         createReservation.nameList = nameList
         createReservation.numFriends = numFriends
         createReservation.numScan = 0
@@ -138,19 +164,20 @@ class ReservationModel: ObservableObject {
     }
     
     
-    func insert(res: Reservation) async throws {
-        
-        
-        do {
-            let _ = try await database.save(res.record)
-        } catch let error {
-            print(error)
-            return
-        }
-        self.insertedObjects.append(res)
-        self.updateReservation()
-        return
-    }
+    
+    
+//    func insert(res: Reservation) async throws {
+//
+//
+//        do {
+//            let _ = try await database.save(res.record)
+//        } catch let error {
+//            print(error)
+//            return
+//        }
+//        self.insertedObjects.append(res)
+//        self.updateReservation()
+//    }
     
     func delete(at index : Int) async throws {
         let recordId = self.reservation[index].record.recordID
@@ -165,16 +192,22 @@ class ReservationModel: ObservableObject {
         return
     }
     
-    func updateNumScan(reservation: Reservation, numScan: Int) async throws {
-        
-        var singleReservation = reservation
-        singleReservation.numScan = numScan
-        
-        let _ = try await self.database.modifyRecords(saving: [singleReservation.record], deleting: [reservation.record.recordID], savePolicy: .changedKeys, atomically: true)
-        self.updateReservation()
-    }
+//    func updateNumScan(id:String) async throws {
+//
+//        try await retrieveAllId(id: id)
+//
+//        var rec = reservation.first!
+//
+//        rec.numScan = rec.numScan+1
+//
+//        let _ = try await self.database.modifyRecords(saving: [rec.record], deleting: [rec.record.recordID], savePolicy: .changedKeys, atomically: true)
+//        self.updateReservation()
+//    }
     
-    func updatepzzot(at index : Int,id:String) async throws {
+    
+    
+    
+    func updateNumScan(id:String) async throws {
         
         try await retrieveAllId(id: id)
         
@@ -190,23 +223,14 @@ class ReservationModel: ObservableObject {
         try await insert(id: rec.id, name: rec.name, surname: rec.surname, email: rec.email, nameList: rec.nameList, numFriends: rec.numFriends, numScan: rec.numScan)
         
         
-
+        try await retrieveAllIdDecrypt(id: id)
         
         self.updateReservation()
     }
     
     func update(reservation1: Reservation, id: String, name: String, surname: String, email: String, nameList: String, timeScan: Date, numFriends: Int, numScan: Int) async throws {
         
-        //        var singleReservation = Reservation()
-        //        singleReservation.id = id
-        //        singleReservation.name = name
-        //        singleReservation.surname = surname
-        //        singleReservation.email = email
-        //        singleReservation.nameList = nameList
-        //        singleReservation.timeScan = timeScan
-        //        singleReservation.numFriends = numFriends
-        //        singleReservation.  = numScan
-        
+
         
         try await retrieveAllId(id: id)
         

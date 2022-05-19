@@ -19,6 +19,7 @@ struct RecapView: View {
             VStack {
                 if(showRecap){
                     Text("Name: " + reservationModel.reservation.first!.name)
+                        
                     Text("Surname: " + reservationModel.reservation.first!.surname)
                     Text("Email: " + reservationModel.reservation.first!.email)
                     Text("List: " + reservationModel.reservation.first!.nameList)
@@ -39,7 +40,7 @@ struct RecapView: View {
                     Button(action: {
                         Task{
                             
-                            try await reservationModel.updatepzzot(at: 0, id: viewModel.lastQrCode)
+                            try await reservationModel.updateNumScan(id: viewModel.lastQrCode)
 
                         }
                     }) {
@@ -62,7 +63,7 @@ struct RecapView: View {
 //                try await reservationModel.retrieveAllId(id: viewModel.lastQrCode)
                 
                 
-                try await reservationModel.updatepzzot(at: 0, id: viewModel.lastQrCode)
+                try await reservationModel.updateNumScan(id: viewModel.lastQrCode)
                 
 //                reservation = reservationModel.reservation.first!
                 

@@ -21,7 +21,7 @@ class ScannerViewModel: ObservableObject {
     func onFoundQrCode(_ code: String) {
         self.lastQrCode = code
     
-            backToContent.toggle()
+        backToContent.toggle()
             
     }
     
