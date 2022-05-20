@@ -25,6 +25,10 @@ struct ReservationView: View {
         NavigationView {
             ZStack {
                 VStack {
+                    HStack {
+                        NavigationLink("Back",destination: HomePageView())
+                            .padding()
+                    }
                     ZStack {
                         VStack {
                             Text("My Reservation")
@@ -44,14 +48,14 @@ struct ReservationView: View {
                         .scaledToFit()
                         .frame(width: 200, height: 200)
                     if(showqr){
-                    image
-                        .onLongPressGesture {
-
-                            let imageSaver = ImageSaver()
-                            imageSaver.writeToPhotoAlbum(image: qrImage)
-                            show.toggle()
-                            
-                        }
+                        image
+                            .onLongPressGesture {
+                                
+                                let imageSaver = ImageSaver()
+                                imageSaver.writeToPhotoAlbum(image: qrImage)
+                                show.toggle()
+                                
+                            }
                     }
                     Button(action: {
                         Task{
@@ -71,7 +75,7 @@ struct ReservationView: View {
                         Task{
                             try await reservationModel.retrieveAllId(id:qrNumber.uuidString)
                             try await reservationModel.updateNumScan(id: qrNumber.uuidString)
-
+                            
                         }
                     }, label: {
                         ZStack {
@@ -88,7 +92,7 @@ struct ReservationView: View {
             if(show) {
                 Alert(show: $show)
             }
-            
+                
         }
         
     }

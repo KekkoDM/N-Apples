@@ -8,12 +8,12 @@
 import Foundation
 import SwiftUI
 
-struct Alert: View{
+struct Alert: View {
     
-    @Binding var show:Bool
+    @Binding var show: Bool
     
-    var body: some View{
-        VStack{
+    var body: some View {
+        VStack {
             
         }.alert(NSLocalizedString("Fraaaatm!", comment: ""), isPresented: $show, actions: {
             Button("Ok", action: {showSaved = false })

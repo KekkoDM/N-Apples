@@ -10,7 +10,9 @@ import SwiftUI
 import CloudKit
 import CoreLocation
 import PassKit
+
 struct TestDownloadImage: View {
+    
     @State var eventModel : EventModel = EventModel()
     @State var event = Event()
     @State var name:String = ""
@@ -77,7 +79,7 @@ struct TestDownloadImage: View {
                     .onTapGesture {
                         paymentHandler.startPayment(paymentSummaryItems: [amount,tax,total])
                     }
-                Image(uiImage: image )
+                Image(uiImage: image)
                     .resizable()
                     .frame(width: 100, height: 100, alignment: .center)
             }

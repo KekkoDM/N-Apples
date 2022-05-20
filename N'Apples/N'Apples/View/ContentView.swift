@@ -171,7 +171,11 @@ struct ContentView: View {
                             }
                         })
                         
-                    }}}
+                    }
+                    
+                }
+                
+            }
             //            if showingAlert == true {
             //                AlertErrorLogin(showingAlert: $showingAlert)
             //            }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E2DAE4928364B20003C5D36 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2DAE4828364B20003C5D36 /* HomePageView.swift */; };
 		3E3C33DA282B9F6C0073B6E8 /* ReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C33D9282B9F6C0073B6E8 /* ReservationView.swift */; };
 		3E3C33E1282BB5AC0073B6E8 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C33DE282BB5AC0073B6E8 /* CameraPreview.swift */; };
 		3E3C33E2282BB5AC0073B6E8 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C33DF282BB5AC0073B6E8 /* ImageSaver.swift */; };
@@ -30,6 +31,7 @@
 		3EAD4F9328268D76007496B8 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD4F9228268D76007496B8 /* EventModel.swift */; };
 		3EAD4F9528268D85007496B8 /* ReservationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD4F9428268D85007496B8 /* ReservationEntity.swift */; };
 		3EAD4F9728268D90007496B8 /* ReservationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD4F9628268D90007496B8 /* ReservationModel.swift */; };
+		3ED7937528369E2300E906F0 /* AlertError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED7937428369E2300E906F0 /* AlertError.swift */; };
 		411DB3C92833A0380021869D /* CloudkitPushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411DB3C82833A0380021869D /* CloudkitPushNotification.swift */; };
 		411F7722282E45BC00B49E4D /* QuickSignInWithApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F7721282E45BC00B49E4D /* QuickSignInWithApple.swift */; };
 		411F7726282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F7725282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift */; };
@@ -43,6 +45,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E2DAE4828364B20003C5D36 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
 		3E3C33D9282B9F6C0073B6E8 /* ReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationView.swift; sourceTree = "<group>"; };
 		3E3C33DE282BB5AC0073B6E8 /* CameraPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
 		3E3C33DF282BB5AC0073B6E8 /* ImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
@@ -68,6 +71,7 @@
 		3EAD4F9228268D76007496B8 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		3EAD4F9428268D85007496B8 /* ReservationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationEntity.swift; sourceTree = "<group>"; };
 		3EAD4F9628268D90007496B8 /* ReservationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationModel.swift; sourceTree = "<group>"; };
+		3ED7937428369E2300E906F0 /* AlertError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertError.swift; sourceTree = "<group>"; };
 		411DB3C82833A0380021869D /* CloudkitPushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudkitPushNotification.swift; sourceTree = "<group>"; };
 		411F7721282E45BC00B49E4D /* QuickSignInWithApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSignInWithApple.swift; sourceTree = "<group>"; };
 		411F7725282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSIgnUpCoordinator.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				3E3C33E6282BB6B30073B6E8 /* Alert.swift */,
+				3ED7937428369E2300E906F0 /* AlertError.swift */,
 			);
 			path = Alert;
 			sourceTree = "<group>";
@@ -131,6 +136,7 @@
 				3E636C07282A584B00CC0CED /* CreationView.swift */,
 				3E3C33D9282B9F6C0073B6E8 /* ReservationView.swift */,
 				3EAD4F7C282679BF007496B8 /* ContentView.swift */,
+				3E2DAE4828364B20003C5D36 /* HomePageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -295,6 +301,7 @@
 				3EAD4F9328268D76007496B8 /* EventModel.swift in Sources */,
 				3E3C33EB282BB6B40073B6E8 /* RecapView.swift in Sources */,
 				3E3C33EE282BB6B40073B6E8 /* QrCodeScannerView.swift in Sources */,
+				3ED7937528369E2300E906F0 /* AlertError.swift in Sources */,
 				3EAD4F9528268D85007496B8 /* ReservationEntity.swift in Sources */,
 				411F7722282E45BC00B49E4D /* QuickSignInWithApple.swift in Sources */,
 				3E636C08282A584B00CC0CED /* CreationView.swift in Sources */,
@@ -303,6 +310,7 @@
 				3E3C33E1282BB5AC0073B6E8 /* CameraPreview.swift in Sources */,
 				3E3C33F0282BB6B40073B6E8 /* ScannerViewModel.swift in Sources */,
 				3E3C33E2282BB5AC0073B6E8 /* ImageSaver.swift in Sources */,
+				3E2DAE4928364B20003C5D36 /* HomePageView.swift in Sources */,
 				3E636C06282A552E00CC0CED /* UpdateView.swift in Sources */,
 				478586D0282D5DC00087B268 /* RoleModel.swift in Sources */,
 				3E3C33EC282BB6B40073B6E8 /* Alert.swift in Sources */,

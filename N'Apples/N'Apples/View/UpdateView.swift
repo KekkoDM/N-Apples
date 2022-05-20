@@ -17,7 +17,7 @@ struct UpdateView: View {
     
     var body: some View {
         
-        NavigationView{
+        NavigationView {
             
             ZStack {
                 
