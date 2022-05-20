@@ -15,7 +15,6 @@ struct Role {
     fileprivate static let keyUsername = "username"
     fileprivate static let keyPermission = "permission"
 
-    
     var record : CKRecord
 
     init(record : CKRecord) {
@@ -52,7 +51,5 @@ struct Role {
             self.record.setValue(newValue, forKey: Role.keyPermission)
         }
     }
-    
-
 
 }

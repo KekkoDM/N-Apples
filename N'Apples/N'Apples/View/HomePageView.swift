@@ -13,65 +13,47 @@ struct HomePageView: View {
     @State var presentReservation: Bool = false
     @State var nameEvent: String = ""
     @State var presenteAlert: Bool = false
-
+    
     var body: some View {
         
         NavigationView {
             
             ZStack {
                 VStack (spacing: 100) {
-                    Button (action: {
-                        presentLogin.toggle()
-                    }) {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 25)
-                                .foregroundColor(Color.blue)
-                                .frame(width: 300, height: 50, alignment: .center)
-                            Text("Go to LoginView")
-                                .foregroundColor(Color.white)
-                        }
+                    NavigationLink(destination: LoginView(), isActive: $presentLogin) {
+                        Text("Go to Login View")
+                            .onTapGesture {
+                                presentLogin.toggle()
+                            }
                     }
                     
                     TextField("Name Event", text: $nameEvent)
                     
-                    Button (action: {
-                            
-                            Task {
-                                
-                                print("Name event prima del retrive: \(nameEvent)")
-                                try await eventModel.retrieveAllName(name: nameEvent)
-                                
-                                if (nameEvent != eventModel.event.first?.name) {
-                                    eventModel.event.removeAll()
-                                    print("ModelCount in if \(eventModel.event.count)")
-                                }
-                                
-                                print("Name event: \(nameEvent)")
-                                print("Model count \(eventModel.event.count)")
-                                
-                                if (!eventModel.event.isEmpty) {
-                                    print ("Non Vuoto")
-                                    presentReservation.toggle()
-                                } else {
-                                    presenteAlert.toggle()
-                                    print ("Vuoto")
+                    NavigationLink(destination: ReservationView(), isActive: $presentReservation) {
+                        Text("Search Event")
+                            .onTapGesture {
+                                Task {
+                                    print("Name event prima del retrive: \(nameEvent)")
+                                    try await eventModel.retrieveAllName(name: nameEvent)
+                                    
+                                    if (nameEvent != eventModel.event.first?.name) {
+                                        eventModel.event.removeAll()
+                                        print("ModelCount in if \(eventModel.event.count)")
+                                    }
+                                    
+                                    print("Name event: \(nameEvent)")
+                                    print("Model count \(eventModel.event.count)")
+                                    
+                                    if (!eventModel.event.isEmpty) {
+                                        presentReservation = true
+                                    } else {
+                                        presentReservation = false
+                                        presenteAlert.toggle()
+                                        print ("Vuoto")
+                                    }
                                 }
                             }
-                            
-                        
-                    }) {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 25)
-                                .foregroundColor(Color.blue)
-                                .frame(width: 300, height: 50, alignment: .center)
-                            Text("Search Event")
-                                .foregroundColor(Color.white)
-                        }
                     }
-                  
-                }
-                if (presentReservation == true) {
-                    ReservationView()
                 }
                 
                 if (presenteAlert == true) {

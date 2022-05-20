@@ -17,7 +17,7 @@ struct RecapView: View {
     var body: some View {
         ZStack { Color.red
             VStack {
-                if(showRecap){
+                if(showRecap) {
                     Text("Name: " + reservationModel.reservation.first!.name)
                         
                     Text("Surname: " + reservationModel.reservation.first!.surname)
@@ -32,16 +32,14 @@ struct RecapView: View {
                             RoundedRectangle(cornerRadius: 25)
                                 .foregroundColor(Color.blue)
                                 .frame(width: 300, height: 50, alignment: .center)
-                            Text( "Ingress + 1 = \(ingress)")
+                            Text("Ingress + 1 = \(ingress)")
                                 .foregroundColor(Color.white)
                         }
                     }
                     
                     Button(action: {
                         Task{
-                            
                             try await reservationModel.updateNumScan(id: viewModel.lastQrCode)
-
                         }
                     }) {
                         ZStack{

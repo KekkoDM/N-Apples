@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-
 struct ReservationView: View {
     
     @State var name: String = ""
@@ -25,10 +24,6 @@ struct ReservationView: View {
         NavigationView {
             ZStack {
                 VStack {
-                    HStack {
-                        NavigationLink("Back",destination: HomePageView())
-                            .padding()
-                    }
                     ZStack {
                         VStack {
                             Text("My Reservation")

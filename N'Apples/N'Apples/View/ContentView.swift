@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+
 var reservationModel : ReservationModel = ReservationModel()
 var userModel = UserModel()
 var eventModel = EventModel()
@@ -63,11 +64,9 @@ struct ContentView: View {
                     
                     Spacer()
                     VStack{
-                        //
-                        //
-                        //
+                      
                         if self.username.isEmpty {
-                            SignUpWithAppleView(username: $username,mail:$mail, surname: $password)
+                            SignUpWithAppleView(username: $username,mail:$mail, password: $password)
                                 .frame(width: 200, height: 50)
                         }
                         else{

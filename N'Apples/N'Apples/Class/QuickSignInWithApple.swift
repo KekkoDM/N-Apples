@@ -4,7 +4,7 @@ import AuthenticationServices
 struct SignUpWithAppleView: UIViewRepresentable {
     @Binding var username : String
     @Binding var mail : String
-    @Binding var surname : String
+    @Binding var password : String
     
     func makeCoordinator() -> AppleSignUpCoordinator {
         return AppleSignUpCoordinator(self)

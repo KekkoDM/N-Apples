@@ -28,8 +28,7 @@ struct UpdateView: View {
                 VStack () {
                     
                     HStack {
-                        NavigationLink("Back",destination: ContentView())
-                            .padding(.leading,-65)
+                        
                         Text ("Change Password")
                             .foregroundColor(.black)
                             .font(.title)

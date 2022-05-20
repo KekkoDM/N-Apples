@@ -18,7 +18,7 @@ struct Alert: View {
         }.alert(NSLocalizedString("Fraaaatm!", comment: ""), isPresented: $show, actions: {
             Button("Ok", action: {showSaved = false })
             }, message: {
-              Text("Saved in gallery!")
+              Text("Signed Up correctly!")
             })
     }
 }

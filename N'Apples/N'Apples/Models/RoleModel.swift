@@ -7,6 +7,7 @@
 
 import Foundation
 import CloudKit
+import SwiftUI
 
 class RoleModel: ObservableObject {
     
@@ -34,13 +35,18 @@ class RoleModel: ObservableObject {
         
         let tmp = try await self.database.records(matching: query)
         
-        for tmp1 in tmp.matchResults{
+        for tmp1 in tmp.matchResults {
             if let data = try? tmp1.1.get() {
                 self.records = [data]
+                print(self.records)
+                print("mamma \(self.records.count)")
+
+                
             }
         }
         
         self.updateRole()
+        print("Conta" + "\(role.count)")
     }
     
     func retrieveAllCollaborators(idEvent: String) async throws {
@@ -49,10 +55,11 @@ class RoleModel: ObservableObject {
         
         let tmp = try await self.database.records(matching: query)
         
-        for tmp1 in tmp.matchResults{
+        for tmp1 in tmp.matchResults {
             if let data = try? tmp1.1.get() {
                 self.records = [data]
             }
+            
         }
         
         self.updateRole()
@@ -80,7 +87,6 @@ class RoleModel: ObservableObject {
         createRole.username = username
         createRole.permission = permission
         createRole.idEvent = idEvent
-        
         
         do {
             let _ = try await database.save(createRole.record)

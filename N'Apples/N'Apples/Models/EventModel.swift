@@ -12,6 +12,7 @@ import SwiftUI
 class EventModel: ObservableObject {
     
     private let database = CKContainer.default().publicCloudDatabase
+//    private var roleModel: RoleModel = RoleModel()
     
     var event = [Event]() {
         didSet {
@@ -48,6 +49,20 @@ class EventModel: ObservableObject {
         let predicate: NSPredicate = NSPredicate(format: "id == %@", id)
         let query = CKQuery(recordType: Event.recordType, predicate: predicate)
         
+        let tmp = try await self.database.records(matching: query)
+        
+        for tmp1 in tmp.matchResults{
+            if let data = try? tmp1.1.get() {
+                self.records = [data]
+                
+            }
+        }
+        self.updateEvent()
+    }
+    
+    func retrieveAll(name: String, location: String, date: Date) async throws {
+        let predicate: NSPredicate = NSPredicate(format: "name == %@ AND location == %@ AND date == %@ ", name, location, date as CVarArg)
+        let query = CKQuery(recordType: Event.recordType, predicate: predicate)
         let tmp = try await self.database.records(matching: query)
         
         for tmp1 in tmp.matchResults{
@@ -98,6 +113,7 @@ class EventModel: ObservableObject {
             createEvent.price = price
             createEvent.table = table
 
+        try await roleModel.insert(username: usernamesaved, permission: [0], idEvent: createEvent.id)
         
         guard
                 let image = imagePoster,
@@ -124,6 +140,8 @@ class EventModel: ObservableObject {
             self.updateEvent()
             return
         }
+    
+    
     
     func delete(at index : Int) async throws {
         let recordId = self.event[index].record.recordID
