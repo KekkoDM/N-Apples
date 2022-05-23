@@ -37,7 +37,7 @@ class RoleModel: ObservableObject {
         
         for tmp1 in tmp.matchResults {
             if let data = try? tmp1.1.get() {
-                self.records = [data]
+                self.records.append(data)
                 print(self.records)
                 print("mamma \(self.records.count)")
 

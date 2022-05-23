@@ -128,18 +128,18 @@
 		3E3C33F1282BBB7F0073B6E8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3E3C33E7282BB6B40073B6E8 /* QrCodeView.swift */,
-				3E3C33E8282BB6B40073B6E8 /* QrCodeScannerView.swift */,
-				41F3F624282E6DB7003D0170 /* TestDownloadImage.swift */,
-				3E3C33E5282BB6B30073B6E8 /* RecapView.swift */,
 				411F7725282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift */,
-				3E3C33E9282BB6B40073B6E8 /* ScannerView.swift */,
-				3E636C05282A552E00CC0CED /* UpdateView.swift */,
-				3E636C07282A584B00CC0CED /* CreationView.swift */,
-				3E3C33D9282B9F6C0073B6E8 /* ReservationView.swift */,
 				3EAD4F7C282679BF007496B8 /* ContentView.swift */,
-				3E8E317828378CA800564D80 /* LoginView.swift */,
+				3E636C07282A584B00CC0CED /* CreationView.swift */,
 				3E8E317A283795D900564D80 /* EventView.swift */,
+				3E8E317828378CA800564D80 /* LoginView.swift */,
+				3E3C33E8282BB6B40073B6E8 /* QrCodeScannerView.swift */,
+				3E3C33E7282BB6B40073B6E8 /* QrCodeView.swift */,
+				3E3C33E5282BB6B30073B6E8 /* RecapView.swift */,
+				3E3C33D9282B9F6C0073B6E8 /* ReservationView.swift */,
+				3E3C33E9282BB6B40073B6E8 /* ScannerView.swift */,
+				41F3F624282E6DB7003D0170 /* TestDownloadImage.swift */,
+				3E636C05282A552E00CC0CED /* UpdateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

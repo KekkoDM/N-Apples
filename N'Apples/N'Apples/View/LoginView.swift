@@ -17,7 +17,7 @@ struct LoginView: View {
     @State var password = ""
     @State var presentEventView: Bool = false
     @State var presentAlert: Bool = false
-    @State var userModel : UserModel = UserModel()
+//    @State var userModel : UserModel = UserModel()
     
     var body: some View {
         NavigationView {
@@ -76,13 +76,31 @@ struct LoginView: View {
                     VStack {
                         HStack (spacing: 15) {
                             
-                            NavigationLink (destination: EventView(), isActive: $presentEventView) {
+                            NavigationLink (destination: EventView(eventModel: eventModel, roleModel: roleModel), isActive: $presentEventView) {
                                 Text("Login")
                                     .onTapGesture {
                                         Task {
                                             try await userModel.retrieveAllUsernamePassword(username: username, password: password)
-                                            usernamesaved = username
-                                            presentEventView.toggle()
+                                            print("USER EMPTY: \(userModel.user.isEmpty)")
+                                            print("USER !!!!!EMPTY: \(!userModel.user.isEmpty)")
+
+                                            if(!(userModel.user.isEmpty)){
+                                                try await roleModel.retrieveAllUsername(username: userModel.user.first!.username)
+                                                print("Conta" + "\(roleModel.role.count)")
+                                                eventModel.event.removeAll()
+                                                for i in 0 ..< roleModel.role.count {
+                                                    try await eventModel.retrieveAllId(id: roleModel.role[i].idEvent)
+                                                    print("ROLE COUNT \(roleModel.role.count)")
+                                                    print("EVENT COUNT \(eventModel.event.count)")
+                                                    
+                                                    print(i)
+                                                }
+                                                
+                                                usernamesaved = username
+                                                presentEventView.toggle()
+                                            }
+                                            
+                                            
                                         }
                                     }
                             }

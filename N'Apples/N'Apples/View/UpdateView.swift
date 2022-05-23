@@ -10,7 +10,7 @@ import SwiftUI
 
 struct UpdateView: View {
     
-    @Binding var userModel : UserModel
+    @State var userModel : UserModel
     @State var password = ""
     @State var showingAlertField: Bool = false
     @State var contentView: Bool = false

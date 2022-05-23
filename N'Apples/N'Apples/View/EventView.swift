@@ -11,10 +11,10 @@ import SwiftUI
 struct EventView: View {
     
     @State var presentCreationView: Bool = false
-    @State var userModel : UserModel = UserModel()
+//    @State var userModel : UserModel = UserModel()
     @State var presentUpdateView: Bool = false
-    @State var eventModel: EventModel = EventModel()
-    @State var roleModel: RoleModel = RoleModel()
+    @State var eventModel: EventModel
+    @State var roleModel: RoleModel
     @State var role: Role = Role()
     @State var image:UIImage = UIImage()
     
@@ -22,7 +22,7 @@ struct EventView: View {
         
             ZStack {
                 VStack (spacing: 70) {
-                    NavigationLink (destination: UpdateView(userModel: $userModel), isActive: $presentUpdateView) {
+                    NavigationLink (destination: UpdateView(userModel: userModel), isActive: $presentUpdateView) {
                         Text("My Self")
                             .onTapGesture {
                                 presentUpdateView.toggle()
@@ -49,23 +49,26 @@ struct EventView: View {
                         }
                     }
                 }
-            } .onAppear() {
-                Task {
-                    try await roleModel.retrieveAllUsername(username: usernamesaved)
-//                    print("Conta" + "\(roleModel.role.count)")
-
-                    for i in 0 ..< roleModel.role.count {
-                        try await eventModel.retrieveAllId(id: roleModel.role[i].idEvent)
-                        print(roleModel.role.count)
-                        print(i)
-                    }
-                   
-                    print(usernamesaved)
-                    
-//                    let data = try? Data(contentsOf: (eventModel.event.first?.poster.fileURL!)!)
-//                    image = UIImage(data: data!)!
-                }
             }
+//                .onAppear() {
+//                Task {
+////                    try await roleModel.retrieveAllUsername(username: usernamesaved)
+////                    print("Conta" + "\(roleModel.role.count)")
+//
+////                    for i in 0 ..< roleModel.role.count {
+////                        try await eventModel.retrieveAllId(id: roleModel.role[i].idEvent)
+////                        print("ROLE COUNT \(roleModel.role.count)")
+////                        print("EVENT COUNT \(eventModel.event.count)")
+////
+////                        print(i)
+////                    }
+//
+//                    print(usernamesaved)
+//
+////                    let data = try? Data(contentsOf: (eventModel.event.first?.poster.fileURL!)!)
+////                    image = UIImage(data: data!)!
+//                }
+            
             .navigationTitle("My Event")
             .padding()
     }
