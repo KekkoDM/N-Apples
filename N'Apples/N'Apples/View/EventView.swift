@@ -11,12 +11,13 @@ import SwiftUI
 struct EventView: View {
     
     @State var presentCreationView: Bool = false
-//    @State var userModel : UserModel = UserModel()
     @State var presentUpdateView: Bool = false
+    @State var presentRecapEventView: Bool = false
     @State var eventModel: EventModel
     @State var roleModel: RoleModel
     @State var role: Role = Role()
-    @State var image:UIImage = UIImage()
+    @State var image: UIImage = UIImage()
+    @State var intero: Int = 0
     
     var body: some View {
         
@@ -31,10 +32,17 @@ struct EventView: View {
                     
                     VStack {
                         ForEach(0 ..< eventModel.event.count, id: \.self) { i in
-                            Text(eventModel.event[i].name)
-                                .onAppear(){
-                                    print("ueue \(eventModel.event.count)")
-                                }
+                            NavigationLink (destination: RecapEventView(eventModel: $eventModel, i: $intero), isActive: $presentRecapEventView) {
+                                Text(eventModel.event[i].name)
+                                    .onTapGesture {
+                                        intero = i
+                                        presentRecapEventView.toggle()
+                                    }
+                            }
+//                            Text(eventModel.event[i].name)
+//                                .onAppear(){
+//                                    print("ueue \(eventModel.event.count)")
+//                                }
                         }
                     }
                     
@@ -50,25 +58,7 @@ struct EventView: View {
                     }
                 }
             }
-//                .onAppear() {
-//                Task {
-////                    try await roleModel.retrieveAllUsername(username: usernamesaved)
-////                    print("Conta" + "\(roleModel.role.count)")
-//
-////                    for i in 0 ..< roleModel.role.count {
-////                        try await eventModel.retrieveAllId(id: roleModel.role[i].idEvent)
-////                        print("ROLE COUNT \(roleModel.role.count)")
-////                        print("EVENT COUNT \(eventModel.event.count)")
-////
-////                        print(i)
-////                    }
-//
-//                    print(usernamesaved)
-//
-////                    let data = try? Data(contentsOf: (eventModel.event.first?.poster.fileURL!)!)
-////                    image = UIImage(data: data!)!
-//                }
-            
+
             .navigationTitle("My Event")
             .padding()
     }

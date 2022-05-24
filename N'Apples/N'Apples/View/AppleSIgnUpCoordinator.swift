@@ -10,13 +10,14 @@ class AppleSignUpCoordinator: NSObject, ASAuthorizationControllerDelegate, ASAut
         self.parent = parent
         super.init()
     }
+    
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         let vc = UIApplication.shared.windows.last?.rootViewController
         return (vc?.view.window!)!
     }
     //If authorization is successfull then this method will get triggered
     func authorizationController(controller: ASAuthorizationController,
-                                 didCompleteWithAuthorization authorization: ASAuthorization)
+                                 didCompleteWithAuthorization authorization: ASAuthorization) 
     {
         guard let credentials = authorization.credential as?ASAuthorizationAppleIDCredential else
         {
@@ -29,7 +30,9 @@ class AppleSignUpCoordinator: NSObject, ASAuthorizationControllerDelegate, ASAut
         defaults.set(credentials.user, forKey: "userId" )
         parent?.username = "\(credentials.fullName?.givenName ?? "" ) "
         parent?.mail = "\(credentials.email ?? "" ) "
-        parent?.password = "\(credentials.user.description ) "
+        parent?.id = "\(credentials.user.description ) "
+        
+        parent?.signInApple = true
         
     }
     //If authorization faced any issue then this method will get triggered

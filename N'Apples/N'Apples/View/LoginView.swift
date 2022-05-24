@@ -12,26 +12,22 @@ var usernamesaved = ""
 
 struct LoginView: View {
     
+    @ObservedObject var userSettings = UserSettings()
+    
     @State var username = ""
     @State var mail = ""
     @State var password = ""
     @State var presentEventView: Bool = false
     @State var presentAlert: Bool = false
-//    @State var userModel : UserModel = UserModel()
+    @State var signInApple: Bool = false
+//    @State var usernameApple = ""
+    @State var idApple = ""
     
     var body: some View {
         NavigationView {
             ZStack {
                 VStack (spacing: 20) {
-//                    NavigationLink (destination: UpdateView(userModel: $userModel), isActive: $presentUpdateView) {
-//                        Text("My Self")
-//                            .onTapGesture {
-//                                Task {
-//                                    try await userModel.retrieveAllUsernamePassword(username: username, password: password)
-//                                    presentUpdateView.toggle()
-//                                }
-//                            }
-//                    }
+
                     VStack {
                         
                         TextField("Username", text: $username)
@@ -64,19 +60,36 @@ struct LoginView: View {
                     VStack {
                         
                         if self.username.isEmpty {
-                            SignUpWithAppleView(username: $username, mail:$mail, password: $password)
+                            SignUpWithAppleView(username: $username, mail: $mail, id: $idApple, signInApple: $signInApple)
                                 .frame(width: 200, height: 50)
                         }
                         else {
                             Text("Welcome\n\(self.username)")
                                 .font(.headline)
+                                .onAppear() {
+                                    if (signInApple == true) {
+                                        print("Id apple: \(idApple)")
+                                        Task {
+                                            try await userModel.retrieveAllId(id: idApple)
+                                            if (userModel.user.isEmpty) {
+                                                try await userModel.insertApple(username: username, email: mail, id: idApple)
+                                                userSettings.id = idApple
+                                            } else {
+                                                username = userModel.user.first!.username
+                                                presentEventView.toggle()
+                                            }
+                                        }
+                                    }
+                                    
+                                }
                         }
                     }
                     
                     VStack {
+                        
                         HStack (spacing: 15) {
                             
-                            NavigationLink (destination: EventView(eventModel: eventModel, roleModel: roleModel), isActive: $presentEventView) {
+                            NavigationLink (destination: EventView (eventModel: eventModel, roleModel: roleModel), isActive: $presentEventView) {
                                 Text("Login")
                                     .onTapGesture {
                                         Task {
@@ -95,7 +108,6 @@ struct LoginView: View {
                                                     
                                                     print(i)
                                                 }
-                                                
                                                 usernamesaved = username
                                                 presentEventView.toggle()
                                             }
@@ -124,6 +136,14 @@ struct LoginView: View {
             }
             .navigationTitle("Welcome")
             .padding()
+        } .onAppear() {
+            Task {
+                try await userModel.retrieveAllId(id: userSettings.id)
+                username = userModel.user.first?.username ?? ""
+                if (username != "") {
+                    presentEventView.toggle()
+                }
+            }
         }
         
     }

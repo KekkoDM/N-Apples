@@ -61,8 +61,38 @@ class UserModel: ObservableObject {
         
     }
     
-    func retrieveAllId(username: String) async throws {
+    func retrieveAllId(id: String) async throws {
+        let predicate: NSPredicate = NSPredicate(format: "id == %@", id)
+        let query = CKQuery(recordType: User.recordType, predicate: predicate)
+        
+        let tmp = try await self.database.records(matching: query)
+        
+        for tmp1 in tmp.matchResults{
+            if let data = try? tmp1.1.get() {
+                self.records = [data]
+            }
+        }
+        
+        self.updateUser()
+    }
+    
+    func retrieveAllName(username: String) async throws {
         let predicate: NSPredicate = NSPredicate(format: "username == %@", username)
+        let query = CKQuery(recordType: User.recordType, predicate: predicate)
+        
+        let tmp = try await self.database.records(matching: query)
+        
+        for tmp1 in tmp.matchResults{
+            if let data = try? tmp1.1.get() {
+                self.records = [data]
+            }
+        }
+        
+        self.updateUser()
+    }
+    
+    func retrieveAllEmail(email: String) async throws {
+        let predicate: NSPredicate = NSPredicate(format: "email == %@", email)
         let query = CKQuery(recordType: User.recordType, predicate: predicate)
         
         let tmp = try await self.database.records(matching: query)
@@ -88,6 +118,24 @@ class UserModel: ObservableObject {
         let encryptedPassword = try encryptCodableObject(password, usingKey: key)
         
         createUser.password = encryptedPassword
+        
+        do {
+            let _ = try await database.save(createUser.record)
+        } catch let error {
+            print(error)
+            return
+        }
+        self.insertedObjects.append(createUser)
+        self.updateUser()
+        return
+    }
+    
+    func insertApple(username: String, email: String, id: String) async throws {
+        
+        var createUser = User()
+        createUser.username = username
+        createUser.email = email
+        createUser.id = id
         
         do {
             let _ = try await database.save(createUser.record)

@@ -114,8 +114,6 @@ class RoleModel: ObservableObject {
         return
     }
     
-    
-    
     func update(usename: String, idEvent: String, permission: [Int]) async throws {
             
 

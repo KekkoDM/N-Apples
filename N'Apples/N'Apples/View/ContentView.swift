@@ -66,8 +66,8 @@ struct ContentView: View {
                     VStack{
                       
                         if self.username.isEmpty {
-                            SignUpWithAppleView(username: $username,mail:$mail, password: $password)
-                                .frame(width: 200, height: 50)
+//                            SignUpWithAppleView(username: $username, mail: $mail, id: $password)
+//                                .frame(width: 200, height: 50)
                         }
                         else{
                             Text("Welcome\n\(self.username)")

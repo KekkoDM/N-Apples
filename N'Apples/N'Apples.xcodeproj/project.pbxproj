@@ -17,6 +17,7 @@
 		3E3C33EE282BB6B40073B6E8 /* QrCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C33E8282BB6B40073B6E8 /* QrCodeScannerView.swift */; };
 		3E3C33EF282BB6B40073B6E8 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C33E9282BB6B40073B6E8 /* ScannerView.swift */; };
 		3E3C33F0282BB6B40073B6E8 /* ScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C33EA282BB6B40073B6E8 /* ScannerViewModel.swift */; };
+		3E59823D283CEC3E006CB6D8 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59823C283CEC3E006CB6D8 /* UserSettings.swift */; };
 		3E636C06282A552E00CC0CED /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E636C05282A552E00CC0CED /* UpdateView.swift */; };
 		3E636C08282A584B00CC0CED /* CreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E636C07282A584B00CC0CED /* CreationView.swift */; };
 		3E8E317928378CA800564D80 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8E317828378CA800564D80 /* LoginView.swift */; };
@@ -32,6 +33,9 @@
 		3EAD4F9328268D76007496B8 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD4F9228268D76007496B8 /* EventModel.swift */; };
 		3EAD4F9528268D85007496B8 /* ReservationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD4F9428268D85007496B8 /* ReservationEntity.swift */; };
 		3EAD4F9728268D90007496B8 /* ReservationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD4F9628268D90007496B8 /* ReservationModel.swift */; };
+		3EC3C5FE283D24BF0085F65F /* RecapEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC3C5FD283D24BF0085F65F /* RecapEventView.swift */; };
+		3EC3C600283D296E0085F65F /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC3C5FF283D296E0085F65F /* RoleView.swift */; };
+		3EC3C602283D2F1D0085F65F /* AssignRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC3C601283D2F1D0085F65F /* AssignRoleView.swift */; };
 		3ED7937528369E2300E906F0 /* AlertError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED7937428369E2300E906F0 /* AlertError.swift */; };
 		411DB3C92833A0380021869D /* CloudkitPushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411DB3C82833A0380021869D /* CloudkitPushNotification.swift */; };
 		411F7722282E45BC00B49E4D /* QuickSignInWithApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F7721282E45BC00B49E4D /* QuickSignInWithApple.swift */; };
@@ -56,6 +60,7 @@
 		3E3C33E8282BB6B40073B6E8 /* QrCodeScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeScannerView.swift; sourceTree = "<group>"; };
 		3E3C33E9282BB6B40073B6E8 /* ScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		3E3C33EA282BB6B40073B6E8 /* ScannerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewModel.swift; sourceTree = "<group>"; };
+		3E59823C283CEC3E006CB6D8 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		3E636C05282A552E00CC0CED /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		3E636C07282A584B00CC0CED /* CreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationView.swift; sourceTree = "<group>"; };
 		3E8E317828378CA800564D80 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -73,6 +78,9 @@
 		3EAD4F9228268D76007496B8 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		3EAD4F9428268D85007496B8 /* ReservationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationEntity.swift; sourceTree = "<group>"; };
 		3EAD4F9628268D90007496B8 /* ReservationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationModel.swift; sourceTree = "<group>"; };
+		3EC3C5FD283D24BF0085F65F /* RecapEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapEventView.swift; sourceTree = "<group>"; };
+		3EC3C5FF283D296E0085F65F /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
+		3EC3C601283D2F1D0085F65F /* AssignRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignRoleView.swift; sourceTree = "<group>"; };
 		3ED7937428369E2300E906F0 /* AlertError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertError.swift; sourceTree = "<group>"; };
 		411DB3C82833A0380021869D /* CloudkitPushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudkitPushNotification.swift; sourceTree = "<group>"; };
 		411F7721282E45BC00B49E4D /* QuickSignInWithApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSignInWithApple.swift; sourceTree = "<group>"; };
@@ -112,6 +120,7 @@
 				3E3C33DF282BB5AC0073B6E8 /* ImageSaver.swift */,
 				3E3C33E0282BB5AC0073B6E8 /* QrCodeCameraDelegate.swift */,
 				47B3031D2834E71700BEE78D /* Crypto.swift */,
+				3E59823C283CEC3E006CB6D8 /* UserSettings.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -140,6 +149,9 @@
 				3E3C33E9282BB6B40073B6E8 /* ScannerView.swift */,
 				41F3F624282E6DB7003D0170 /* TestDownloadImage.swift */,
 				3E636C05282A552E00CC0CED /* UpdateView.swift */,
+				3EC3C5FD283D24BF0085F65F /* RecapEventView.swift */,
+				3EC3C5FF283D296E0085F65F /* RoleView.swift */,
+				3EC3C601283D2F1D0085F65F /* AssignRoleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -293,6 +305,7 @@
 				41F3F623282E68FE003D0170 /* ImagePicker.swift in Sources */,
 				478586CE282D5CC20087B268 /* RoleEntity.swift in Sources */,
 				411F7726282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift in Sources */,
+				3E59823D283CEC3E006CB6D8 /* UserSettings.swift in Sources */,
 				3EAD4F9128268D6B007496B8 /* EventEntity.swift in Sources */,
 				3EAD4F7B282679BF007496B8 /* N_ApplesApp.swift in Sources */,
 				3E3C33DA282B9F6C0073B6E8 /* ReservationView.swift in Sources */,
@@ -302,11 +315,14 @@
 				47B3031E2834E71700BEE78D /* Crypto.swift in Sources */,
 				411DB3C92833A0380021869D /* CloudkitPushNotification.swift in Sources */,
 				3EAD4F9328268D76007496B8 /* EventModel.swift in Sources */,
+				3EC3C600283D296E0085F65F /* RoleView.swift in Sources */,
 				3E3C33EB282BB6B40073B6E8 /* RecapView.swift in Sources */,
 				3E3C33EE282BB6B40073B6E8 /* QrCodeScannerView.swift in Sources */,
 				3ED7937528369E2300E906F0 /* AlertError.swift in Sources */,
 				3EAD4F9528268D85007496B8 /* ReservationEntity.swift in Sources */,
+				3EC3C602283D2F1D0085F65F /* AssignRoleView.swift in Sources */,
 				411F7722282E45BC00B49E4D /* QuickSignInWithApple.swift in Sources */,
+				3EC3C5FE283D24BF0085F65F /* RecapEventView.swift in Sources */,
 				3E636C08282A584B00CC0CED /* CreationView.swift in Sources */,
 				47F118FB283501AE00D094B9 /* ApplePayController.swift in Sources */,
 				3E3C33E3282BB5AC0073B6E8 /* QrCodeCameraDelegate.swift in Sources */,
