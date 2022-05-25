@@ -27,7 +27,6 @@ struct ContentView: View {
     @State var reservation: Bool = false
     @State var updateView: Bool = false
     @State var cameraQr: Bool = false
-    @State var userModel : UserModel = UserModel()
     
     @State var testdownload: Bool = false
     

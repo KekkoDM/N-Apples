@@ -112,14 +112,14 @@
 			isa = PBXGroup;
 			children = (
 				47F118FA283501AE00D094B9 /* ApplePayController.swift */,
-				3E3C33EA282BB6B40073B6E8 /* ScannerViewModel.swift */,
-				411DB3C82833A0380021869D /* CloudkitPushNotification.swift */,
-				41F3F622282E68FE003D0170 /* ImagePicker.swift */,
-				411F7721282E45BC00B49E4D /* QuickSignInWithApple.swift */,
 				3E3C33DE282BB5AC0073B6E8 /* CameraPreview.swift */,
+				411DB3C82833A0380021869D /* CloudkitPushNotification.swift */,
+				47B3031D2834E71700BEE78D /* Crypto.swift */,
+				41F3F622282E68FE003D0170 /* ImagePicker.swift */,
 				3E3C33DF282BB5AC0073B6E8 /* ImageSaver.swift */,
 				3E3C33E0282BB5AC0073B6E8 /* QrCodeCameraDelegate.swift */,
-				47B3031D2834E71700BEE78D /* Crypto.swift */,
+				411F7721282E45BC00B49E4D /* QuickSignInWithApple.swift */,
+				3E3C33EA282BB6B40073B6E8 /* ScannerViewModel.swift */,
 				3E59823C283CEC3E006CB6D8 /* UserSettings.swift */,
 			);
 			path = Class;
@@ -138,20 +138,20 @@
 			isa = PBXGroup;
 			children = (
 				411F7725282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift */,
+				3EC3C601283D2F1D0085F65F /* AssignRoleView.swift */,
 				3EAD4F7C282679BF007496B8 /* ContentView.swift */,
 				3E636C07282A584B00CC0CED /* CreationView.swift */,
 				3E8E317A283795D900564D80 /* EventView.swift */,
 				3E8E317828378CA800564D80 /* LoginView.swift */,
 				3E3C33E8282BB6B40073B6E8 /* QrCodeScannerView.swift */,
 				3E3C33E7282BB6B40073B6E8 /* QrCodeView.swift */,
+				3EC3C5FD283D24BF0085F65F /* RecapEventView.swift */,
 				3E3C33E5282BB6B30073B6E8 /* RecapView.swift */,
 				3E3C33D9282B9F6C0073B6E8 /* ReservationView.swift */,
+				3EC3C5FF283D296E0085F65F /* RoleView.swift */,
 				3E3C33E9282BB6B40073B6E8 /* ScannerView.swift */,
 				41F3F624282E6DB7003D0170 /* TestDownloadImage.swift */,
 				3E636C05282A552E00CC0CED /* UpdateView.swift */,
-				3EC3C5FD283D24BF0085F65F /* RecapEventView.swift */,
-				3EC3C5FF283D296E0085F65F /* RoleView.swift */,
-				3EC3C601283D2F1D0085F65F /* AssignRoleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

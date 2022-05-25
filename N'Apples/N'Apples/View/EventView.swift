@@ -39,6 +39,9 @@ struct EventView: View {
                                         presentRecapEventView.toggle()
                                     }
                             }
+                            .onAppear(){
+                                print("EVENTI: \(eventModel.event.count)")
+                            }
 //                            Text(eventModel.event[i].name)
 //                                .onAppear(){
 //                                    print("ueue \(eventModel.event.count)")

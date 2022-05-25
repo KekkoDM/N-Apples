@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-var usernamesaved = ""
 
 struct LoginView: View {
     
@@ -93,26 +92,7 @@ struct LoginView: View {
                                 Text("Login")
                                     .onTapGesture {
                                         Task {
-                                            try await userModel.retrieveAllUsernamePassword(username: username, password: password)
-                                            print("USER EMPTY: \(userModel.user.isEmpty)")
-                                            print("USER !!!!!EMPTY: \(!userModel.user.isEmpty)")
-
-                                            if(!(userModel.user.isEmpty)){
-                                                try await roleModel.retrieveAllUsername(username: userModel.user.first!.username)
-                                                print("Conta" + "\(roleModel.role.count)")
-                                                eventModel.event.removeAll()
-                                                for i in 0 ..< roleModel.role.count {
-                                                    try await eventModel.retrieveAllId(id: roleModel.role[i].idEvent)
-                                                    print("ROLE COUNT \(roleModel.role.count)")
-                                                    print("EVENT COUNT \(eventModel.event.count)")
-                                                    
-                                                    print(i)
-                                                }
-                                                usernamesaved = username
-                                                presentEventView.toggle()
-                                            }
-                                            
-                                            
+                                            try await retrieveMyEvents()
                                         }
                                     }
                             }
@@ -123,7 +103,6 @@ struct LoginView: View {
                                         Task {
                                             try await userModel.insert(username: username, password: password)
                                             presentAlert.toggle()
-                                            
                                         }
                                     }
                             }
@@ -140,12 +119,24 @@ struct LoginView: View {
             Task {
                 try await userModel.retrieveAllId(id: userSettings.id)
                 username = userModel.user.first?.username ?? ""
-                if (username != "") {
-                    presentEventView.toggle()
-                }
+                try await retrieveMyEvents()
             }
         }
         
     }
+  
     
+    
+    func retrieveMyEvents() async throws{
+        if(!(userModel.user.isEmpty)){
+            try await roleModel.retrieveAllUsername(username: userModel.user.first!.username)
+            eventModel.records.removeAll()
+            
+            for i in 0 ..< roleModel.role.count {
+                try await eventModel.retrieveAllId(id: roleModel.role[i].idEvent)
+            }
+            
+            presentEventView.toggle()
+        }
+    }
 }

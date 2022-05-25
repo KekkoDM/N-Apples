@@ -11,7 +11,7 @@ import SwiftUI
 struct RoleView: View {
     @Binding var i: Int
     @Binding var eventModel: EventModel
-    @State var users: UserModel = UserModel()
+    @State var users: UserModel
     @State var presentAssignRoleView: Bool = false
     @State var userSeacrh: String = ""
     
