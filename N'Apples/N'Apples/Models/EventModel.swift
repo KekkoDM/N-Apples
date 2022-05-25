@@ -12,7 +12,7 @@ import SwiftUI
 class EventModel: ObservableObject {
     
     private let database = CKContainer.default().publicCloudDatabase
-//    private var roleModel: RoleModel = RoleModel()
+    //    private var roleModel: RoleModel = RoleModel()
     
     var event = [Event]() {
         didSet {
@@ -21,7 +21,7 @@ class EventModel: ObservableObject {
             }
         }
     }
-        
+    
     var onChange : (() -> Void)?
     var onError : ((Error) -> Void)?
     var notificationQueue = OperationQueue.main
@@ -30,7 +30,7 @@ class EventModel: ObservableObject {
     var insertedObjects = [Event]()
     var deletedObjectIds = Set<CKRecord.ID>()
     
-    func retrieveAllName(name: String) async throws { 
+    func retrieveAllName(name: String) async throws {
         
         let predicate: NSPredicate = NSPredicate(format: "name == %@", name)
         let query = CKQuery(recordType: Event.recordType, predicate: predicate)
@@ -46,9 +46,9 @@ class EventModel: ObservableObject {
     }
     
     func retrieveAllId(id: String) async throws {
+                
         let predicate: NSPredicate = NSPredicate(format: "id == %@", id)
         let query = CKQuery(recordType: Event.recordType, predicate: predicate)
-        
         let tmp = try await self.database.records(matching: query)
         
         for tmp1 in tmp.matchResults{
@@ -100,46 +100,46 @@ class EventModel: ObservableObject {
     
     func insertEvent(name: String, address: String, location: String, info: String, imagePoster: UIImage?, capability: Int, date: Date, timeForPrice: [Date], price: [Int], table: [String]) async throws {
         print("insertevent 1")
-
-            var createEvent = Event()
-            createEvent.id = UUID().uuidString
-            createEvent.name = name
-            createEvent.address = address
-            createEvent.location = location
-            createEvent.info = info
-            createEvent.capability = capability
-            createEvent.date = date
-            createEvent.timeForPrice = timeForPrice
-            createEvent.price = price
-            createEvent.table = table
-
+        
+        var createEvent = Event()
+        createEvent.id = UUID().uuidString
+        createEvent.name = name
+        createEvent.address = address
+        createEvent.location = location
+        createEvent.info = info
+        createEvent.capability = capability
+        createEvent.date = date
+        createEvent.timeForPrice = timeForPrice
+        createEvent.price = price
+        createEvent.table = table
+        
         try await roleModel.insert(username: userModel.user.first!.username, permission: [0], idEvent: createEvent.id)
         
         guard
-                let image = imagePoster,
-                let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first?.appendingPathComponent("Giorgio.jpeg"),
-                let data = image.jpegData(compressionQuality: 1.0) else { return }
+            let image = imagePoster,
+            let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first?.appendingPathComponent("Giorgio.jpeg"),
+            let data = image.jpegData(compressionQuality: 1.0) else { return }
         
         print("insertevent 3")
- 
-            do {
-                print("insertevent 4")
-
-                try data.write(to: url)
-                let asset = CKAsset(fileURL: url)
-                createEvent.poster = asset
-
-                let _ = try await database.save(createEvent.record)
-                print("insertevent 5")
-
-            } catch let error {
-                print(error)
-                return
-            }
-            self.insertedObjects.append(createEvent)
-            self.updateEvent()
+        
+        do {
+            print("insertevent 4")
+            
+            try data.write(to: url)
+            let asset = CKAsset(fileURL: url)
+            createEvent.poster = asset
+            
+            let _ = try await database.save(createEvent.record)
+            print("insertevent 5")
+            
+        } catch let error {
+            print(error)
             return
         }
+        self.insertedObjects.append(createEvent)
+        self.updateEvent()
+        return
+    }
     
     
     
@@ -157,7 +157,7 @@ class EventModel: ObservableObject {
     }
     
     func update(event: Event, name: String, address: String, location: String, info: String, poster: CKAsset, capability: Int, date: Date, lists: [String], table: [String], price: [Int]) async throws {
-            
+        
         var singleEvent = Event()
         singleEvent.name = name
         singleEvent.address = address
@@ -169,9 +169,9 @@ class EventModel: ObservableObject {
         singleEvent.lists = lists
         singleEvent.table = table
         singleEvent.price = price
-          
+        
         let _ = try await self.database.modifyRecords(saving: [singleEvent.record], deleting: [event.record.recordID], savePolicy: .changedKeys, atomically: true)
-            self.updateEvent()
+        self.updateEvent()
     }
     
     private func updateEvent() {
@@ -200,32 +200,32 @@ class EventModel: ObservableObject {
     }
     
     func loadCoverPhoto(completion: @escaping (_ photo: UIImage?) -> ()) {
-      // 1.
-      DispatchQueue.global(qos: .utility).async {
-        var image: UIImage?
-        // 5.
-        defer {
-          DispatchQueue.main.async {
-            completion(image)
-          }
+        // 1.
+        DispatchQueue.global(qos: .utility).async {
+            var image: UIImage?
+            // 5.
+            defer {
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            }
+            // 2.
+            guard
+                let poster = self.event.first?.poster,
+                let fileURL = poster.fileURL
+            else {
+                return
+            }
+            let imageData: Data
+            do {
+                // 3.
+                imageData = try Data(contentsOf: fileURL)
+            } catch {
+                return
+            }
+            // 4.
+            image = UIImage(data: imageData)
         }
-        // 2.
-        guard
-            let poster = self.event.first?.poster,
-            let fileURL = poster.fileURL
-          else {
-            return
-        }
-        let imageData: Data
-        do {
-          // 3.
-          imageData = try Data(contentsOf: fileURL)
-        } catch {
-          return
-        }
-        // 4.
-        image = UIImage(data: imageData)
-      }
     }
     
 }

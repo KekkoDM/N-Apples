@@ -8,6 +8,21 @@
 import Foundation
 import SwiftUI
 
+func retrieveMyEvents() async throws -> Bool{
+    if(!(userModel.user.isEmpty)){
+
+        try await roleModel.retrieveAllUsername(username: userModel.user.first!.username)
+        
+        for i in 0 ..< roleModel.role.count {
+            try await eventModel.retrieveAllId(id: roleModel.role[i].idEvent)
+        }
+        return true
+    }
+    else{
+        return false
+    }
+    
+}
 
 struct LoginView: View {
     
@@ -92,7 +107,11 @@ struct LoginView: View {
                                 Text("Login")
                                     .onTapGesture {
                                         Task {
-                                            try await retrieveMyEvents()
+                                            try await userModel.retrieveAllUsernamePassword(username: username,password: password)
+
+                                            if(!userModel.user.isEmpty){
+                                                presentEventView.toggle()
+                                            }
                                         }
                                     }
                             }
@@ -127,16 +146,5 @@ struct LoginView: View {
   
     
     
-    func retrieveMyEvents() async throws{
-        if(!(userModel.user.isEmpty)){
-            try await roleModel.retrieveAllUsername(username: userModel.user.first!.username)
-            eventModel.records.removeAll()
-            
-            for i in 0 ..< roleModel.role.count {
-                try await eventModel.retrieveAllId(id: roleModel.role[i].idEvent)
-            }
-            
-            presentEventView.toggle()
-        }
-    }
+    
 }

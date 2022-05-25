@@ -18,51 +18,58 @@ struct EventView: View {
     @State var role: Role = Role()
     @State var image: UIImage = UIImage()
     @State var intero: Int = 0
+    @State var showEvents = false
     
     var body: some View {
         
-            ZStack {
-                VStack (spacing: 70) {
-                    NavigationLink (destination: UpdateView(userModel: userModel), isActive: $presentUpdateView) {
-                        Text("My Self")
-                            .onTapGesture {
-                                presentUpdateView.toggle()
-                            }
-                    }
-                    
-                    VStack {
+        ZStack {
+            VStack (spacing: 70) {
+                NavigationLink (destination: UpdateView(userModel: userModel), isActive: $presentUpdateView) {
+                    Text("My Self")
+                        .onTapGesture {
+                            presentUpdateView.toggle()
+                        }
+                }
+                
+                VStack {
+                    if(showEvents){
                         ForEach(0 ..< eventModel.event.count, id: \.self) { i in
                             NavigationLink (destination: RecapEventView(eventModel: $eventModel, i: $intero), isActive: $presentRecapEventView) {
                                 Text(eventModel.event[i].name)
                                     .onTapGesture {
                                         intero = i
+                                        showEvents = false
                                         presentRecapEventView.toggle()
+                                        
                                     }
                             }
-                            .onAppear(){
-                                print("EVENTI: \(eventModel.event.count)")
-                            }
-//                            Text(eventModel.event[i].name)
-//                                .onAppear(){
-//                                    print("ueue \(eventModel.event.count)")
-//                                }
-                        }
-                    }
-                    
-                    
-                    
-                    VStack (spacing: 20) {
-                        NavigationLink (destination: CreationView(), isActive: $presentCreationView) {
-                            Text("Create Event")
-                                .onTapGesture {
-                                    presentCreationView.toggle()
-                                }
+                            
                         }
                     }
                 }
+                
+                
+                
+                VStack (spacing: 20) {
+                    NavigationLink (destination: CreationView(), isActive: $presentCreationView) {
+                        Text("Create Event")
+                            .onTapGesture {
+                                presentCreationView.toggle()
+                            }
+                    }
+                }
             }
-
-            .navigationTitle("My Event")
-            .padding()
+        }
+        .onAppear(){
+            
+            Task{
+                eventModel.records.removeAll()
+                eventModel.event.removeAll()
+                showEvents = try await retrieveMyEvents()
+            }
+        }
+        
+        .navigationTitle("My Event")
+        .padding()
     }
 }
