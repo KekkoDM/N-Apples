@@ -18,7 +18,7 @@ struct RecapEventView: View {
             VStack {
                 Text(eventModel.event[i].name)
                 
-                NavigationLink (destination: RoleView(i: $i, eventModel: $eventModel, users: userModel), isActive: $presentRoleView) {
+                NavigationLink (destination: RoleView(i: $i, eventModel: $eventModel), isActive: $presentRoleView) {
                     Text("Role")
                         .onTapGesture {
                             presentRoleView.toggle()

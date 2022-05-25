@@ -92,6 +92,7 @@ class UserModel: ObservableObject {
     }
     
     func retrieveAllEmail(email: String) async throws {
+        records.removeAll()
         let predicate: NSPredicate = NSPredicate(format: "email == %@", email)
         let query = CKQuery(recordType: User.recordType, predicate: predicate)
         
@@ -102,7 +103,8 @@ class UserModel: ObservableObject {
                 self.records = [data]
             }
         }
-        
+        print("EMAIL COUNT: \(user.count)" )
+
         self.updateUser()
     }
     

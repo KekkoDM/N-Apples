@@ -11,7 +11,7 @@ import SwiftUI
 struct RoleView: View {
     @Binding var i: Int
     @Binding var eventModel: EventModel
-    @State var users: UserModel
+    @State var users: UserModel = UserModel()
     @State var presentAssignRoleView: Bool = false
     @State var userSeacrh: String = ""
     
@@ -29,6 +29,7 @@ struct RoleView: View {
                             .onTapGesture {
                                 Task {
                                     try await users.retrieveAllEmail(email: userSeacrh)
+                                    print("EMAIL: " + userSeacrh)
                                     if (!users.user.isEmpty){
                                         print ("User Nicola: \(users.user.first!.username)")
                                         presentAssignRoleView.toggle()

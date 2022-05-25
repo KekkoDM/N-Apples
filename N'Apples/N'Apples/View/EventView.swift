@@ -38,7 +38,6 @@ struct EventView: View {
                                 Text(eventModel.event[i].name)
                                     .onTapGesture {
                                         intero = i
-                                        showEvents = false
                                         presentRecapEventView.toggle()
                                         
                                     }
