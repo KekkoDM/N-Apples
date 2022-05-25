@@ -49,21 +49,25 @@ class RoleModel: ObservableObject {
         print("Conta" + "\(role.count)")
     }
     
+
+    
     func retrieveAllCollaborators(idEvent: String) async throws {
-        let predicate: NSPredicate = NSPredicate(format: "idEvent == %@", idEvent)
-        let query = CKQuery(recordType: Role.recordType, predicate: predicate)
-        
-        let tmp = try await self.database.records(matching: query)
-        
-        for tmp1 in tmp.matchResults {
-            if let data = try? tmp1.1.get() {
-                self.records = [data]
+            records.removeAll()
+            let predicate: NSPredicate = NSPredicate(format: "idEvent == %@", idEvent)
+            let query = CKQuery(recordType: Role.recordType, predicate: predicate)
+
+            let tmp = try await self.database.records(matching: query)
+            print("Collaborator count: (tmp.matchResults.count)")
+
+            for tmp1 in tmp.matchResults{
+                if let data = try? tmp1.1.get() {
+                    self.records.append(data)
+                }
             }
-            
+
+            self.updateRole()
         }
-        
-        self.updateRole()
-    }
+
     
     func retrieveOneCollaborator(idEvent: String, username: String) async throws {
         let predicate: NSPredicate = NSPredicate(format: "idEvent == %@ AND username == %@", idEvent, username)

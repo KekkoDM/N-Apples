@@ -230,6 +230,12 @@ class UserModel: ObservableObject {
         self.updateUser()
     }
     
+    func reset() {
+        records.removeAll()
+        user.removeAll()
+    }
+    
+    
     private func updateUser() {
         
         var knownIds = Set(records.map { $0.recordID })

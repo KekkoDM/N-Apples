@@ -21,10 +21,26 @@ struct AssignRoleView: View {
                 
                 Button (action: {
                     Task {
-                        try await roleModel.insert(username: users.user.first!.username, permission: [1], idEvent: eventModel.event[i].id)
+                        try await roleModel.insert(username: users.user.first!.username, permission: [1, 0, 0], idEvent: eventModel.event[i].id)
                     }
                 }, label: {
-                    Text("Choice role")
+                    Text("Guardio")
+                })
+                
+                Button (action: {
+                    Task {
+                        try await roleModel.insert(username: users.user.first!.username, permission: [0, 1, 0], idEvent: eventModel.event[i].id)
+                    }
+                }, label: {
+                    Text("Collabarotare")
+                })
+                
+                Button (action: {
+                    Task {
+                        try await roleModel.insert(username: users.user.first!.username, permission: [0, 0, 1], idEvent: eventModel.event[i].id)
+                    }
+                }, label: {
+                    Text("Organizzatore")
                 })
             }
         }

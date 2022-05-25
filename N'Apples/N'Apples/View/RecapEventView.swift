@@ -19,11 +19,19 @@ struct RecapEventView: View {
                 Text(eventModel.event[i].name)
                 
                 NavigationLink (destination: RoleView(i: $i, eventModel: $eventModel), isActive: $presentRoleView) {
+                    
                     Text("Role")
                         .onTapGesture {
                             presentRoleView.toggle()
+                           
                         }
+                    
                 }
+            }
+        }.onAppear() {
+            Task {
+                try await roleModel.retrieveAllCollaborators(idEvent: eventModel.event[i].id)
+                print ("AMen \(roleModel.role)")
             }
         }
     }
