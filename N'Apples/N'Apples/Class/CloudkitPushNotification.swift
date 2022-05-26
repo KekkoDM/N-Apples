@@ -20,23 +20,29 @@ class CloudkitPushNotificationViewModel: ObservableObject{
             } else if succes {
                 print("Notification permission succes")
                 DispatchQueue.main.async {
-                    
                     UIApplication.shared.registerForRemoteNotifications()
-                    
                 }
-            }else{
+            } else{
                 print("Notification Permission failure")
             }
         })
     }
     
-    func subscribe(){
+    func subscribe(textType: String) {
         let predicate = NSPredicate(value: true)
-        let subscription = CKQuerySubscription(recordType: "Event", predicate: predicate, subscriptionID: "event_added_to_database", options: .firesOnRecordCreation)
+        let subscription = CKQuerySubscription(recordType: textType, predicate: predicate, subscriptionID: "event_added_to_database", options: .firesOnRecordCreation)
+  
         let notification = CKSubscription.NotificationInfo()
-        notification.title = "There's a new Event bro"
-        notification.alertBody = "Open the app to join"
+       
+        if (textType == "Role") {
+            notification.title = "You have been assigned to a new role"
+            notification.alertBody = "Open the app to view this"
+        } else if (textType == "Event") {
+            notification.title = "There's a new Event"
+            notification.alertBody = "Open the app to join"
+        }
         notification.soundName = "default"
+        
         subscription.notificationInfo = notification
         CKContainer.default().publicCloudDatabase.save(subscription){ returnedSubscription,returnedError in
             if let error = returnedError{
@@ -60,38 +66,38 @@ class CloudkitPushNotificationViewModel: ObservableObject{
     }
 }
 
-struct CloudkitPushNotification:View {
-    @StateObject private var vm = CloudkitPushNotificationViewModel()
-    var body: some View{
-        ZStack {
-            Color.white
-            VStack {
-                Button(action: {
-                    
-                    vm.requestNotificationPermission()
-                    
-                }, label: {
-                    Text("Ask Permission")
-                    
-                })
-                
-                Button(action: {
-                    
-                    vm.subscribe()
-                    
-                }, label: {Text("Subscribe")
-                    
-                })
-                Button(action: {
-                    
-                    vm.unsubscribe()
-                    
-                }, label: {Text("UnSubscribe")
-                    
-                })
-                
-            }
-        }
-    }
-    
-}
+//struct CloudkitPushNotification:View {
+//    @StateObject private var vm = CloudkitPushNotificationViewModel()
+//    var body: some View{
+//        ZStack {
+//            Color.white
+//            VStack {
+//                Button(action: {
+//
+//                    vm.requestNotificationPermission()
+//
+//                }, label: {
+//                    Text("Ask Permission")
+//
+//                })
+//
+//                Button(action: {
+//
+//                    vm.subscribe()
+//
+//                }, label: {Text("Subscribe")
+//
+//                })
+//                Button(action: {
+//
+//                    vm.unsubscribe()
+//
+//                }, label: {Text("UnSubscribe")
+//
+//                })
+//
+//            }
+//        }
+//    }
+//
+//}

@@ -107,7 +107,8 @@ struct LoginView: View {
                                 Text("Login")
                                     .onTapGesture {
                                         Task {
-                                            try await userModel.retrieveAllUsernamePassword(username: username,password: password)
+//                                            try await userModel.retrieveAllUsernamePassword(username: username,password: password)
+                                            try await userModel.retrieveAllName(username: username)
 
                                             if(!userModel.user.isEmpty){
                                                 presentEventView.toggle()
