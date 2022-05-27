@@ -18,6 +18,7 @@ struct ReservationView: View {
     @State var qrNumber = UUID()
     @State var show = showSaved
     @State var showqr:Bool = false
+    @State var event: Event
     
     var body: some View {
         
@@ -54,7 +55,7 @@ struct ReservationView: View {
                     }
                     Button(action: {
                         Task{
-                            try await reservationModel.insert(id: qrNumber.uuidString, name: name, surname: surname, email: email, nameList: nameList, numFriends: Int(numFriends) ?? 0)
+                            try await reservationModel.insert(event: event.id, id: qrNumber.uuidString, name: name, surname: surname, email: email, nameList: nameList, numFriends: Int(numFriends) ?? 0)
                             showqr = true
                         }
                     }, label: {

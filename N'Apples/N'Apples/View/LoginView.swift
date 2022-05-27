@@ -121,7 +121,7 @@ struct LoginView: View {
                                 Text("Sign Up")
                                     .onTapGesture {
                                         Task {
-                                            try await userModel.insert(username: username, password: password)
+                                            try await userModel.insert(username: username, password: password, email: mail)
                                             presentAlert.toggle()
                                         }
                                     }
