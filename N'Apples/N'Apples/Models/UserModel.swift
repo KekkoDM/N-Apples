@@ -53,9 +53,12 @@ class UserModel: ObservableObject {
         
         for i in 0..<user.count {
             let tmpPass = try decryptStringToCodableOject(String.self, from: user[i].password, usingKey: key)
-            
+//            let tmpEmail =  try decryptStringToCodableOject(String.self, from: user[i].email, usingKey: key)
+
             if(tmpPass == password){
                 user[i].password = tmpPass
+//                user[i].email = tmpEmail
+
             }
         }
         
@@ -103,23 +106,24 @@ class UserModel: ObservableObject {
                 self.records = [data]
             }
         }
-        print("EMAIL COUNT: \(user.count)" )
 
         self.updateUser()
     }
     
-    func insert(username: String, password: String) async throws {
+    func insert(username: String, password: String, email: String) async throws {
         
         var createUser = User()
         createUser.username = username
         
         let key = keyFromPassword(password)
         
-        print("KEY Insert: \(key)" )
         
         let encryptedPassword = try encryptCodableObject(password, usingKey: key)
-        
+//        let encryptedEmail = try encryptCodableObject(email, usingKey: key)
+
         createUser.password = encryptedPassword
+        createUser.email = email
+        
         
         do {
             let _ = try await database.save(createUser.record)
