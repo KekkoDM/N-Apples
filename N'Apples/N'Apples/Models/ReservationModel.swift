@@ -62,18 +62,42 @@ class ReservationModel: ObservableObject {
         self.updateReservation()
 
         let key = keyFromPassword(id)
+        
         for i in 0..<reservation.count {
-            print("PROVIAMO NAME: " + reservation[i].name )
-            print("PROVIAMO SURNAME: "  + reservation[i].surname )
-            print("PROVIAMO EMAIL: "  + reservation[i].email )
-
             reservation[i].name = try decryptStringToCodableOject(String.self, from: reservation[i].name, usingKey: key)
             reservation[i].surname = try decryptStringToCodableOject(String.self, from: reservation[i].surname, usingKey: key)
             reservation[i].email = try decryptStringToCodableOject(String.self, from: reservation[i].email, usingKey: key)
+        }
 
-            print("PROVIAMO NAME DOPO: "  + reservation[i].name )
-            print("PROVIAMO SURNAME DOPO: "  + reservation[i].surname )
-            print("PROVIAMO EMAIL DOPO: "  + reservation[i].email )
+    }
+    
+    func retrieveAllEventIdDecrypt(idEvent: String) async throws {
+        
+        records.removeAll()
+        reservation.removeAll()
+        let predicate: NSPredicate = NSPredicate(format: "idEvent == %@", idEvent)
+        let query = CKQuery(recordType: Reservation.recordType, predicate: predicate)
+        
+        
+        let tmp = try await self.database.records(matching: query)
+        print(tmp.matchResults)
+        for tmp1 in tmp.matchResults{
+            if let data = try? tmp1.1.get() {
+                self.records.append(data)
+                
+            }
+
+        }
+        
+        self.updateReservation()
+
+        
+        
+        for i in 0..<reservation.count {
+            let key = keyFromPassword(reservation[i].id)
+            reservation[i].name = try decryptStringToCodableOject(String.self, from: reservation[i].name, usingKey: key)
+            reservation[i].surname = try decryptStringToCodableOject(String.self, from: reservation[i].surname, usingKey: key)
+            reservation[i].email = try decryptStringToCodableOject(String.self, from: reservation[i].email, usingKey: key)
             
         }
 
@@ -119,9 +143,10 @@ class ReservationModel: ObservableObject {
         print(" OGGETTI : \(reservation)")
     }
     
-    func insert(id: String, name: String, surname: String, email: String, nameList: String, numFriends: Int) async throws {
+    func insert(event: String,id: String, name: String, surname: String, email: String, nameList: String, numFriends: Int) async throws {
         
         var createReservation = Reservation()
+        createReservation.idEvent = event
         createReservation.id = id
         createReservation.name = try encryptParameter(id, name)
         createReservation.surname = try encryptParameter(id, surname)
