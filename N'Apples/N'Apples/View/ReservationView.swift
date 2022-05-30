@@ -16,7 +16,7 @@ struct ReservationView: View {
     @State var nameList: String = ""
     @State var numFriends: String = ""
     @State var qrNumber = UUID()
-    @State var show = showSaved
+    @State var show = false
     @State var showqr:Bool = false
     @State var event: Event
     
@@ -46,10 +46,11 @@ struct ReservationView: View {
                     if(showqr){
                         image
                             .onLongPressGesture {
-                                
+                                show.toggle()
+                                print("Show e\(show)")
                                 let imageSaver = ImageSaver()
                                 imageSaver.writeToPhotoAlbum(image: qrImage)
-                                show.toggle()
+                               
                                 
                             }
                     }
@@ -67,6 +68,7 @@ struct ReservationView: View {
                                 .foregroundColor(.white)
                         }.padding(.bottom, 40)
                     })
+                    
                     Button(action: {
                         Task{
                             try await reservationModel.retrieveAllId(id:qrNumber.uuidString)
@@ -85,10 +87,11 @@ struct ReservationView: View {
                 }
             }
             
-            if(show) {
-                Alert(show: $show)
-            }
+            
                 
+        }
+        if(show) {
+            Alert(show: $show)
         }
         
     }

@@ -132,7 +132,10 @@ class RoleModel: ObservableObject {
         }
     }
     
-    
+    func reset(){
+        records.removeAll()
+        role.removeAll()
+    }
     
     private func updateRole() {
         

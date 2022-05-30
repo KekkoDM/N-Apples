@@ -98,6 +98,11 @@ class EventModel: ObservableObject {
         return
     }
     
+    func reset(){
+        records.removeAll()
+        event.removeAll()
+    }
+    
     func insertEvent(name: String, address: String, location: String, info: String, imagePoster: UIImage?, capability: Int, date: Date, timeForPrice: [Date], price: [Int], table: [String]) async throws {
         print("insertevent 1")
         

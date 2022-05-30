@@ -57,7 +57,7 @@ struct TestDownloadImage: View {
                     }
                 }, label: {Text("Open in maps")})
                 
-//                Button(action: {notification = true }, label: {Text("View Notification")})
+                Button(action: {notification = true }, label: {Text("View Notification")})
 
 
 //                Button(action: {
@@ -84,9 +84,9 @@ struct TestDownloadImage: View {
                     .frame(width: 100, height: 100, alignment: .center)
             }
 
-//            if notification == true {
-//                CloudkitPushNotification()
-//            }
+            if notification == true {
+                CloudkitPushNotification()
+            }
             
         }
     }

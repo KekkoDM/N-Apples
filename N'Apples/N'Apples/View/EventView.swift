@@ -19,8 +19,6 @@ struct EventView: View {
     @State var image: UIImage = UIImage()
     @State var intero: Int = 0
     @State var showEvents = false
-    @State var notification: Bool = false
-    @ObservedObject var pushNotification: CloudkitPushNotificationViewModel = CloudkitPushNotificationViewModel()
     
     var body: some View {
         
@@ -49,7 +47,7 @@ struct EventView: View {
                     }
                 }
                 
-//                Button(action: {notification = true }, label: {Text("View Notification")})
+                
                 
                 VStack (spacing: 20) {
                     NavigationLink (destination: CreationView(), isActive: $presentCreationView) {
@@ -60,17 +58,11 @@ struct EventView: View {
                     }
                 }
             }
-//            if notification == true {
-//                CloudkitPushNotification()
-//            }
         }
         .onAppear(){
             
-            pushNotification.requestNotificationPermission()
-            
             Task{
-                eventModel.records.removeAll()
-                eventModel.event.removeAll()
+                showEvents = false
                 showEvents = try await retrieveMyEvents()
             }
         }

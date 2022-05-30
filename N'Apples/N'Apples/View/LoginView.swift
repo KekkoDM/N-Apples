@@ -9,10 +9,14 @@ import Foundation
 import SwiftUI
 
 func retrieveMyEvents() async throws -> Bool{
+    
+    print("FUNZIONE CHIAMATA")
+    
     if(!(userModel.user.isEmpty)){
-
-        try await roleModel.retrieveAllUsername(username: userModel.user.first!.username)
+        roleModel.reset()
+        eventModel.reset()
         
+        try await roleModel.retrieveAllUsername(username: userModel.user.first!.username)
         for i in 0 ..< roleModel.role.count {
             try await eventModel.retrieveAllId(id: roleModel.role[i].idEvent)
         }
@@ -101,14 +105,15 @@ struct LoginView: View {
                     
                     VStack {
                         
+                        
+                        
                         HStack (spacing: 15) {
                             
                             NavigationLink (destination: EventView (eventModel: eventModel, roleModel: roleModel), isActive: $presentEventView) {
                                 Text("Login")
                                     .onTapGesture {
                                         Task {
-//                                            try await userModel.retrieveAllUsernamePassword(username: username,password: password)
-                                            try await userModel.retrieveAllName(username: username)
+                                            try await userModel.retrieveAllUsernamePassword(username: username,password: password)
 
                                             if(!userModel.user.isEmpty){
                                                 presentEventView.toggle()
@@ -139,7 +144,7 @@ struct LoginView: View {
             Task {
                 try await userModel.retrieveAllId(id: userSettings.id)
                 username = userModel.user.first?.username ?? ""
-                try await retrieveMyEvents()
+//                try await retrieveMyEvents()
             }
         }
         

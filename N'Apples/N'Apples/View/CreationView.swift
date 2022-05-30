@@ -24,7 +24,6 @@ struct CreationView: View {
     @State var eventModel : EventModel = EventModel()
     @State var isPresenting: Bool = false
     @State var sourceType: UIImagePickerController.SourceType = .photoLibrary
-    @State var pushNotification: CloudkitPushNotificationViewModel = CloudkitPushNotificationViewModel()
     
     var body: some View {
         
@@ -88,11 +87,8 @@ struct CreationView: View {
                         }
                         
                         Button(action: {
-                            
-                            Task {
-                                pushNotification.subscribe(textType: "Event")
+                            Task{
                                 try await eventModel.insertEvent(name: name, address: address, location: location, info: info, imagePoster: image, capability: Int(capability) ?? 0, date: dateEvents, timeForPrice: timePrices, price: prices.map{Int($0) ?? 0}, table: tables)
-                                
                             }
                         }, label: {
                             ZStack {
