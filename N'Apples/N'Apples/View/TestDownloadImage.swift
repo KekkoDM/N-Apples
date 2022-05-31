@@ -19,8 +19,8 @@ struct TestDownloadImage: View {
     @State var mappa:String = ""
     @State var notification :Bool = false
     let amount = PKPaymentSummaryItem(label: "Amount", amount: NSDecimalNumber(string: "39"), type: .final)
-      let tax = PKPaymentSummaryItem(label: "Tax", amount: NSDecimalNumber(string: "11"), type: .final)
-      let total = PKPaymentSummaryItem(label: "Total", amount: NSDecimalNumber(string: "50.00"), type: .final)
+    let tax = PKPaymentSummaryItem(label: "Tax", amount: NSDecimalNumber(string: "11"), type: .final)
+    let total = PKPaymentSummaryItem(label: "Total", amount: NSDecimalNumber(string: "50.00"), type: .final)
     let paymentHandler = PaymentHandler()
 
     @State var image:UIImage = UIImage()
@@ -84,9 +84,9 @@ struct TestDownloadImage: View {
                     .frame(width: 100, height: 100, alignment: .center)
             }
 
-            if notification == true {
-                CloudkitPushNotification()
-            }
+//            if notification == true {
+//                CloudkitPushNotification()
+//            }
             
         }
     }

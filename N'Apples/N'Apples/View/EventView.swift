@@ -19,6 +19,7 @@ struct EventView: View {
     @State var image: UIImage = UIImage()
     @State var intero: Int = 0
     @State var showEvents = false
+    @ObservedObject var pushNotification: CloudkitPushNotificationViewModel = CloudkitPushNotificationViewModel()
     
     var body: some View {
         
@@ -60,6 +61,9 @@ struct EventView: View {
             }
         }
         .onAppear(){
+            
+            pushNotification.requestNotificationPermission()
+//            pushNotification.subscribe(textType: "Role", userName: userModel.user.first!.username)
             
             Task{
                 showEvents = false
