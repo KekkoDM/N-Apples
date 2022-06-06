@@ -20,11 +20,14 @@ struct EventView: View {
     @State var intero: Int = 0
     @State var showEvents = false
     @ObservedObject var pushNotification: CloudkitPushNotificationViewModel = CloudkitPushNotificationViewModel()
-    
+    @ObservedObject var userSettings = UserSettings()
+
     var body: some View {
-        
-        ZStack {
+        NavigationView{
+        ZStack {Color.white
+            
             VStack (spacing: 70) {
+                
                 NavigationLink (destination: UpdateView(userModel: userModel), isActive: $presentUpdateView) {
                     Text("My Self")
                         .onTapGesture {
@@ -37,6 +40,7 @@ struct EventView: View {
                         ForEach(0 ..< eventModel.event.count, id: \.self) { i in
                             NavigationLink (destination: RecapEventView(eventModel: $eventModel, i: $intero), isActive: $presentRecapEventView) {
                                 Text(eventModel.event[i].name)
+                           
                                     .onTapGesture {
                                         intero = i
                                         presentRecapEventView.toggle()
@@ -65,13 +69,22 @@ struct EventView: View {
             pushNotification.requestNotificationPermission()
 //            pushNotification.subscribe(textType: "Role", userName: userModel.user.first!.username)
             
-            Task{
-                showEvents = false
-                showEvents = try await retrieveMyEvents()
-            }
+            
+    
+               Task {
+                   try await userModel.retrieveAllId(id: userSettings.id)
+                  
+                   print( userModel.user.first?.username ?? "prova")
+                   showEvents = false
+                   showEvents = try await retrieveMyEvents()
+                  
+//                                   try await retrieveMyEvents()
+               }
+           
         }
         
         .navigationTitle("My Event")
         .padding()
-    }
+        }}
+    
 }

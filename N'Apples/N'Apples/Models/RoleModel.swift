@@ -29,6 +29,7 @@ class RoleModel: ObservableObject {
     var insertedObjects = [Role]()
     var deletedObjectIds = Set<CKRecord.ID>()
     
+    
     func retrieveAllUsername(username: String) async throws {
         let predicate: NSPredicate = NSPredicate(format: "username == %@", username)
         let query = CKQuery(recordType: Role.recordType, predicate: predicate)

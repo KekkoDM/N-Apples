@@ -9,9 +9,18 @@ import SwiftUI
 
 @main
 struct N_ApplesApp: App {
+    @ObservedObject var userSettings = UserSettings()
+
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            if userSettings.id == ""{
+                LoginView()
+                
+            }else{
+      
+                EventView (eventModel: eventModel, roleModel: roleModel)
+
+            }
         }
     }
 }

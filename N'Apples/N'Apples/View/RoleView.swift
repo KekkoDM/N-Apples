@@ -8,44 +8,111 @@
 import Foundation
 import SwiftUI
 
+
 struct RoleView: View {
     @Binding var i: Int
     @Binding var eventModel: EventModel
     @State var users: UserModel = UserModel()
     @State var presentAssignRoleView: Bool = false
     @State var userSeacrh: String = ""
-    
     var body: some View {
-        ZStack {
-            VStack {
-                
-                HStack {
-                    TextField("Search", text: $userSeacrh)
+
+        ZStack{
+                      Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255)
+                      .ignoresSafeArea()
+              GeometryReader{geometry in
+                  Spacer()
+                 
+                  Button {
                     
-                    
-                    NavigationLink (destination: AssignRoleView(eventModel: $eventModel, i: $i, users: $users), isActive: $presentAssignRoleView) {
+                      print("Ok")
+                      Task {
+                          try await users.retrieveAllEmail(email: userSeacrh + " ")
+                          print("EMAIL: " + users.user.first!.email)
                         
-                        Text("Search")
-                            .onTapGesture {
-                                Task {
-                                    try await users.retrieveAllEmail(email: userSeacrh)
-                                    print("EMAIL: " + userSeacrh)
-                                    if (!users.user.isEmpty){
-                                        print ("User Nicola: \(users.user.first!.username)")
-                                        presentAssignRoleView.toggle()
-                                    }
-                                    
-                                }
-                                
-                            }
-                        
-                    }
-                    
-                }
-                
-                
-            }
+
+                          if (!users.user.isEmpty){
+                              print("Ok nn")
+                              print ("User Nicola: \(users.user.first!.username)")
+                              presentAssignRoleView.toggle()
+                              
+                          }
+
+                      }
+                  } label: {
+                      RoundedRectangle(cornerRadius: 7)
+                          .stroke(.white)
+                          .foregroundColor(.clear)
+                          .overlay(Text("Domenico Marino")
+                                      .foregroundColor(.white))
+                          .frame(width: geometry.size.width*0.5, height: geometry.size.height*0.075)
+                       
+                          
+                         
+                  }
+                  .frame(width: geometry.size.width*0.5, height: geometry.size.height*0.055)
+                  .position(x: geometry.size.width*0.3, y: geometry.size.height*0.14)
+//                  List {
+//                      ForEach(0..<roleModel.role.count) {i in
+//                          Text(roleModel.role[i].username)
+//                                 }
+//                             }
+                  .sheet(isPresented: $presentAssignRoleView) {
+                      AssignRoleView(eventModel: $eventModel, i: $i, users: $users)
+                  }
+               
+                  
+              }
+             
         }
-    }
+         
+        .searchable(text: $userSeacrh)
+        
+       
+          .navigationTitle("Assign a Role")
+          .navigationBarTitleDisplayMode(.inline)
+        
+      }
+      
+    
 }
+  //    var searchResults: [String] {
+  //        if searchText.isEmpty {
+  //            return email
+  //        } else {
+  //            return email.filter { $0.contains(searchText) }
+  //        }
+  //    }
+      
+  
+//        ZStack {
+//            VStack {
+//
+//                HStack {
+//                    TextField("Search", text: $userSeacrh)
+//
+//
+//                    NavigationLink (destination: AssignRoleView(eventModel: $eventModel, i: $i, users: $users), isActive: $presentAssignRoleView) {
+//
+//                        Text("Search")
+//                            .onTapGesture {
+//                                Task {
+//                                    try await users.retrieveAllEmail(email: userSeacrh)
+//                                    print("EMAIL: " + userSeacrh)
+//                                    if (!users.user.isEmpty){
+//                                        print ("User Nicola: \(users.user.first!.username)")
+//                                        presentAssignRoleView.toggle()
+//                                    }
+//
+//                                }
+//
+//                            }
+//
+//                    }
+//
+//                }
+//
+//
+//            }
+//        }
 
