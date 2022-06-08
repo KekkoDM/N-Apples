@@ -15,6 +15,8 @@ struct AssignRoleView: View {
     @State var roleModel: RoleModel = RoleModel()
     @State var pushNotification: CloudkitPushNotificationViewModel = CloudkitPushNotificationViewModel()
     
+    
+    
     @Environment(\.dismiss)
     var dismiss
     var roles = ["Collaborator","PR", "Box-Office"]
@@ -22,7 +24,7 @@ struct AssignRoleView: View {
     @State private var showPopUp = false
     //    @State var shownInfo = false
     //    @State var shown = false
-    @State var permission: Int = 0
+    @State  var permission: Int = 0
     
     
     var body: some View {
@@ -65,12 +67,12 @@ struct AssignRoleView: View {
         //        }
         
         
-        ZStack {
+        ZStack{
             Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255)
                 .ignoresSafeArea()
             
             
-            GeometryReader { geometry in
+            GeometryReader{ geometry in
                 
                 Button {
                     dismiss()
@@ -82,21 +84,16 @@ struct AssignRoleView: View {
                 Button {
                     Task {
                         pushNotification.subscribe(textType: "Role", userName: users.user.first!.username)
-                        if selectedRole == "Collaborator" {
-                            permission = 0
-                        }
-                        else if selectedRole == "PR" {
+                        if selectedRole == "Collaborator"{
+                            permission = 0  }
+                        else if selectedRole == "PR"{
                             permission = 1
-                        }
-                        else if selectedRole == "Box-Office" {
+                        }else if selectedRole == "Box-Office"{
                             permission = 2
                         }
-                        
 //                        try await roleModel.insert(username: users.user.first!.username, permission: permission, idEvent: eventModel.event[i].id)
                         try await roleModel.update(usename: users.user.first!.username, idEvent: eventModel.event[i].id, permission: permission)
-                        
                         pushNotification.unsubscribe(userName: users.user.first!.username)
-                        
                         dismiss()
                     }
                 } label: {
@@ -106,18 +103,19 @@ struct AssignRoleView: View {
                 .position(x: geometry.size.width*0.92, y: geometry.size.height*0.04)
                 
                 
+                
                 VStack(alignment: .leading, spacing: 50) {
                     Text("\(users.user.first!.username)")
-                        .font(.largeTitle)
+                        .font(.title)
                         .bold()
                     
                     
                     Text("E-mail: \(users.user.first!.email)")
-                        .font(.title)
+                        .font(.headline)
                     
                 }
                 .foregroundColor(.white)
-                .position(x: geometry.size.width*0.45, y: geometry.size.height*0.25)
+                .position(x: geometry.size.width*0.37, y: geometry.size.height*0.25)
                 
                 
                 VStack(alignment: .leading, spacing: 10){
@@ -179,9 +177,11 @@ struct AssignRoleView: View {
                                 Text("Promoter")
                                     .font(.headline)
                                 
+                                
                                     .bold()
                                 Text("They can only manage their lists.")
                                     .font(.body)
+                                
                                 
                                 Text("Box-Office")
                                     .font(.headline)

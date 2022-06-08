@@ -25,7 +25,7 @@ struct RecapEventView: View {
                     Text("Event: " + eventModel.event[i].name)
                 }
                 
-                if(roleModel.role[i].permission == [0,0,0]){
+                if(roleModel.role[i].permission == [0, 0, 0]){
                     Text("Partecipants")
                         .padding()
                     if(showReservation){

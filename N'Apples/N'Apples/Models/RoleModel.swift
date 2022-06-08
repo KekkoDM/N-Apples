@@ -84,54 +84,57 @@ class RoleModel: ObservableObject {
         
         self.updateRole()
     }
-        
+    
+    
     func insert(username: String, permission: Int, idEvent: String) async throws {
-        
-        var createRole = Role()
-        createRole.username = username
-        if (permission == 0) {
-            createRole.permission = [1, 0, 0]
-        }
-        if (permission == 1) {
-            createRole.permission = [0, 1, 0]
-        }
-        if (permission == 2) {
-            createRole.permission = [0, 0, 1]
-        }
-        if (permission == 3) {
-            createRole.permission = [0, 0, 0]
-        }
-        createRole.idEvent = idEvent
-        
-        do {
-            let _ = try await database.save(createRole.record)
-        } catch let error {
-            print(error)
+
+            var createRole = Role()
+            createRole.username = username
+            if (permission == 0) {
+                createRole.permission = [1, 0, 0]
+            }
+            if (permission == 1) {
+                createRole.permission = [0, 1, 0]
+            }
+            if (permission == 2) {
+                createRole.permission = [0, 0, 1]
+            }
+            if (permission == 3) {
+                createRole.permission = [0, 0, 0]
+            }
+            createRole.idEvent = idEvent
+
+            do {
+                let _ = try await database.save(createRole.record)
+            } catch let error {
+                print(error)
+                return
+            }
+            self.insertedObjects.append(createRole)
+            self.updateRole()
             return
         }
-        self.insertedObjects.append(createRole)
-        self.updateRole()
-        return
-    }
+
     
     func insertTmp(username: String, permission: [Int], idEvent: String) async throws {
-        
-        var createRole = Role()
-        createRole.username = username
-        createRole.permission = permission
-        createRole.idEvent = idEvent
-        
-        do {
-            let _ = try await database.save(createRole.record)
-        } catch let error {
-            print(error)
+
+            var createRole = Role()
+            createRole.username = username
+            createRole.permission = permission
+            createRole.idEvent = idEvent
+
+            do {
+                let _ = try await database.save(createRole.record)
+            } catch let error {
+                print(error)
+                return
+            }
+            self.insertedObjects.append(createRole)
+            self.updateRole()
             return
         }
-        self.insertedObjects.append(createRole)
-        self.updateRole()
-        return
-    }
-        
+    
+    
     
     func delete(at index : Int) async throws {
         let recordId = self.role[index].record.recordID
@@ -148,21 +151,22 @@ class RoleModel: ObservableObject {
     
     func update(usename: String, idEvent: String, permission: Int) async throws {
         var tmp: [Int]
+
         try await retrieveOneCollaborator(idEvent: idEvent, username: usename)
-        
+
         if(!role.isEmpty) {
-            print(roleModel.role.first?.permission ?? 0)
-            tmp = roleModel.role.first?.permission ?? [0]
-            print(roleModel.role.first?.permission ?? 0)
-            
+
+            tmp = role.first!.permission
+
             tmp[permission] = 1
-            
+
             try await delete(at: 0)
-            print((roleModel.role.first?.username ?? ""))
-            try await insertTmp(username: roleModel.role.first?.username ?? "", permission: tmp, idEvent: roleModel.role.first?.idEvent ?? "")
-            
+
+            try await insertTmp(username: usename, permission: tmp, idEvent: roleModel.role.first?.idEvent ?? "")
+
             self.updateRole()
         } else {
+
             try await insert(username: usename, permission: permission, idEvent: idEvent)
         }
     }
