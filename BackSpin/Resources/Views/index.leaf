@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Reservation</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      html, body {
+      min-height: 100%;
+      }
+      body, p {
+        color:white;
+        text-align:center;
+      padding: 0;
+      margin: 0;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 24px;
+      color: #666;
+      }
+      .main-block {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      }
+      form {
+      width: 100%;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 2px 5px #ccc;
+      }
+      h1 {
+        color:white;
+
+        text-align:center;
+      font-weight: 400;
+      line-height: 28px;
+      }
+      hr {
+        text-align:center;
+      margin: 20px 0;
+      }
+      span.required {
+      color: red;
+      }
+      .personal-details, .question-block, .statements-block {
+      padding-bottom: 20px;
+
+      }
+      .personal-details >div {
+      display: flex;
+      flex-direction: column;
+
+      }
+
+      input {
+
+      padding: 8px 5px;
+      margin-bottom: 10px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+      outline: none;
+      vertical-align: middle;
+      }
+      input:hover, textarea:hover {
+      outline: none;
+      border: 1px solid #095484;
+      }
+      .question, .answer, table, textarea {
+      width: 100%;
+      }
+      .answer input, table input {
+      width: auto;
+      }
+      th, td {
+
+      width: 14%;
+      padding: 10px 0;
+      border-bottom: 1px solid #ccc;
+      text-align: center;
+      vertical-align: unset;
+      line-height: 18px;
+      font-weight: 400;
+      word-break: break-all;
+      }
+      .first-col {
+      width: 30%;
+      text-align: left;
+      }
+      small {
+      display: block;
+      line-height: 18px;
+      opacity: 0.5;
+      }
+      .btn-block {
+
+      text-align: center;
+      }
+      button {
+
+      width: 150px;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      background: #095484;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      button:hover {
+      background: #0666a3;
+      }
+      @media (min-width: 568px) {
+      .personal-details >div {
+      flex-direction: row;
+      align-items: center;
+      }
+      label {
+        color:white;
+      width: 95px;
+      }
+      input {
+      width: calc((100% - 130px)/2);
+      }
+      input.first-name, input.seminar-title {
+
+      margin: 0 5px 10px;
+      }
+      .question-block {
+      display: flex;
+      justify-content: space-between;
+      }
+      .question, .answer {
+      width: 50%;
+      }
+      th, td {
+      word-break: keep-all;
+      }
+      }
+
+    </style>
+  </head>
+  <body style="background-color:#0B296F;">
+    <div class="main-block" >
+      <form action="/reservation" method="post" style="background-color:#0B296F;">
+        <h1>Reservation</h1>
+        <p style = " color:white;">Reservation here</p>
+        <hr>
+
+        <div class="personal-details" style="background-color:#0B296F;">
+          <center>
+            <div>
+              <label>Event:<span class="required">*</span>
+              </label>
+              <div><input  class="seminar-title" type="text" name="idEvent" value="#(idEvent)" readonly required/>
+              </div>
+            </div>
+          <div>
+            <label>Name:<span class="required">*</span>
+            </label>
+            <div><input  class="seminar-title" type="text" name="name" required/>
+            </div>
+          </div>
+          <div>
+            <label>Surname:</label>
+            <div> <input  class="seminar-title" type="text" name="surname" required/>
+            </div>
+          </div>
+          <div>
+            <label>Email:<span class="required">*</span>
+            <span></span>
+            </label>
+            <div><input  class="seminar-title" type="text" name="email" required/>
+            </div>
+          </div>
+          <div>
+            <label>Name List:</span></label>
+            <div>  <input  class="seminar-title" list="lists" name="nameList" required/>
+              <datalist id="lists">
+              #for(name in lists):
+                <option value=#(name)>
+              #endfor
+            </datalist>
+            </div>
+          </div>
+          <div>
+            <label>Number of friends<span class="required">*</span>
+            </label>
+            <div> <input  class="seminar-title" type="text" name="numFriends" required/>
+            </div>
+          </div>
+        </center>
+        </div>
+        </div>
+
+        </div>
+        </div>
+        <div class="btn-block">
+          <button type="submit">Send</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
