@@ -118,7 +118,7 @@ class EventModel: ObservableObject {
         createEvent.price = price
         createEvent.table = table
         
-        try await roleModel.insert(username: userModel.user.first!.username, permission: [0], idEvent: createEvent.id)
+        try await roleModel.insert(username: userModel.user.first!.username, permission: 3, idEvent: createEvent.id)
         
         guard
             let image = imagePoster,
