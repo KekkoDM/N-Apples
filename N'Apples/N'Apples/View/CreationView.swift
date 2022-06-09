@@ -178,21 +178,22 @@ struct CreationView: View {
                             Task {
                                 pushNotification.subscribeEvent(textType: "Event")
                                 try await eventModel.insertEvent(name: name, address: address, location: location, info: info, capability: Int(capability) ?? 0, date: dateEvents, timeForPrice: timePrices, price: prices.map{Int($0) ?? 0}, table: tables)
+                                
                                 presentationMode.wrappedValue.dismiss()
+                                
 
                             }
                           
                         }) {
                             Text("Save").fontWeight(.bold)
                              
-//                            NavigationLink (destination: IMieiEventi(), isActive: $presentIMieiEventi) {
+                            NavigationLink (destination: EventView(eventModel: eventModel, roleModel: roleModel), isActive: $presentIMieiEventi) {
 //                                Text("Save").fontWeight(.bold)
-//                                    .onTapGesture {
-//                                        presentIMieiEventi.toggle()
-//
-//                                    }
-//                            }
-                            //                                .disabled(eventName.isEmpty)
+                                
+
+                                    
+                            }
+                                                            .disabled(eventName.isEmpty)
                         } )
                     }
                 }

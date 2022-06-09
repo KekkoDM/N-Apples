@@ -16,6 +16,11 @@ struct IMieiEventi: View {
     @State var intero: Int = 0
     @State var showSheet = false
     
+    @State var stringaGif: String = "LoadingGif"
+    @State var showEvents = false
+    @State private var showCaricamento : Bool = false
+    @ObservedObject var userSettings = UserSettings()
+    
     var body: some View {
         
         NavigationView {
@@ -24,10 +29,25 @@ struct IMieiEventi: View {
                 geometry in
                 
                 ZStack{
+                    if showCaricamento {
+                        
+                            GifImage(stringaGif)
+                           
+                            .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
+                            .padding(.top, 200)
+                            
+                            .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
+                            .background( Color(red: 11/255, green: 41/255, blue: 111/255))
+        
+                    }
+                    
+                    if showEvents {
+                        IMieiEventi(eventModel: eventModel, roleModel: roleModel)
+                    }
                     
                     Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255)
                         .ignoresSafeArea()
-                    
+                    if !showCaricamento {
                     ScrollView {
                         
                         VStack(spacing: 20){
@@ -42,6 +62,9 @@ struct IMieiEventi: View {
                                     }
                             }
                             
+                           
+                            
+                            
                             Button(action: {
                                 showSheet = true
                             })
@@ -54,7 +77,19 @@ struct IMieiEventi: View {
                             }
                             
                             
-                            .sheet(isPresented: $showSheet) {
+                            .sheet(isPresented: $showSheet, onDismiss: {
+                                showCaricamento = true
+                                Task {
+                                    try await userModel.retrieveAllId(id: userSettings.id)
+                                    
+                                    print( userModel.user.first?.username ?? "prova")
+                                    showEvents = false
+                                    showEvents = try await retrieveMyEvents()
+                                    showCaricamento = false
+                                    
+                                    //                                   try await retrieveMyEvents()
+                                }
+                            }) {
                                 CreationView()
                             }
                             
@@ -62,6 +97,7 @@ struct IMieiEventi: View {
                         
                         
                         }
+                }
                     }.padding(.trailing, 25).padding(.top)
                     
                     
