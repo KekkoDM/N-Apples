@@ -15,6 +15,7 @@ struct RoleView: View {
     @State var users: UserModel = UserModel()
     @State var presentAssignRoleView: Bool = false
     @State var userSeacrh: String = ""
+    @State var showingAlertRole: Bool = false
     var body: some View {
 
         ZStack{
@@ -28,14 +29,14 @@ struct RoleView: View {
                       print("Ok")
                       Task {
                           try await users.retrieveAllEmail(email: userSeacrh + " ")
-                          print("EMAIL: " + users.user.first!.email)
-                        
 
                           if (!users.user.isEmpty){
                               print("Ok nn")
                               print ("User Nicola: \(users.user.first!.username)")
                               presentAssignRoleView.toggle()
                               
+                          } else {
+                              showingAlertRole.toggle()
                           }
 
                       }
@@ -63,6 +64,10 @@ struct RoleView: View {
                
                   
               }
+            
+            if (showingAlertRole == true) {
+                AlertRole(show: $showingAlertRole)
+            }
              
         }
          

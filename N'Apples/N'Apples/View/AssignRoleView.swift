@@ -84,11 +84,11 @@ struct AssignRoleView: View {
                 Button {
                     Task {
                         pushNotification.subscribe(textType: "Role", userName: users.user.first!.username)
-                        if selectedRole == "Collaborator"{
+                        if selectedRole == "Collaborator" {
                             permission = 0  }
-                        else if selectedRole == "PR"{
+                        else if selectedRole == "PR" {
                             permission = 1
-                        }else if selectedRole == "Box-Office"{
+                        }else if selectedRole == "Box-Office" {
                             permission = 2
                         }
 //                        try await roleModel.insert(username: users.user.first!.username, permission: permission, idEvent: eventModel.event[i].id)
@@ -101,7 +101,6 @@ struct AssignRoleView: View {
                 }
                 
                 .position(x: geometry.size.width*0.92, y: geometry.size.height*0.04)
-                
                 
                 
                 VStack(alignment: .leading, spacing: 50) {

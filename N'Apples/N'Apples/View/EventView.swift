@@ -22,76 +22,167 @@ struct EventView: View {
     @ObservedObject var pushNotification: CloudkitPushNotificationViewModel = CloudkitPushNotificationViewModel()
     @ObservedObject var userSettings = UserSettings()
     
+    
+    @State var stringaGif: String = "LoadingGif"
+    @State private var showSheet : Bool = false
+    @State private var showCaricamento : Bool = true
+    
+    
+    //        NavigationView {
+    //            ZStack {Color.white
+    //
+    //                VStack (spacing: 70) {
+    //
+    //                    NavigationLink (destination: UpdateView(userModel: userModel), isActive: $presentUpdateView) {
+    //                        Text("My Self")
+    //                            .onTapGesture {
+    //                                presentUpdateView.toggle()
+    //                            }
+    //                    }
+    //
+    //                    VStack {
+    //                        if(showEvents){
+    //                            ForEach(0 ..< eventModel.event.count, id: \.self) { i in
+    //                                NavigationLink (destination: RecapEventView(eventModel: $eventModel, i: $intero), isActive: $presentRecapEventView) {
+    //                                    Text(eventModel.event[i].name)
+    //
+    //                                        .onTapGesture {
+    //                                            intero = i
+    //                                            presentRecapEventView.toggle()
+    //
+    //                                        }
+    //                                }
+    //
+    //                            }
+    //                        }
+    //                    }
+    //
+    //
+    //
+    //                    VStack (spacing: 20) {
+    //                        Button(action: {
+    //                            presentCreationView.toggle()
+    //                        }
+    //                               , label: {
+    //                            Text("Create Event")
+    //
+    //                        })
+    //
+    //
+    //                    }
+    //                }
+    //            }
+    //
+    //            .sheet(isPresented: $presentCreationView) {
+    //                CreationView()
+    //            }
+    //            .onAppear(){
+    //
+    //                pushNotification.requestNotificationPermission()
+    //                //            pushNotification.subscribe(textType: "Role", userName: userModel.user.first!.username)
+    //
+    //
+    //
+    //                Task {
+    //                    try await userModel.retrieveAllId(id: userSettings.id)
+    //
+    //                    print( userModel.user.first?.username ?? "prova")
+    //                    showEvents = false
+    //                    showEvents = try await retrieveMyEvents()
+    //
+    //                    //                                   try await retrieveMyEvents()
+    //                }
+    //
+    //            }
+    //
+    //            .navigationTitle("My Event")
+    //            .padding()
+    //        }
+    
     var body: some View {
-        NavigationView{
-            ZStack {Color.white
+//        NavigationView {
+            
+            GeometryReader { geometry in
                 
-                VStack (spacing: 70) {
+                ZStack {
+            
+                    Color(red: 11/255, green: 41/255, blue: 111/255)
+                        .ignoresSafeArea()
                     
-                    NavigationLink (destination: UpdateView(userModel: userModel), isActive: $presentUpdateView) {
-                        Text("My Self")
-                            .onTapGesture {
-                                presentUpdateView.toggle()
-                            }
-                    }
-                    
-                    VStack {
-                        if(showEvents){
-                            ForEach(0 ..< eventModel.event.count, id: \.self) { i in
-                                NavigationLink (destination: RecapEventView(eventModel: $eventModel, i: $intero), isActive: $presentRecapEventView) {
-                                    Text(eventModel.event[i].name)
-                                    
-                                        .onTapGesture {
-                                            intero = i
-                                            presentRecapEventView.toggle()
-                                            
-                                        }
-                                }
-                                
-                            }
-                        }
-                    }
-                    
-                    
-                    
-                    VStack (spacing: 20) {
+                    VStack(spacing: 50){
+                        Image("newevent")
+                        
+                        Text("You haven’t organized an event yet")
+                            .foregroundColor(.white)
+                            .fontWeight(.bold)
+                            .frame(width: 250, height: 90)
+                            .multilineTextAlignment(.center)
+                        
+                        
                         Button(action: {
-                            presentCreationView.toggle()
-                        }
-                               , label: {
-                            Text("Create Event")
-                            
+                            showSheet = true
                         })
+                        {
+                            Text("New Event")
+                                .foregroundColor(.white)
+                                .fontWeight(.bold)
+                                .frame(width: 204, height: 59)
+                                .background(RoundedRectangle(cornerRadius: 7).foregroundColor(.accentColor))
+                        }
                         
+                        
+                        .sheet(isPresented: $showSheet) {
+                            CreationView()
+                        }
                         
                     }
-                }
-            }
-            
-            .sheet(isPresented: $presentCreationView) {
-                CreationView()
-            }
-            .onAppear(){
-                
-                pushNotification.requestNotificationPermission()
-                //            pushNotification.subscribe(textType: "Role", userName: userModel.user.first!.username)
-                
-                
-                
-                Task {
-                    try await userModel.retrieveAllId(id: userSettings.id)
                     
-                    print( userModel.user.first?.username ?? "prova")
-                    showEvents = false
-                    showEvents = try await retrieveMyEvents()
+                    if showCaricamento {
+                        
+                            GifImage(stringaGif)
+                           
+                            .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
+                            .padding(.top, 200)
+                            
+                            .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
+                            .background( Color(red: 11/255, green: 41/255, blue: 111/255))
+        
+                    }
                     
-                    //                                   try await retrieveMyEvents()
+                    if showEvents {
+                        IMieiEventi(eventModel: eventModel, roleModel: roleModel)
+                    }
+                    
+    
+                }.onAppear(){
+                    
+                    pushNotification.requestNotificationPermission()
+                    //            pushNotification.subscribe(textType: "Role", userName: userModel.user.first!.username)
+                   
+                    Task {
+                        try await userModel.retrieveAllId(id: userSettings.id)
+                        
+                        print( userModel.user.first?.username ?? "prova")
+                        showEvents = false
+                        showEvents = try await retrieveMyEvents()
+                        showCaricamento = false
+                        
+                        //                                   try await retrieveMyEvents()
+                    }
+                    
                 }
                 
+                .navigationTitle("My Events")
+                .navigationBarItems(trailing: Button(action: {showSheet=true}) {
+                    
+                    Image(systemName: "plus.circle.fill")
+                    
+                })
+                
             }
-            
-            .navigationTitle("My Event")
-            .padding()
-        }}
+//        }
+        
+        
+    }
     
 }

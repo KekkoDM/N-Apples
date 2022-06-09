@@ -8,9 +8,7 @@
 import Foundation
 import SwiftUI
 
-func retrieveMyEvents() async throws -> Bool{
-    
-    print("FUNZIONE CHIAMATA")
+func retrieveMyEvents() async throws -> Bool {
     
     if(!(userModel.user.isEmpty)){
         roleModel.reset()

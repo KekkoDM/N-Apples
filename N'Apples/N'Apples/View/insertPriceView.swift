@@ -35,13 +35,7 @@ struct insertPriceView: View {
                                     .stroke(Color.white, lineWidth: 3)
                         )
                         .frame(width: geometry.size.width*0.7, height: geometry.size.height*0.1)
-                    TextField("Description", text: $priceDescription)
-                        .padding()
-                        .foregroundColor(.gray).font(.system(size: 21))
-                        .overlay(RoundedRectangle(cornerRadius: 14)
-                                    .stroke(Color.white, lineWidth: 3)
-                        )
-                        .frame(width: geometry.size.width*0.7, height: geometry.size.height*0.1)
+                    
                     
                     TextField("Price", text: $priceAddition)
                         .padding()
@@ -58,12 +52,9 @@ struct insertPriceView: View {
                     
                     pricePicker()
                         .padding(.top)
-                    
-                    
-                    
+  
                 }
                 .padding()
-                
                 
                 
                 .navigationBarBackButtonHidden(true)

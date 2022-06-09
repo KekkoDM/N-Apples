@@ -20,6 +20,15 @@
 		3E59823D283CEC3E006CB6D8 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59823C283CEC3E006CB6D8 /* UserSettings.swift */; };
 		3E636C06282A552E00CC0CED /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E636C05282A552E00CC0CED /* UpdateView.swift */; };
 		3E636C08282A584B00CC0CED /* CreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E636C07282A584B00CC0CED /* CreationView.swift */; };
+		3E8A6B952850E4410076C2F3 /* AlertRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A6B942850E4410076C2F3 /* AlertRole.swift */; };
+		3E8A6B972850EABC0076C2F3 /* IMieiEventi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A6B962850EABC0076C2F3 /* IMieiEventi.swift */; };
+		3E8A6B992850EB260076C2F3 /* Riepilogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A6B982850EB260076C2F3 /* Riepilogo.swift */; };
+		3E8A6B9B2850EB5E0076C2F3 /* Lists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A6B9A2850EB5E0076C2F3 /* Lists.swift */; };
+		3E8A6B9D2850EB900076C2F3 /* InsideList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A6B9C2850EB900076C2F3 /* InsideList.swift */; };
+		3E8A6B9F2850EBDF0076C2F3 /* CardLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A6B9E2850EBDF0076C2F3 /* CardLists.swift */; };
+		3E8A6BA12850EC000076C2F3 /* TuttiIPrenotatiCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A6BA02850EC000076C2F3 /* TuttiIPrenotatiCard.swift */; };
+		3E8A6BA32850FB950076C2F3 /* GifImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A6BA22850FB950076C2F3 /* GifImage.swift */; };
+		3E8A6BA52850FBED0076C2F3 /* LoadingGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3E8A6BA42850FBEC0076C2F3 /* LoadingGif.gif */; };
 		3E8E317928378CA800564D80 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8E317828378CA800564D80 /* LoginView.swift */; };
 		3E8E317B283795D900564D80 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8E317A283795D900564D80 /* EventView.swift */; };
 		3EAD4F7B282679BF007496B8 /* N_ApplesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD4F7A282679BF007496B8 /* N_ApplesApp.swift */; };
@@ -71,6 +80,15 @@
 		3E59823C283CEC3E006CB6D8 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		3E636C05282A552E00CC0CED /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		3E636C07282A584B00CC0CED /* CreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationView.swift; sourceTree = "<group>"; };
+		3E8A6B942850E4410076C2F3 /* AlertRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertRole.swift; sourceTree = "<group>"; };
+		3E8A6B962850EABC0076C2F3 /* IMieiEventi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMieiEventi.swift; sourceTree = "<group>"; };
+		3E8A6B982850EB260076C2F3 /* Riepilogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Riepilogo.swift; sourceTree = "<group>"; };
+		3E8A6B9A2850EB5E0076C2F3 /* Lists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lists.swift; sourceTree = "<group>"; };
+		3E8A6B9C2850EB900076C2F3 /* InsideList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsideList.swift; sourceTree = "<group>"; };
+		3E8A6B9E2850EBDF0076C2F3 /* CardLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLists.swift; sourceTree = "<group>"; };
+		3E8A6BA02850EC000076C2F3 /* TuttiIPrenotatiCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuttiIPrenotatiCard.swift; sourceTree = "<group>"; };
+		3E8A6BA22850FB950076C2F3 /* GifImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifImage.swift; sourceTree = "<group>"; };
+		3E8A6BA42850FBEC0076C2F3 /* LoadingGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LoadingGif.gif; sourceTree = "<group>"; };
 		3E8E317828378CA800564D80 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3E8E317A283795D900564D80 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		3EAD4F77282679BF007496B8 /* N'Apples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "N'Apples.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,6 +164,7 @@
 			children = (
 				3E3C33E6282BB6B30073B6E8 /* Alert.swift */,
 				3ED7937428369E2300E906F0 /* AlertError.swift */,
+				3E8A6B942850E4410076C2F3 /* AlertRole.swift */,
 			);
 			path = Alert;
 			sourceTree = "<group>";
@@ -176,6 +195,12 @@
 				3E3C33E9282BB6B40073B6E8 /* ScannerView.swift */,
 				41F3F624282E6DB7003D0170 /* TestDownloadImage.swift */,
 				3E636C05282A552E00CC0CED /* UpdateView.swift */,
+				3E8A6B962850EABC0076C2F3 /* IMieiEventi.swift */,
+				3E8A6B982850EB260076C2F3 /* Riepilogo.swift */,
+				3E8A6B9A2850EB5E0076C2F3 /* Lists.swift */,
+				3E8A6B9C2850EB900076C2F3 /* InsideList.swift */,
+				3E8A6B9E2850EBDF0076C2F3 /* CardLists.swift */,
+				3E8A6BA02850EC000076C2F3 /* TuttiIPrenotatiCard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -224,6 +249,7 @@
 			children = (
 				41F3F626282FD72B003D0170 /* N-Apples-Info.plist */,
 				3EAD4F7A282679BF007496B8 /* N_ApplesApp.swift */,
+				3E8A6BA42850FBEC0076C2F3 /* LoadingGif.gif */,
 				3E3C33F1282BBB7F0073B6E8 /* View */,
 				3E58E7FD2826AA3200971B6E /* Entity */,
 				3E58E7FC2826AA2800971B6E /* Models */,
@@ -232,6 +258,7 @@
 				3EAD4F80282679C0007496B8 /* Preview Content */,
 				3EAD4F882826866F007496B8 /* N'Apples.entitlements */,
 				3EAD4F7E282679C0007496B8 /* Assets.xcassets */,
+				3E8A6BA22850FB950076C2F3 /* GifImage.swift */,
 			);
 			path = "N'Apples";
 			sourceTree = "<group>";
@@ -312,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EAD4F82282679C0007496B8 /* Preview Assets.xcassets in Resources */,
+				3E8A6BA52850FBED0076C2F3 /* LoadingGif.gif in Resources */,
 				3EAD4F7F282679C0007496B8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,7 +355,10 @@
 				41F3F625282E6DB7003D0170 /* TestDownloadImage.swift in Sources */,
 				3E3C33EF282BB6B40073B6E8 /* ScannerView.swift in Sources */,
 				41F3F623282E68FE003D0170 /* ImagePicker.swift in Sources */,
+				3E8A6B972850EABC0076C2F3 /* IMieiEventi.swift in Sources */,
+				3E8A6B9B2850EB5E0076C2F3 /* Lists.swift in Sources */,
 				478586CE282D5CC20087B268 /* RoleEntity.swift in Sources */,
+				3E8A6B9F2850EBDF0076C2F3 /* CardLists.swift in Sources */,
 				411F7726282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift in Sources */,
 				3E59823D283CEC3E006CB6D8 /* UserSettings.swift in Sources */,
 				3EAD4F9128268D6B007496B8 /* EventEntity.swift in Sources */,
@@ -346,12 +377,15 @@
 				3E3C33EB282BB6B40073B6E8 /* RecapView.swift in Sources */,
 				3E3C33EE282BB6B40073B6E8 /* QrCodeScannerView.swift in Sources */,
 				3ED7937528369E2300E906F0 /* AlertError.swift in Sources */,
+				3E8A6BA12850EC000076C2F3 /* TuttiIPrenotatiCard.swift in Sources */,
+				3E8A6B952850E4410076C2F3 /* AlertRole.swift in Sources */,
 				3EAD4F9528268D85007496B8 /* ReservationEntity.swift in Sources */,
 				3EC3C602283D2F1D0085F65F /* AssignRoleView.swift in Sources */,
 				411F7722282E45BC00B49E4D /* QuickSignInWithApple.swift in Sources */,
 				3EC3C5FE283D24BF0085F65F /* RecapEventView.swift in Sources */,
 				3E636C08282A584B00CC0CED /* CreationView.swift in Sources */,
 				47F118FB283501AE00D094B9 /* ApplePayController.swift in Sources */,
+				3E8A6BA32850FB950076C2F3 /* GifImage.swift in Sources */,
 				3E3C33E3282BB5AC0073B6E8 /* QrCodeCameraDelegate.swift in Sources */,
 				41C63DA6284F5F3D00DC9272 /* LocationFieldAnimation.swift in Sources */,
 				41C63DA8284F5F8E00DC9272 /* addPricesView.swift in Sources */,
@@ -359,9 +393,11 @@
 				3E8E317B283795D900564D80 /* EventView.swift in Sources */,
 				3E3C33F0282BB6B40073B6E8 /* ScannerViewModel.swift in Sources */,
 				41C63DA0284F5EDB00DC9272 /* EventDescriptionAnimation.swift in Sources */,
+				3E8A6B992850EB260076C2F3 /* Riepilogo.swift in Sources */,
 				3E3C33E2282BB5AC0073B6E8 /* ImageSaver.swift in Sources */,
 				41C63D9E284F5E9700DC9272 /* PriceCard.swift in Sources */,
 				3E636C06282A552E00CC0CED /* UpdateView.swift in Sources */,
+				3E8A6B9D2850EB900076C2F3 /* InsideList.swift in Sources */,
 				478586D0282D5DC00087B268 /* RoleModel.swift in Sources */,
 				3E3C33EC282BB6B40073B6E8 /* Alert.swift in Sources */,
 				41C63DAA284F5FC400DC9272 /* insertPriceView.swift in Sources */,
