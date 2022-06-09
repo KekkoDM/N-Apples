@@ -54,7 +54,7 @@ struct IMieiEventi: View {
                             
                             ForEach(0 ..< eventModel.event.count, id: \.self) { i in
                                                             
-                                CardEvento(geometry: geometry, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: "\(eventModel.event[i].date)", ora: "\(eventModel.event[i].date)")])
+                                CardEvento(geometry: geometry, i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].date, ora: eventModel.event[i].date)])
                                     .onTapGesture {
                                         intero = i
                                         //                                                                      presentRecapEventView.toggle()
@@ -130,19 +130,21 @@ struct IMieiEventi: View {
 
 struct CardEvento: View {
     let geometry: GeometryProxy
-    
+    @Binding var i:Int
+    @Binding var eventModel: EventModel
+
     struct ParametriCard: Identifiable {
         var id: String {
             self.titoloEvento
         }
         var titoloEvento: String
         var location: String
-        var data: String
-        var ora: String
+        var data: Date
+        var ora: Date
         
     }
     
-    @State var Paramentri: [ParametriCard] = [ParametriCard(titoloEvento: "Arenile", location: "Caivano", data: "22/06", ora: "00:00")]
+    @State var Paramentri: [ParametriCard] = [ParametriCard(titoloEvento: "Arenile", location: "Caivano", data: Date(), ora: Date())]
     
     
     var body: some View {
@@ -179,8 +181,10 @@ struct CardEvento: View {
                                     .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))              .font(.system(size: 28))
                                     .padding(.leading, 290)
                                 
-                                Text("Roles").foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
-                                    .font(.system(size: 16))
+                                NavigationLink(destination: {RoleView(i: $i, eventModel: $eventModel)}, label: {
+                                    Text("Roles").foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
+                                    .font(.system(size: 16))})
+                              
                             }
                             
                         }
@@ -213,7 +217,7 @@ struct CardEvento: View {
                                 Image(systemName: "calendar")
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                 
-                                Text("\(index.data)")
+                                Text("\(formattedDate(date:index.data,format: "dd/MM" )) ")
                                     .font(.system(size: 19))
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                 
@@ -223,7 +227,7 @@ struct CardEvento: View {
                                 
                                 Image(systemName: "clock")
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
-                                Text("\(index.ora)")
+                                Text("\(formattedDate(date:index.data,format: "HH:mm" ))")
                                     .font(.system(size: 19))
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                 
@@ -238,6 +242,12 @@ struct CardEvento: View {
         }
         
     }
+    func formattedDate(date:Date,format:String)->String{
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = format
+        return dateformatter.string(from: date)
+    }
+    
 }
 
 
