@@ -45,8 +45,7 @@ struct IMieiEventi: View {
                         IMieiEventi(eventModel: eventModel, roleModel: roleModel)
                     }
                     
-                    Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255)
-                        .ignoresSafeArea()
+                 
                     if !showCaricamento {
                     ScrollView {
                         
@@ -57,7 +56,6 @@ struct IMieiEventi: View {
                                 CardEvento(geometry: geometry, i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].date, ora: eventModel.event[i].date)])
                                     .onTapGesture {
                                         intero = i
-                                        //                                                                      presentRecapEventView.toggle()
                                         
                                     }
                             }
@@ -94,16 +92,23 @@ struct IMieiEventi: View {
                             }
                             
                         }
-                        
+                        .position(x: geometry.size.width * 0.45, y: geometry.size.height*0.45)
+//
                         
                         }
                 }
-                    }.padding(.trailing, 25).padding(.top)
+                    }
+                
+//
                     
                     
                 }
-                
+            
                 .navigationTitle("My Events")
+            
+            .background(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
+                .ignoresSafeArea()
+                
             }
             .searchable(text: $searchText2)
             .toolbar{
@@ -132,7 +137,7 @@ struct CardEvento: View {
     let geometry: GeometryProxy
     @Binding var i:Int
     @Binding var eventModel: EventModel
-
+    
     struct ParametriCard: Identifiable {
         var id: String {
             self.titoloEvento
@@ -152,8 +157,8 @@ struct CardEvento: View {
         
         ZStack {
             
-            Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255)
-                .ignoresSafeArea()
+//            Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255)
+//                .ignoresSafeArea()
             
             ForEach(Paramentri) {
                 
@@ -170,8 +175,11 @@ struct CardEvento: View {
                                     .font(.system(size: 28))
                                     .padding(.leading, 290)
                                 
-                                Text("Lists").foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
-                                    .font(.system(size: 16))
+//                                Text("Lists").foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
+//                                    .font(.system(size: 16))
+                                NavigationLink(destination: {Lists()}, label: {
+                                    Text("Lists").foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
+                                    .font(.system(size: 16))})
                             }
                             
                             
@@ -181,10 +189,11 @@ struct CardEvento: View {
                                     .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))              .font(.system(size: 28))
                                     .padding(.leading, 290)
                                 
+//                                Text("Roles").foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
+//                                    .font(.system(size: 16))
                                 NavigationLink(destination: {RoleView(i: $i, eventModel: $eventModel)}, label: {
                                     Text("Roles").foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                     .font(.system(size: 16))})
-                              
                             }
                             
                         }
@@ -247,7 +256,6 @@ struct CardEvento: View {
         dateformatter.dateFormat = format
         return dateformatter.string(from: date)
     }
-    
 }
 
 

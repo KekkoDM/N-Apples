@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import SwiftUI
+import SwiftUI 
 
 struct RecapEventView: View {
     @Binding var eventModel: EventModel

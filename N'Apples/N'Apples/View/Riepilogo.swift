@@ -12,6 +12,7 @@ struct Riepilogo: View {
     
     var titolo: String
     
+    
     struct ParametriRiepilogo:Identifiable {
         var id: String {
             self.titoloEvento }

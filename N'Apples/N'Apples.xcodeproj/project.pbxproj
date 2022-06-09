@@ -17,6 +17,7 @@
 		3E3C33EE282BB6B40073B6E8 /* QrCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C33E8282BB6B40073B6E8 /* QrCodeScannerView.swift */; };
 		3E3C33EF282BB6B40073B6E8 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C33E9282BB6B40073B6E8 /* ScannerView.swift */; };
 		3E3C33F0282BB6B40073B6E8 /* ScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C33EA282BB6B40073B6E8 /* ScannerViewModel.swift */; };
+		3E3F4C6528524ED0001095AE /* newevent.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3E3F4C6428524ED0001095AE /* newevent.svg */; };
 		3E59823D283CEC3E006CB6D8 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59823C283CEC3E006CB6D8 /* UserSettings.swift */; };
 		3E636C06282A552E00CC0CED /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E636C05282A552E00CC0CED /* UpdateView.swift */; };
 		3E636C08282A584B00CC0CED /* CreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E636C07282A584B00CC0CED /* CreationView.swift */; };
@@ -77,6 +78,7 @@
 		3E3C33E8282BB6B40073B6E8 /* QrCodeScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeScannerView.swift; sourceTree = "<group>"; };
 		3E3C33E9282BB6B40073B6E8 /* ScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		3E3C33EA282BB6B40073B6E8 /* ScannerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewModel.swift; sourceTree = "<group>"; };
+		3E3F4C6428524ED0001095AE /* newevent.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = newevent.svg; sourceTree = "<group>"; };
 		3E59823C283CEC3E006CB6D8 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		3E636C05282A552E00CC0CED /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		3E636C07282A584B00CC0CED /* CreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationView.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				41F3F626282FD72B003D0170 /* N-Apples-Info.plist */,
 				3EAD4F7A282679BF007496B8 /* N_ApplesApp.swift */,
 				3E8A6BA42850FBEC0076C2F3 /* LoadingGif.gif */,
+				3E3F4C6428524ED0001095AE /* newevent.svg */,
 				3E3C33F1282BBB7F0073B6E8 /* View */,
 				3E58E7FD2826AA3200971B6E /* Entity */,
 				3E58E7FC2826AA2800971B6E /* Models */,
@@ -340,6 +343,7 @@
 			files = (
 				3EAD4F82282679C0007496B8 /* Preview Assets.xcassets in Resources */,
 				3E8A6BA52850FBED0076C2F3 /* LoadingGif.gif in Resources */,
+				3E3F4C6528524ED0001095AE /* newevent.svg in Resources */,
 				3EAD4F7F282679C0007496B8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
