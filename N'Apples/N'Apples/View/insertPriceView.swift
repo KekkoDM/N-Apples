@@ -19,9 +19,10 @@ struct insertPriceView: View {
     @State private var priceAddition : String = ""
     @State private var priceDate = Date()
     @State private var priceTime = Date()
+    
     var body: some View {
-        GeometryReader{geometry in
-            ZStack{
+        GeometryReader { geometry in
+            ZStack {
                 Color(red: 11/255, green: 41/255, blue: 111/255)
                     .ignoresSafeArea()
                 
@@ -66,7 +67,9 @@ struct insertPriceView: View {
                         .font(Font.subheadline.weight(.bold))
 
                 } )
-                .navigationBarItems(trailing: Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                .navigationBarItems(trailing: Button(action: {
+                    
+                }) {
                     Text("Add")
                         .fontWeight(.bold)
                 })

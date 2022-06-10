@@ -15,8 +15,9 @@ struct Riepilogo: View {
     var data: Date
     var prenotazioniDisponibili: Int
     var descrizioneEvento: String
+    var tariffeEntrata: [Int]
     
-    struct ParametriRiepilogo:Identifiable {
+    struct ParametriRiepilogo: Identifiable {
         var id: String {
             self.titoloEvento }
         var titoloEvento: String
@@ -25,10 +26,11 @@ struct Riepilogo: View {
         var ora: Date
         var prenotazioniDisponibili: Int
         var descrizioneEvento: String
-        var tariffeEntrata: String
+        var tariffeEntrata: [Int]
         
     }
-    @State var ParamentriRecap: [ParametriRiepilogo] = [ParametriRiepilogo(titoloEvento: "", location: "", data: Date(), ora: Date(), prenotazioniDisponibili: 100, descrizioneEvento: "", tariffeEntrata: "")]
+    
+    @State var ParamentriRecap: [ParametriRiepilogo] = [ParametriRiepilogo(titoloEvento: "", location: "", data: Date(), ora: Date(), prenotazioniDisponibili: 100, descrizioneEvento: "", tariffeEntrata: [0])]
     var body: some View {
         
         
@@ -51,7 +53,6 @@ struct Riepilogo: View {
                         VStack(alignment: .leading, spacing: 23){
                             
                             VStack(alignment: .leading, spacing: 7){
-                                
                                 
                                 Text("\(index.titoloEvento)")
                                     .font(.system(size: 50, weight: .heavy, design: .default))
@@ -79,30 +80,31 @@ struct Riepilogo: View {
                                     .font(.system(size: 20, weight: .heavy, design: .default))
                                 
                                 Text("\(formattedDate(date:index.data,format: "HH:mm" ))")
-   .font(.system(size: 30))
+                                    .font(.system(size: 30))
                                     .font(.system(.body, design: .monospaced))
                             }
                             
                             VStack(alignment: .leading, spacing: 7){
-                                Text("Available Reservations")                    .font(.system(size: 20, weight: .heavy, design: .default))
+                                Text("Available Reservations")
+                                    .font(.system(size: 20, weight: .heavy, design: .default))
                                 
-                    Text("\(index.prenotazioniDisponibili)")
+                                Text("\(index.prenotazioniDisponibili)")
                                     .font(.system(size: 30))
                                     .font(.system(.body, design: .monospaced))
                             }
-                                                        
+                            
                             VStack(alignment: .leading, spacing: 20){
                                 
                                 VStack(alignment: .leading, spacing: 7){
                                     Text("Event Description") .font(.system(size: 20, weight: .heavy, design: .default))
-                                       
-                                      
                                     
                                     
-                        Text("\(index.descrizioneEvento)")
+                                    
+                                    
+                                    Text("\(index.descrizioneEvento)")
                                         .font(.system(size: 30))
                                         .font(.system(.body, design: .monospaced))
-//                                        .frame(width: geometry.size.width * 0.8, height: geometry.size.width * 0.3)
+                                    //                                        .frame(width: geometry.size.width * 0.8, height: geometry.size.width * 0.3)
                                     
                                     
                                 }
@@ -112,7 +114,7 @@ struct Riepilogo: View {
                                         .font(.system(size: 20, weight: .heavy, design: .default))
                                     
                                     
-                            Text("\(index.tariffeEntrata)") .font(.system(size: 30))
+                                    Text(index.tariffeEntrata.description) .font(.system(size: 30))
                                         .font(.system(.body, design: .monospaced))
                                 }
                                 
@@ -121,10 +123,10 @@ struct Riepilogo: View {
                             
                             Spacer()
                             
-                         
+                            
                         }.padding()
                             .frame(width: geometry.size.width * 0.93, height: geometry.size.width * 1.4, alignment: .leading)
-                      
+                        
                         VStack{
                             Text("Delete Event").underline().foregroundColor(.red).padding()
                         }.frame(height: geometry.size.width * 0.4, alignment: .center)
@@ -135,7 +137,7 @@ struct Riepilogo: View {
                 }
             }
             .onAppear(){
-                 ParamentriRecap = [ParametriRiepilogo(titoloEvento: titolo, location: "Bagnoli", data: Date(), ora: Date(), prenotazioniDisponibili: 100, descrizioneEvento: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa", tariffeEntrata: "10 euro")]
+                ParamentriRecap = [ParametriRiepilogo(titoloEvento: titolo, location: location, data: data, ora: data, prenotazioniDisponibili: prenotazioniDisponibili, descrizioneEvento: descrizioneEvento, tariffeEntrata: tariffeEntrata)]
             }
             
         }

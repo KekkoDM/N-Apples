@@ -48,11 +48,11 @@ struct IMieiEventi: View {
                     if !showCaricamento {
                         
                         VStack(spacing: 20){
-                            ScrollView( showsIndicators: false) {
+                            ScrollView(showsIndicators: false) {
                             
                             ForEach(0 ..< eventModel.event.count, id: \.self) { i in
                                                             
-                                CardEvento(i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].date, ora: eventModel.event[i].date, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info)])
+                                CardEvento(i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].date, ora: eventModel.event[i].date, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price)])
                                     .onTapGesture {
                                         intero = i
                                         
@@ -105,7 +105,7 @@ struct IMieiEventi: View {
                             .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
                             .padding(.top, 200)
                             
-                            .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
+                            .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.37)
                             .background( Color(red: 11/255, green: 41/255, blue: 111/255))
         
                     } }
@@ -157,11 +157,13 @@ struct CardEvento: View {
         var location: String
         var data: Date
         var ora: Date
-        var prenotazioniDisponibili:Int
-        var descrizioneEvento:String
+        var prenotazioniDisponibili: Int
+        var descrizioneEvento: String
+        var tariffeEntrata: [Int]
+        
     }
     
-    @State var Paramentri: [ParametriCard] = [ParametriCard(titoloEvento: "Arenile", location: "Caivano", data: Date(), ora: Date(),prenotazioniDisponibili:100,descrizioneEvento:"")]
+    @State var Paramentri: [ParametriCard] = [ParametriCard(titoloEvento: "Arenile", location: "Caivano", data: Date(), ora: Date(), prenotazioniDisponibili: 100, descrizioneEvento:"", tariffeEntrata: [0])]
     
     
     var body: some View {
@@ -180,9 +182,6 @@ struct CardEvento: View {
                     .overlay(
                         VStack(spacing: 18){
                           
-                            
-                         
-                            
                             VStack(alignment: .trailing, spacing: 1){
 
 
@@ -193,22 +192,24 @@ struct CardEvento: View {
 //                                Text("Lists").foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
 //                                    .font(.system(size: 16))
                                 NavigationLink(destination: {Lists()}, label: {
-                                    Text("Lists").foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
-                                    .font(.system(size: 16))})
+                                    Text("Lists")
+                                        .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
+                                        .font(.system(size: 16))})
                             }
                             
                             
                             
                             VStack(alignment: .trailing, spacing: 1){
                                 Image(systemName: "person.text.rectangle")
-                                    .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))              .font(.system(size: 28))
+                                    .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))      .font(.system(size: 28))
                                     .padding(.leading, 290)
                                 
 //                                Text("Roles").foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
 //                                    .font(.system(size: 16))
                                 NavigationLink(destination: {RoleView(i: $i, eventModel: $eventModel)}, label: {
-                                    Text("Roles").foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
-                                    .font(.system(size: 16))})
+                                    Text("Roles")
+                                        .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
+                                        .font(.system(size: 16))})
                             }
                             
                         }
@@ -218,11 +219,13 @@ struct CardEvento: View {
                         
                         VStack(alignment: .leading, spacing: 10){
                             
-                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: index.prenotazioniDisponibili, descrizioneEvento: index.descrizioneEvento)) {
+                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: index.prenotazioniDisponibili, descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata)) {
                                 Text("\(index.titoloEvento)  >")
                                     .underline()
                                     .font(.system(size: 22))
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.leading, 65)
                             }
                             
                             
@@ -232,11 +235,14 @@ struct CardEvento: View {
                                 
                                 Image(systemName: "mappin.and.ellipse")
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
+                                    
                                 Text("\(index.location)")
                                     .font(.system(size: 19))
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
-                                
+                                    
                             }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading, 65)
                             
                             HStack{
                                 Image(systemName: "calendar")
@@ -247,16 +253,21 @@ struct CardEvento: View {
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                 
                             }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading, 65)
                             
                             HStack{
                                 
                                 Image(systemName: "clock")
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
+                                    
                                 Text("\(formattedDate(date:index.data,format: "HH:mm" ))")
                                     .font(.system(size: 19))
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                 
                             }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading, 65)
                             
                         }
                             .multilineTextAlignment(.leading)

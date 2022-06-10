@@ -146,7 +146,7 @@ struct EventView: View {
                                 .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
                                 .padding(.top, 200)
                             
-                                .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
+                                .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.37)
                                 .background( Color(red: 11/255, green: 41/255, blue: 111/255))
                             
                         }
