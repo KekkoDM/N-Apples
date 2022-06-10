@@ -71,11 +71,14 @@ struct ContentView: View {
                         else{
                             Text("Welcome\n\(self.username)")
                                 .font(.headline)
-                                .onAppear{Task {
+                                .onAppear{
+                                    Task {
 //                                    try await userModel.insert(username: username, password: surname)
                                     //                            try await UserModel.retrieveAllId(id: "456")
 //                                    print(userModel.user)
-                                }}
+                                    }
+                                    
+                                }
                         }
                         
                     }

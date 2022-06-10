@@ -98,9 +98,6 @@ struct Riepilogo: View {
                                 VStack(alignment: .leading, spacing: 7){
                                     Text("Event Description") .font(.system(size: 20, weight: .heavy, design: .default))
                                     
-                                    
-                                    
-                                    
                                     Text("\(index.descrizioneEvento)")
                                         .font(.system(size: 30))
                                         .font(.system(.body, design: .monospaced))
