@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct pricePicker: View {
-    @State private var priceStartTime = Date()
-    @State private var priceEndTime = Date()
+    @Binding  var priceStartTime:Date
+    @Binding  var priceEndTime:Date
     var body: some View {
         GeometryReader{ geometry in
         ZStack {
@@ -19,14 +19,14 @@ struct pricePicker: View {
                 
             VStack {
                 HStack{
-                    Text("Start").foregroundColor(.white)
+                    Text("Start Time").foregroundColor(.white)
                     DatePicker("", selection: $priceStartTime, displayedComponents: .hourAndMinute)
                 
                 }
                 
                 Divider().foregroundColor(.white)
                 HStack{
-                    Text("Time").foregroundColor(.white)
+                    Text("End Time").foregroundColor(.white)
                     DatePicker("", selection: $priceEndTime, displayedComponents: .hourAndMinute)
                 }
                 
@@ -39,8 +39,4 @@ struct pricePicker: View {
     }
 }
 
-struct pricePicker_Previews: PreviewProvider {
-    static var previews: some View {
-        pricePicker()
-    }
-}
+

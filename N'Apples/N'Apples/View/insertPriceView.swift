@@ -9,17 +9,20 @@ import SwiftUI
 
 struct insertPriceView: View {
     @Environment(\.presentationMode) var presentationMode
-    init() {
-        let navBarAppearance = UINavigationBar.appearance()
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-    }
+//    init() {
+//        let navBarAppearance = UINavigationBar.appearance()
+//        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+//        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+//    }
     @State private var typology : String = ""
     @State private var priceDescription : String = ""
     @State private var priceAddition : String = ""
     @State private var priceDate = Date()
     @State private var priceTime = Date()
-    
+    @State private var priceStartTime = Date()
+    @State private var priceEndTime = Date()
+    @Binding var timePrices: [Date]
+    @Binding var prices: [String]
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -51,7 +54,7 @@ struct insertPriceView: View {
                         .padding(.vertical)
                     
                     
-                    pricePicker()
+                    pricePicker(priceStartTime: $priceStartTime, priceEndTime: $priceEndTime)
                         .padding(.top)
   
                 }
@@ -68,7 +71,10 @@ struct insertPriceView: View {
 
                 } )
                 .navigationBarItems(trailing: Button(action: {
-                    
+                    prices.append(priceAddition)
+                        timePrices.append(priceStartTime)
+                    timePrices.append( priceEndTime)
+                   
                 }) {
                     Text("Add")
                         .fontWeight(.bold)
@@ -81,11 +87,7 @@ struct insertPriceView: View {
     } // FINE DEL BODY
 } // FINE DEL MAIN
 
-struct insertPriceView_Previews: PreviewProvider {
-    static var previews: some View {
-        insertPriceView()
-    }
-}
+
 
 
 

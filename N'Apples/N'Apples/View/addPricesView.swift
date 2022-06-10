@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct addPricesView: View {
+    @Binding var timePrices: [Date]
+    @Binding var prices: [String] 
     var body: some View {
        
 //        GeometryReader{geometry in
@@ -19,7 +21,7 @@ struct addPricesView: View {
                 .fontWeight(.semibold)
 //            Spacer()
             
-            NavigationLink(destination: insertPriceView()) {
+            NavigationLink(destination: insertPriceView( timePrices: $timePrices, prices: $prices)) {
                 Image(systemName: "plus.circle.fill")
                     .font(.system(size: 25))
                     .foregroundColor(.orange)
@@ -32,8 +34,3 @@ struct addPricesView: View {
     }
 }
 
-struct addPricesView_Previews: PreviewProvider {
-    static var previews: some View {
-        addPricesView()
-    }
-}

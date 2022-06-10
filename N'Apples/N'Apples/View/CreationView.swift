@@ -162,8 +162,16 @@ struct CreationView: View {
                                     .stroke(Color.white, lineWidth: 3)
                                 )
                             
-                            addPricesView()
-                            
+                            addPricesView(timePrices: $timePrices, prices: $prices)
+                            ForEach( 1..<timePrices.count, id: \.self){ i in
+                                                        Text("\(formattedDate(date:timePrices[i],format: "HH:mm"))")
+                                                        DatePicker(selection: $timePrices[i], displayedComponents:.hourAndMinute, label: {
+                                                            Text("Time for prices")
+                                                                .fontWeight(.bold)
+                                                                .foregroundColor(.black)
+                                                        })
+                                                        TextField("prices", text:$prices[i])
+                                                    }
                             
                         }
                         .padding()
