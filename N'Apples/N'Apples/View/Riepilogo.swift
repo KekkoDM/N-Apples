@@ -11,21 +11,24 @@ import SwiftUI
 struct Riepilogo: View {
     
     var titolo: String
-    
+    var location: String
+    var data: Date
+    var prenotazioniDisponibili: Int
+    var descrizioneEvento: String
     
     struct ParametriRiepilogo:Identifiable {
         var id: String {
             self.titoloEvento }
         var titoloEvento: String
         var location: String
-        var data: String
-        var ora: String
+        var data: Date
+        var ora: Date
         var prenotazioniDisponibili: Int
         var descrizioneEvento: String
         var tariffeEntrata: String
         
     }
-    @State var ParamentriRecap: [ParametriRiepilogo] = [ParametriRiepilogo(titoloEvento: "", location: "Bagnoli", data: "11/05", ora: "22:00", prenotazioniDisponibili: 100, descrizioneEvento: "aaaa", tariffeEntrata: "10 euro")]
+    @State var ParamentriRecap: [ParametriRiepilogo] = [ParametriRiepilogo(titoloEvento: "", location: "", data: Date(), ora: Date(), prenotazioniDisponibili: 100, descrizioneEvento: "", tariffeEntrata: "")]
     var body: some View {
         
         
@@ -68,14 +71,15 @@ struct Riepilogo: View {
                                 Text("Date")
                                     .font(.system(size: 20, weight: .heavy, design: .default))
                                 
-                                Text("\(index.data)")   .font(.system(size: 30))
+                                Text("\(formattedDate(date:index.data,format: "dd/MM" )) ") .font(.system(size: 30))
                                     .font(.system(.body, design: .monospaced))
                             }
                             VStack(alignment: .leading, spacing: 7){
                                 Text("Time")
                                     .font(.system(size: 20, weight: .heavy, design: .default))
                                 
-                                Text("\(index.ora)")   .font(.system(size: 30))
+                                Text("\(formattedDate(date:index.data,format: "HH:mm" ))")
+   .font(.system(size: 30))
                                     .font(.system(.body, design: .monospaced))
                             }
                             
@@ -131,7 +135,7 @@ struct Riepilogo: View {
                 }
             }
             .onAppear(){
-                 ParamentriRecap = [ParametriRiepilogo(titoloEvento: titolo, location: "Bagnoli", data: "11/05", ora: "22:00", prenotazioniDisponibili: 100, descrizioneEvento: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa", tariffeEntrata: "10 euro")]
+                 ParamentriRecap = [ParametriRiepilogo(titoloEvento: titolo, location: "Bagnoli", data: Date(), ora: Date(), prenotazioniDisponibili: 100, descrizioneEvento: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaa", tariffeEntrata: "10 euro")]
             }
             
         }
@@ -144,10 +148,15 @@ struct Riepilogo: View {
         }
         
     }
-}
-
-struct Riepilogo_Previews: PreviewProvider {
-    static var previews: some View {
-        Riepilogo(titolo: "Titolo")
+    func formattedDate(date:Date,format:String)->String{
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = format
+        return dateformatter.string(from: date)
     }
 }
+
+//struct Riepilogo_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Riepilogo(titolo: "Titolo")
+//    }
+//}

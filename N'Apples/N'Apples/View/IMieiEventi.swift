@@ -20,7 +20,6 @@ struct IMieiEventi: View {
     @State var showEvents = false
     @State private var showCaricamento : Bool = false
     @ObservedObject var userSettings = UserSettings()
-    
     var body: some View {
         
         NavigationView {
@@ -28,7 +27,7 @@ struct IMieiEventi: View {
             GeometryReader{
                 geometry in
                 
-                ZStack{
+                ZStack {
                     if showCaricamento {
                         
                             GifImage(stringaGif)
@@ -47,13 +46,13 @@ struct IMieiEventi: View {
                     
                  
                     if !showCaricamento {
-                    ScrollView {
                         
                         VStack(spacing: 20){
+                            ScrollView( showsIndicators: false) {
                             
                             ForEach(0 ..< eventModel.event.count, id: \.self) { i in
                                                             
-                                CardEvento(geometry: geometry, i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].date, ora: eventModel.event[i].date)])
+                                CardEvento(i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].date, ora: eventModel.event[i].date, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info)])
                                     .onTapGesture {
                                         intero = i
                                         
@@ -61,29 +60,31 @@ struct IMieiEventi: View {
                             }
                             
                            
-                            
-                            
-                            Button(action: {
-                                showSheet = true
-                            })
-                            {
-                                Text("New Event")
-                                    .foregroundColor(.white)
-                                    .fontWeight(.bold)
-                                    .frame(width: 204, height: 59)
-                                    .background(RoundedRectangle(cornerRadius: 7).foregroundColor(.accentColor))
-                            }
+//                            Button(action: {
+//                                showSheet = true
+//                            })
+//                            {
+//                                Text("New Event")
+//                                    .foregroundColor(.white)
+//                                    .fontWeight(.bold)
+//                                    .frame(width: 204, height: 59)
+//                                    .background(RoundedRectangle(cornerRadius: 7).foregroundColor(.accentColor))
+//                            }
                             
                             
                             .sheet(isPresented: $showSheet, onDismiss: {
                                 showCaricamento = true
+                    
                                 Task {
                                     try await userModel.retrieveAllId(id: userSettings.id)
                                     
                                     print( userModel.user.first?.username ?? "prova")
                                     showEvents = false
                                     showEvents = try await retrieveMyEvents()
+                                    print("SHOW Event: \(showEvents)")
+                                    
                                     showCaricamento = false
+                                   
                                     
                                     //                                   try await retrieveMyEvents()
                                 }
@@ -92,12 +93,22 @@ struct IMieiEventi: View {
                             }
                             
                         }
-                        .position(x: geometry.size.width * 0.45, y: geometry.size.height*0.45)
+//                        .position(x: geometry.size.width * 0.45, y: geometry.size.height*0.45)
 //
                         
-                        }
-                }
                     }
+                }
+                    if showCaricamento {
+                        
+                            GifImage(stringaGif)
+                           
+                            .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
+                            .padding(.top, 200)
+                            
+                            .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
+                            .background( Color(red: 11/255, green: 41/255, blue: 111/255))
+        
+                    } }
                 
 //
                     
@@ -105,22 +116,22 @@ struct IMieiEventi: View {
                 }
             
                 .navigationTitle("My Events")
-            
+                .navigationBarItems(trailing: Button(action: {showSheet=true}) {
+                    if !showCaricamento {
+                        Image(systemName: "plus.circle.fill")}
+                    
+                })
             .background(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
-                .ignoresSafeArea()
                 
             }
             .searchable(text: $searchText2)
-            .toolbar{
-                NavigationLink(destination: Lists(), label: {
-                    Image(systemName: "plus.circle.fill")
-                })
+         
                 
             }
             
         }
         
-    }
+    
     
     
 //    init() {
@@ -134,7 +145,7 @@ struct IMieiEventi: View {
 
 
 struct CardEvento: View {
-    let geometry: GeometryProxy
+//    let geometry: GeometryProxy
     @Binding var i:Int
     @Binding var eventModel: EventModel
     
@@ -146,10 +157,11 @@ struct CardEvento: View {
         var location: String
         var data: Date
         var ora: Date
-        
+        var prenotazioniDisponibili:Int
+        var descrizioneEvento:String
     }
     
-    @State var Paramentri: [ParametriCard] = [ParametriCard(titoloEvento: "Arenile", location: "Caivano", data: Date(), ora: Date())]
+    @State var Paramentri: [ParametriCard] = [ParametriCard(titoloEvento: "Arenile", location: "Caivano", data: Date(), ora: Date(),prenotazioniDisponibili:100,descrizioneEvento:"")]
     
     
     var body: some View {
@@ -167,14 +179,17 @@ struct CardEvento: View {
                 Image(uiImage: UIImage(named: "card")!)
                     .overlay(
                         VStack(spacing: 18){
+                          
+                            
+                         
                             
                             VStack(alignment: .trailing, spacing: 1){
-                                
-                                
+
+
                                 Image(systemName: "list.bullet.rectangle").foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                     .font(.system(size: 28))
                                     .padding(.leading, 290)
-                                
+
 //                                Text("Lists").foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
 //                                    .font(.system(size: 16))
                                 NavigationLink(destination: {Lists()}, label: {
@@ -203,12 +218,13 @@ struct CardEvento: View {
                         
                         VStack(alignment: .leading, spacing: 10){
                             
-                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento)) {
+                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: index.prenotazioniDisponibili, descrizioneEvento: index.descrizioneEvento)) {
                                 Text("\(index.titoloEvento)  >")
                                     .underline()
                                     .font(.system(size: 22))
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                             }
+                            
                             
                             
                             
@@ -243,7 +259,9 @@ struct CardEvento: View {
                             }
                             
                         }
-                            .position(x: geometry.size.width * 0.3, y: geometry.size.height * 0.099)
+                            .multilineTextAlignment(.leading)
+//                            .position(x: 115, y: 70)
+                        
                     )
             }
             

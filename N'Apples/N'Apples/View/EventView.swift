@@ -22,7 +22,8 @@ struct EventView: View {
     @ObservedObject var pushNotification: CloudkitPushNotificationViewModel = CloudkitPushNotificationViewModel()
     @ObservedObject var userSettings = UserSettings()
     
-    
+    @State var title = ""
+
     @State var stringaGif: String = "LoadingGif"
     @State private var showSheet : Bool = false
     @State private var showCaricamento : Bool = true
@@ -100,87 +101,94 @@ struct EventView: View {
     //        }
     
     var body: some View {
-//        NavigationView {
-            
-            GeometryReader { geometry in
-                
-                ZStack {
-            
-                    Color(red: 11/255, green: 41/255, blue: 111/255)
-                        .ignoresSafeArea()
+        //
+        if !showEvents {
+            NavigationView {
+                GeometryReader { geometry in
                     
-                    VStack(spacing: 50){
-                        Image("newevent")
+                    ZStack {
                         
-                        Text("You haven’t organized an event yet")
-                            .foregroundColor(.white)
-                            .fontWeight(.bold)
-                            .frame(width: 250, height: 90)
-                            .multilineTextAlignment(.center)
+                        Color(red: 11/255, green: 41/255, blue: 111/255)
+                            .ignoresSafeArea()
                         
-                        
-                        Button(action: {
-                            showSheet = true
-                        })
-                        {
-                            Text("New Event")
+                        VStack(spacing: 20){
+                            Image("newevent")
+                            
+                            Text("You haven’t organized an event yet")
                                 .foregroundColor(.white)
                                 .fontWeight(.bold)
-                                .frame(width: 204, height: 59)
-                                .background(RoundedRectangle(cornerRadius: 7).foregroundColor(.accentColor))
+                                .frame(width: 250, height: 90)
+                                .multilineTextAlignment(.center)
+                            
+                            
+                            Button(action: {
+                                showSheet = true
+                            })
+                            {
+                                Text("New Event")
+                                    .foregroundColor(.white)
+                                    .fontWeight(.bold)
+                                    .frame(width: 204, height: 59)
+                                    .background(RoundedRectangle(cornerRadius: 7).foregroundColor(.accentColor))
+                            }
+                            
+                            
+                            
                         }
-                        
-                        
                         .sheet(isPresented: $showSheet) {
                             CreationView()
                         }
                         
-                    }
-                    
-                    if showCaricamento {
-                        
-                            GifImage(stringaGif)
-                           
-                            .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
-                            .padding(.top, 200)
+                        if showCaricamento {
                             
-                            .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
-                            .background( Color(red: 11/255, green: 41/255, blue: 111/255))
+                            GifImage(stringaGif)
+                            
+                                .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
+                                .padding(.top, 200)
+                            
+                                .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
+                                .background( Color(red: 11/255, green: 41/255, blue: 111/255))
+                            
+                        }
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                    .onAppear(){
+                        
+                        pushNotification.requestNotificationPermission()
+                        //            pushNotification.subscribe(textType: "Role", userName: userModel.user.first!.username)
+                        
+                        Task {
+                            try await userModel.retrieveAllId(id: userSettings.id)
+                            
+                            print( userModel.user.first?.username ?? "prova")
+                            showEvents = false
+                            showEvents = try await retrieveMyEvents()
+                            print("MAROOOO\(showEvents)")
+                            showCaricamento = false
+                            title = "My Events"
+                            //                                   try await retrieveMyEvents()
+                        }
+                        
+                    }
+                    
+                    .navigationTitle(title)
+                    .navigationBarItems(trailing: Button(action: {showSheet=true}) {
+                        if !showCaricamento {
+                            Image(systemName: "plus.circle.fill")}
+                        
+                    })
+                    
+                }}}
+        if showEvents {
+            IMieiEventi(eventModel: eventModel, roleModel: roleModel)
+        }
         
-                    }
-                    
-                    if showEvents {
-                        IMieiEventi(eventModel: eventModel, roleModel: roleModel)
-                    }
-                    
-    
-                }.onAppear(){
-                    
-                    pushNotification.requestNotificationPermission()
-                    //            pushNotification.subscribe(textType: "Role", userName: userModel.user.first!.username)
-                   
-                    Task {
-                        try await userModel.retrieveAllId(id: userSettings.id)
-                        
-                        print( userModel.user.first?.username ?? "prova")
-                        showEvents = false
-                        showEvents = try await retrieveMyEvents()
-                        showCaricamento = false
-                        
-                        //                                   try await retrieveMyEvents()
-                    }
-                    
-                }
-                
-                .navigationTitle("My Events")
-                .navigationBarItems(trailing: Button(action: {showSheet=true}) {
-                    
-                    Image(systemName: "plus.circle.fill")
-                    
-                })
-                
-            }
-//        }
         
         
     }

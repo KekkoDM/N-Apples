@@ -82,7 +82,7 @@ class UserModel: ObservableObject {
     func retrieveAllName(username: String) async throws {
         let predicate: NSPredicate = NSPredicate(format: "username == %@", username)
         let query = CKQuery(recordType: User.recordType, predicate: predicate)
-        
+
         let tmp = try await self.database.records(matching: query)
         
         for tmp1 in tmp.matchResults{
@@ -93,6 +93,21 @@ class UserModel: ObservableObject {
         
         self.updateUser()
     }
+    
+    func retrieveAll() async throws {
+        let query = CKQuery(recordType: User.recordType, predicate: NSPredicate(value: true))
+
+        let tmp = try await self.database.records(matching: query)
+        
+        for tmp1 in tmp.matchResults{
+            if let data = try? tmp1.1.get() {
+                self.records = [data]
+            }
+        }
+        
+        self.updateUser()
+    }
+    
     
     func retrieveAllEmail(email: String) async throws {
   

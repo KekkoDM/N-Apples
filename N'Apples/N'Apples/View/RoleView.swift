@@ -51,6 +51,12 @@ struct RoleView: View {
                           
                          
                   }
+                  .onAppear() {
+                      Task {
+                          try await userModel.retrieveAll()
+                      }
+                      
+                  }
                   .frame(width: geometry.size.width*0.5, height: geometry.size.height*0.055)
                   .position(x: geometry.size.width*0.3, y: geometry.size.height*0.14)
 //                  List {
