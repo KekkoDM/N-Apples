@@ -19,6 +19,7 @@ func retrieveMyEvents() async throws -> Bool {
             try await eventModel.retrieveAllId(id: roleModel.role[i].idEvent)
         }
         if(roleModel.role.count == 0) {
+            print("UEUEUEUEUEUEUEUEUE")
             return false
         }
         return true

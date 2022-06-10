@@ -192,9 +192,9 @@ struct ContentView: View {
             if (updateView == true) {
                 UpdateView(userModel: userModel)
             }
-            if (createEvents == true) {
-                CreationView()
-            }
+//            if (createEvents == true) {
+//                CreationView(showEvents: $showEvents)
+//            }
             if (reservation == true) {
 //                ReservationView()
             }

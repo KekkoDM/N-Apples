@@ -40,9 +40,9 @@ struct IMieiEventi: View {
         
                     }
                     
-                    if showEvents {
-                        IMieiEventi(eventModel: eventModel, roleModel: roleModel)
-                    }
+//                    if showEvents {
+//                        IMieiEventi(eventModel: eventModel, roleModel: roleModel)
+//                    }
                     
                  
                     if !showCaricamento {
@@ -57,6 +57,20 @@ struct IMieiEventi: View {
                                         intero = i
                                         
                                     }
+                            }.refreshable {
+                                Task {
+                                    try await userModel.retrieveAllId(id: userSettings.id)
+                                    
+                                    print( userModel.user.first?.username ?? "prova")
+                                    showEvents = false
+                                    showEvents = try await retrieveMyEvents()
+                                    print("SHOW Event: \(showEvents)")
+                                    
+                                    showCaricamento = false
+                                   
+                                    
+                                    //                                   try await retrieveMyEvents()
+                                }
                             }
                             
                            
@@ -98,23 +112,26 @@ struct IMieiEventi: View {
                         
                     }
                 }
-                    if showCaricamento {
-                        
-                            GifImage(stringaGif)
-                           
-                            .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
-                            .padding(.top, 200)
-                            
-                            .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.37)
-                            .background( Color(red: 11/255, green: 41/255, blue: 111/255))
-        
-                    } }
+//                    if showCaricamento {
+//                        
+//                            GifImage(stringaGif)
+//                           
+//                            .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
+//                            .padding(.top, 200)
+//                            
+//                            .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.37)
+//                            .background( Color(red: 11/255, green: 41/255, blue: 111/255))
+//        
+//                    }
+                    
+                    
+                }
                 
 //
                     
                     
                 }
-            
+                
                 .navigationTitle("My Events")
                 .navigationBarItems(trailing: Button(action: {showSheet=true}) {
                     if !showCaricamento {
@@ -122,8 +139,9 @@ struct IMieiEventi: View {
                     
                 })
             .background(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
-                
+                    
             }
+            .navigationBarHidden(true)
             .searchable(text: $searchText2)
          
                 
@@ -180,7 +198,7 @@ struct CardEvento: View {
                 
                 Image(uiImage: UIImage(named: "card")!)
                     .overlay(
-                        VStack(spacing: 18){
+                        VStack(spacing: 18) {
                           
                             VStack(alignment: .trailing, spacing: 1){
 
@@ -217,7 +235,7 @@ struct CardEvento: View {
                 
                     .overlay(
                         
-                        VStack(alignment: .leading, spacing: 10){
+                        VStack (alignment: .leading, spacing: 10) {
                             
                             NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: index.prenotazioniDisponibili, descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata)) {
                                 Text("\(index.titoloEvento)  >")
@@ -227,8 +245,6 @@ struct CardEvento: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding(.leading, 65)
                             }
-                            
-                            
                             
                             
                             HStack {
@@ -256,7 +272,7 @@ struct CardEvento: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 65)
                             
-                            HStack{
+                            HStack {
                                 
                                 Image(systemName: "clock")
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))

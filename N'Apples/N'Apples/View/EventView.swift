@@ -26,7 +26,7 @@ struct EventView: View {
 
     @State var stringaGif: String = "LoadingGif"
     @State private var showSheet : Bool = false
-    @State private var showCaricamento : Bool = true
+    @State private var showCaricamento : Bool = false
     
     
     //        NavigationView {
@@ -102,7 +102,7 @@ struct EventView: View {
     
     var body: some View {
         //
-        if !showEvents {
+//        if !showEvents {
             NavigationView {
                 GeometryReader { geometry in
                     
@@ -135,7 +135,29 @@ struct EventView: View {
                             
                             
                         }
-                        .sheet(isPresented: $showSheet) {
+                        
+                        
+//                        .sheet(isPresented: $showSheet) {
+//                            CreationView()
+//                        }
+                        
+                        .sheet(isPresented: $showSheet, onDismiss: {
+                            showCaricamento = true
+
+                            Task {
+                                try await userModel.retrieveAllId(id: userSettings.id)
+
+                                print( userModel.user.first?.username ?? "prova")
+                                showEvents = false
+                                showEvents = try await retrieveMyEvents()
+                                print("SHOW Event: \(showEvents)")
+                                print("SHOW Caricamento: \(showCaricamento)")
+                                print("Event Model: \(eventModel.records)")
+                                showCaricamento = false
+
+                                //                                   try await retrieveMyEvents()
+                            }
+                        }) {
                             CreationView()
                         }
                         
@@ -151,22 +173,23 @@ struct EventView: View {
                             
                         }
                         
-                        
+                        NavigationLink("", isActive: $showEvents, destination: {
+                            IMieiEventi(eventModel: eventModel, roleModel: roleModel)})
+                            
                         
                         
                     }
-                    
                     
                     
                     .onAppear(){
                         
                         pushNotification.requestNotificationPermission()
                         //            pushNotification.subscribe(textType: "Role", userName: userModel.user.first!.username)
+                        showCaricamento = true
                         
                         Task {
                             try await userModel.retrieveAllId(id: userSettings.id)
                             
-                            print( userModel.user.first?.username ?? "prova")
                             showEvents = false
                             showEvents = try await retrieveMyEvents()
                             print("MAROOOO\(showEvents)")
@@ -180,14 +203,19 @@ struct EventView: View {
                     .navigationTitle(title)
                     .navigationBarItems(trailing: Button(action: {showSheet=true}) {
                         if !showCaricamento {
-                            Image(systemName: "plus.circle.fill")}
+                            Image(systemName: "plus.circle.fill")
+                            
+                        }
                         
                     })
                     
-                }}}
-        if showEvents {
-            IMieiEventi(eventModel: eventModel, roleModel: roleModel)
-        }
+                }
+                
+            }
+            
+//        }
+        
+        
         
         
         

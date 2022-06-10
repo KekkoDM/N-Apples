@@ -25,10 +25,10 @@ struct CreationView: View {
     @State var sourceType: UIImagePickerController.SourceType = .photoLibrary
     @State var pushNotification: CloudkitPushNotificationViewModel = CloudkitPushNotificationViewModel()
     
-    
-    init() {
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-    }
+//
+//    init() {
+//        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+//    }
     
     @Environment(\.presentationMode) var presentationMode
     @State  var eventName : String = ""
@@ -37,7 +37,7 @@ struct CreationView: View {
     @State private var eventDescription : String = ""
     
     @State var presentIMieiEventi: Bool = false
-    
+ 
     
     var body: some View {
         
@@ -188,7 +188,7 @@ struct CreationView: View {
                                 try await eventModel.insertEvent(name: name, address: address, location: location, info: info, capability: Int(capability) ?? 0, date: dateEvents, timeForPrice: timePrices, price: prices.map{Int($0) ?? 0}, table: tables)
                                 
                                 presentationMode.wrappedValue.dismiss()
-                                
+//                                showEvents = true
 
                             }
                           
