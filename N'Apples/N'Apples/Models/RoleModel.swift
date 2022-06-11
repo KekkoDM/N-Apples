@@ -170,6 +170,24 @@ class RoleModel: ObservableObject {
             try await insert(username: usename, permission: permission, idEvent: idEvent)
         }
     }
+    func deleteCascade(idEvent:String) async throws {
+        
+
+        try await retrieveAllCollaborators(idEvent: idEvent)
+
+      
+
+        print("cancello elemento : \(roleModel.role.count)")
+//
+//        for i in 0..<roleModel.role.count{
+//            try await delete(at: i)
+//            print("cancello elemento : \(roleModel.role[i].username)")
+//        }
+          
+
+            self.updateRole()
+        
+    }
     
     func reset(){
         records.removeAll()

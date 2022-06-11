@@ -73,9 +73,10 @@ class EventModel: ObservableObject {
         self.updateEvent()
     }
     
-    func insertAll(name: String, address: String, location: String, info: String,/* poster: CKAsset,*/ capability: Int, date: Date, lists: [String], table: [String], price: [Int], timeForPrice: [Date]) async throws {
+    func insertAll(idEvent:String,name: String, address: String, location: String, info: String,/* poster: CKAsset,*/ capability: Int, date: Date, lists: [String], table: [String], price: [Int], timeForPrice: [Date]) async throws {
         
         var createEvent = Event()
+        createEvent.id = idEvent
         createEvent.name = name
         createEvent.address = address
         createEvent.location = location
@@ -97,7 +98,31 @@ class EventModel: ObservableObject {
         self.updateEvent()
         return
     }
+    func update(idEvent:String,name:String, address: String, location: String, info: String, capability: Int, date: Date, lists: [String], table: [String], price: [Int],timeForPrice:[Date]) async throws {
     
+
+        try await retrieveAllId(id: idEvent)
+
+    
+            try await delete(at: 0)
+
+        try await insertAll(idEvent: idEvent, name: name, address: address, location: location, info: info, capability: capability, date: date, lists: lists, table: table, price: price, timeForPrice: timeForPrice)
+
+            self.updateEvent()
+        
+    }
+    func delete(idEvent:String) async throws {
+    
+
+        try await retrieveAllId(id: idEvent)
+
+    
+            try await delete(at: 0)
+        
+        try await roleModel.deleteCascade(idEvent: idEvent)
+            self.updateEvent()
+        
+    }
     func reset(){
         records.removeAll()
         event.removeAll()
@@ -160,24 +185,7 @@ class EventModel: ObservableObject {
         self.updateEvent()
         return
     }
-    
-    func update(event: Event, name: String, address: String, location: String, info: String, poster: CKAsset, capability: Int, date: Date, lists: [String], table: [String], price: [Int]) async throws {
-        
-        var singleEvent = Event()
-        singleEvent.name = name
-        singleEvent.address = address
-        singleEvent.location = location
-        singleEvent.info = info
-        singleEvent.poster = poster
-        singleEvent.capability = capability
-        singleEvent.date = date
-        singleEvent.lists = lists
-        singleEvent.table = table
-        singleEvent.price = price
-        
-        let _ = try await self.database.modifyRecords(saving: [singleEvent.record], deleting: [event.record.recordID], savePolicy: .changedKeys, atomically: true)
-        self.updateEvent()
-    }
+  
     
     private func updateEvent() {
         

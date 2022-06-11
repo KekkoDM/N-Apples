@@ -50,6 +50,7 @@
 		411DB3C92833A0380021869D /* CloudkitPushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411DB3C82833A0380021869D /* CloudkitPushNotification.swift */; };
 		411F7722282E45BC00B49E4D /* QuickSignInWithApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F7721282E45BC00B49E4D /* QuickSignInWithApple.swift */; };
 		411F7726282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F7725282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift */; };
+		4180D0C72854E63B007451FB /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4180D0C62854E63B007451FB /* EditView.swift */; };
 		41C63D9E284F5E9700DC9272 /* PriceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C63D9D284F5E9700DC9272 /* PriceCard.swift */; };
 		41C63DA0284F5EDB00DC9272 /* EventDescriptionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C63D9F284F5EDB00DC9272 /* EventDescriptionAnimation.swift */; };
 		41C63DA2284F5F0000DC9272 /* AvailableAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C63DA1284F5F0000DC9272 /* AvailableAnimation.swift */; };
@@ -113,6 +114,7 @@
 		411DB3C82833A0380021869D /* CloudkitPushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudkitPushNotification.swift; sourceTree = "<group>"; };
 		411F7721282E45BC00B49E4D /* QuickSignInWithApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSignInWithApple.swift; sourceTree = "<group>"; };
 		411F7725282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSIgnUpCoordinator.swift; sourceTree = "<group>"; };
+		4180D0C62854E63B007451FB /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		41C63D9D284F5E9700DC9272 /* PriceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCard.swift; sourceTree = "<group>"; };
 		41C63D9F284F5EDB00DC9272 /* EventDescriptionAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDescriptionAnimation.swift; sourceTree = "<group>"; };
 		41C63DA1284F5F0000DC9272 /* AvailableAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableAnimation.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				3E8E317A283795D900564D80 /* EventView.swift */,
 				3E8E317828378CA800564D80 /* LoginView.swift */,
 				3E3C33E8282BB6B40073B6E8 /* QrCodeScannerView.swift */,
+				4180D0C62854E63B007451FB /* EditView.swift */,
 				3E3C33E7282BB6B40073B6E8 /* QrCodeView.swift */,
 				41C63DA7284F5F8E00DC9272 /* addPricesView.swift */,
 				3EC3C5FD283D24BF0085F65F /* RecapEventView.swift */,
@@ -406,6 +409,7 @@
 				3E3C33EC282BB6B40073B6E8 /* Alert.swift in Sources */,
 				41C63DAA284F5FC400DC9272 /* insertPriceView.swift in Sources */,
 				3E8E317928378CA800564D80 /* LoginView.swift in Sources */,
+				4180D0C72854E63B007451FB /* EditView.swift in Sources */,
 				3EAD4F8F28268D5D007496B8 /* UserModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

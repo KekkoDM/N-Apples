@@ -52,7 +52,7 @@ struct IMieiEventi: View {
                             
                             ForEach(0 ..< eventModel.event.count, id: \.self) { i in
                                                             
-                                CardEvento(i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].date, ora: eventModel.event[i].date, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price)])
+                                CardEvento(i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id )])
                                     .onTapGesture {
                                         intero = i
                                         
@@ -173,15 +173,15 @@ struct CardEvento: View {
         }
         var titoloEvento: String
         var location: String
-        var data: Date
-        var ora: Date
+        var data: [Date]
+       
         var prenotazioniDisponibili: Int
         var descrizioneEvento: String
         var tariffeEntrata: [Int]
-        
+        var idEvent: String
     }
     
-    @State var Paramentri: [ParametriCard] = [ParametriCard(titoloEvento: "Arenile", location: "Caivano", data: Date(), ora: Date(), prenotazioniDisponibili: 100, descrizioneEvento:"", tariffeEntrata: [0])]
+    @State var Paramentri: [ParametriCard] = [ParametriCard(titoloEvento: "Arenile", location: "Caivano", data: [Date()],  prenotazioniDisponibili: 100, descrizioneEvento:"", tariffeEntrata: [0], idEvent: "")]
     
     
     var body: some View {
@@ -237,7 +237,7 @@ struct CardEvento: View {
                         
                         VStack (alignment: .leading, spacing: 10) {
                             
-                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: index.prenotazioniDisponibili, descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata)) {
+                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: String(index.prenotazioniDisponibili), descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata,idEvent:index.idEvent)) {
                                 Text("\(index.titoloEvento)  >")
                                     .underline()
                                     .font(.system(size: 22))
@@ -264,7 +264,7 @@ struct CardEvento: View {
                                 Image(systemName: "calendar")
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                 
-                                Text("\(formattedDate(date:index.data,format: "dd/MM" )) ")
+                                Text("\(formattedDate(date:index.data.first!,format: "dd/MM" )) ")
                                     .font(.system(size: 19))
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                 
@@ -277,7 +277,7 @@ struct CardEvento: View {
                                 Image(systemName: "clock")
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                     
-                                Text("\(formattedDate(date:index.data,format: "HH:mm" ))")
+                                Text("\(formattedDate(date:index.data.first!,format: "HH:mm" ))")
                                     .font(.system(size: 19))
                                     .foregroundColor(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                 

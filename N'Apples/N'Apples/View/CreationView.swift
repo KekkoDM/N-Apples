@@ -26,11 +26,6 @@ struct CreationView: View {
     @State var pushNotification: CloudkitPushNotificationViewModel = CloudkitPushNotificationViewModel()
 
 
-//
-//    init() {
-//        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-//    }
-    
     @Environment(\.presentationMode) var presentationMode
     @State  var eventName : String = ""
     @State private var eventLocation : String = ""

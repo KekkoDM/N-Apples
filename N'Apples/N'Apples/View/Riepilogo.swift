@@ -7,30 +7,34 @@
 
 import Foundation
 import SwiftUI
-
-struct Riepilogo: View {
+  struct ParametriRiepilogo: Identifiable {
+    var id: String {
+        self.titoloEvento }
+    var titoloEvento: String
+    var location: String
+    var data: [Date]
+    var prenotazioniDisponibili: String
+    var descrizioneEvento: String
+    var tariffeEntrata: [String]
+      var idEvent:String
     
+}
+struct Riepilogo: View {
+    @ObservedObject var userSettings = UserSettings()
     var titolo: String
     var location: String
-    var data: Date
-    var prenotazioniDisponibili: Int
+    var data: [Date]
+    var prenotazioniDisponibili: String
     var descrizioneEvento: String
     var tariffeEntrata: [Int]
+    var idEvent:String
+    @State var showEvents = false
+
+    @State var stringaGif: String = "LoadingGif"
+    @State private var showSheet : Bool = false
+    @State private var showCaricamento : Bool = false
     
-    struct ParametriRiepilogo: Identifiable {
-        var id: String {
-            self.titoloEvento }
-        var titoloEvento: String
-        var location: String
-        var data: Date
-        var ora: Date
-        var prenotazioniDisponibili: Int
-        var descrizioneEvento: String
-        var tariffeEntrata: [Int]
-        
-    }
-    
-    @State var ParamentriRecap: [ParametriRiepilogo] = [ParametriRiepilogo(titoloEvento: "", location: "", data: Date(), ora: Date(), prenotazioniDisponibili: 100, descrizioneEvento: "", tariffeEntrata: [0])]
+    @State var ParamentriRecap: [ParametriRiepilogo] = [ParametriRiepilogo(titoloEvento: "", location: "", data: [Date()],  prenotazioniDisponibili: "0", descrizioneEvento: "", tariffeEntrata: ["0"], idEvent: "")]
     var body: some View {
         
         
@@ -72,14 +76,14 @@ struct Riepilogo: View {
                                 Text("Date")
                                     .font(.system(size: 20, weight: .heavy, design: .default))
                                 
-                                Text("\(formattedDate(date:index.data,format: "dd/MM" )) ") .font(.system(size: 30))
+                                Text("\(formattedDate(date:index.data[0],format: "dd/MM" )) ") .font(.system(size: 30))
                                     .font(.system(.body, design: .monospaced))
                             }
                             VStack(alignment: .leading, spacing: 7){
                                 Text("Time")
                                     .font(.system(size: 20, weight: .heavy, design: .default))
                                 
-                                Text("\(formattedDate(date:index.data,format: "HH:mm" ))")
+                                Text("\(formattedDate(date:index.data[0],format: "HH:mm" ))")
                                     .font(.system(size: 30))
                                     .font(.system(.body, design: .monospaced))
                             }
@@ -125,25 +129,70 @@ struct Riepilogo: View {
                             .frame(width: geometry.size.width * 0.93, height: geometry.size.width * 1.4, alignment: .leading)
                         
                         VStack{
-                            Text("Delete Event").underline().foregroundColor(.red).padding()
+                            Button(action: {
+                                Task{
+                                    try await eventModel.delete(idEvent: idEvent)
+                                }
+                            }, label: {                            Text("Delete Event").underline().foregroundColor(.red).padding()
+})
                         }.frame(height: geometry.size.width * 0.4, alignment: .center)
                     }
                     .foregroundColor(.white)
                     
                     
                 }
+                .sheet(isPresented: $showSheet, onDismiss: {
+                    showCaricamento = true
+
+                    Task {
+                        try await userModel.retrieveAllId(id: userSettings.id)
+
+                        print( userModel.user.first?.username ?? "prova")
+                        showEvents = false
+                        showEvents = try await retrieveMyEvents()
+                        print("SHOW Event: \(showEvents)")
+                        print("SHOW Caricamento: \(showCaricamento)")
+                        print("Event Model: \(eventModel.records)")
+                        showCaricamento = false
+
+                        //                                   try await retrieveMyEvents()
+                    }
+                }) {
+                    EditView( ParamentriRecap: $ParamentriRecap.first!) 
+                }
+                
+                if showCaricamento {
+                    
+                    GifImage(stringaGif)
+                    
+                        .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
+                        .padding(.top, 200)
+                    
+                        .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.37)
+                        .background( Color(red: 11/255, green: 41/255, blue: 111/255))
+                    
+                }
+                
+                NavigationLink("", isActive: $showEvents, destination: {
+                    IMieiEventi(eventModel: eventModel, roleModel: roleModel)})
+                    
+                
+                
+            
             }
             .onAppear(){
-                ParamentriRecap = [ParametriRiepilogo(titoloEvento: titolo, location: location, data: data, ora: data, prenotazioniDisponibili: prenotazioniDisponibili, descrizioneEvento: descrizioneEvento, tariffeEntrata: tariffeEntrata)]
+                ParamentriRecap = [ParametriRiepilogo(titoloEvento: titolo, location: location, data: data,  prenotazioniDisponibili: String(prenotazioniDisponibili) , descrizioneEvento: descrizioneEvento, tariffeEntrata: tariffeEntrata.map{String($0) ?? ""}, idEvent: idEvent )]
+
             }
             
         }
         
         .toolbar{
-            NavigationLink(destination: Lists(), label: {
-                Text("Edit")
-            })
-            
+//            NavigationLink(destination: EditView( ParamentriRecap: $ParamentriRecap.first!) , label: {
+//                Text("Edit")
+//            }
+//            )
+            Button(action: {showSheet = true}, label: {      Text("Edit")})
         }
         
     }
