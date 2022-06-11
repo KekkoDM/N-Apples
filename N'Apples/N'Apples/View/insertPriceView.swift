@@ -72,6 +72,7 @@ struct insertPriceView: View {
                 } )
                 .navigationBarItems(trailing: Button(action: {
                     prices.append(priceAddition)
+                    prices.append(priceAddition)
                         timePrices.append(priceStartTime)
                     timePrices.append( priceEndTime)
                    

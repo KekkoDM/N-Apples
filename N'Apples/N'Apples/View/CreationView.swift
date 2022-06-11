@@ -24,7 +24,8 @@ struct CreationView: View {
     @State var isPresenting: Bool = false
     @State var sourceType: UIImagePickerController.SourceType = .photoLibrary
     @State var pushNotification: CloudkitPushNotificationViewModel = CloudkitPushNotificationViewModel()
-    
+
+
 //
 //    init() {
 //        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
