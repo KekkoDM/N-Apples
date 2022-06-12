@@ -7,7 +7,9 @@
 
 import Foundation
 import SwiftUI
-  struct ParametriRiepilogo: Identifiable {
+
+
+struct ParametriRiepilogo: Identifiable {
     var id: String {
         self.titoloEvento }
     var titoloEvento: String
@@ -16,9 +18,11 @@ import SwiftUI
     var prenotazioniDisponibili: String
     var descrizioneEvento: String
     var tariffeEntrata: [String]
-      var idEvent:String
+    var idEvent:String
     
 }
+
+
 struct Riepilogo: View {
     @ObservedObject var userSettings = UserSettings()
     var titolo: String
@@ -29,21 +33,20 @@ struct Riepilogo: View {
     var tariffeEntrata: [Int]
     var idEvent:String
     @State var showEvents = false
-
+    @State var showingAlertDelete: Bool = false
     @State var stringaGif: String = "LoadingGif"
     @State private var showSheet : Bool = false
     @State private var showCaricamento : Bool = false
     
+    
     @State var ParamentriRecap: [ParametriRiepilogo] = [ParametriRiepilogo(titoloEvento: "", location: "", data: [Date()],  prenotazioniDisponibili: "0", descrizioneEvento: "", tariffeEntrata: ["0"], idEvent: "")]
     var body: some View {
         
-        
-        
-        GeometryReader{
+        GeometryReader {
             geometry in
             
             
-            ZStack{
+            ZStack {
                 
                 Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255)
                     .ignoresSafeArea()
@@ -54,16 +57,16 @@ struct Riepilogo: View {
                     
                     ScrollView{
                         
-                        VStack(alignment: .leading, spacing: 23){
+                        VStack(alignment: .leading, spacing: 23) {
                             
-                            VStack(alignment: .leading, spacing: 7){
+                            VStack(alignment: .leading, spacing: 7) {
                                 
                                 Text("\(index.titoloEvento)")
                                     .font(.system(size: 50, weight: .heavy, design: .default))
                             }
                             
                             
-                            VStack(alignment: .leading, spacing: 7){
+                            VStack(alignment: .leading, spacing: 7) {
                                 Text("Location")
                                     .font(.system(size: 20, weight: .heavy, design: .default))
                                 
@@ -72,14 +75,14 @@ struct Riepilogo: View {
                                     .font(.system(.body, design: .monospaced))
                             }
                             
-                            VStack(alignment: .leading, spacing: 7){
+                            VStack(alignment: .leading, spacing: 7) {
                                 Text("Date")
                                     .font(.system(size: 20, weight: .heavy, design: .default))
                                 
                                 Text("\(formattedDate(date:index.data[0],format: "dd/MM" )) ") .font(.system(size: 30))
                                     .font(.system(.body, design: .monospaced))
                             }
-                            VStack(alignment: .leading, spacing: 7){
+                            VStack(alignment: .leading, spacing: 7) {
                                 Text("Time")
                                     .font(.system(size: 20, weight: .heavy, design: .default))
                                 
@@ -88,7 +91,7 @@ struct Riepilogo: View {
                                     .font(.system(.body, design: .monospaced))
                             }
                             
-                            VStack(alignment: .leading, spacing: 7){
+                            VStack(alignment: .leading, spacing: 7) {
                                 Text("Available Reservations")
                                     .font(.system(size: 20, weight: .heavy, design: .default))
                                 
@@ -97,23 +100,20 @@ struct Riepilogo: View {
                                     .font(.system(.body, design: .monospaced))
                             }
                             
-                            VStack(alignment: .leading, spacing: 20){
+                            VStack(alignment: .leading, spacing: 20) {
                                 
-                                VStack(alignment: .leading, spacing: 7){
+                                VStack(alignment: .leading, spacing: 7) {
                                     Text("Event Description") .font(.system(size: 20, weight: .heavy, design: .default))
                                     
                                     Text("\(index.descrizioneEvento)")
                                         .font(.system(size: 30))
                                         .font(.system(.body, design: .monospaced))
-                                    //                                        .frame(width: geometry.size.width * 0.8, height: geometry.size.width * 0.3)
-                                    
                                     
                                 }
                                 
-                                VStack(alignment: .leading, spacing: 7){
+                                VStack(alignment: .leading, spacing: 7) {
                                     Text("Prices")
                                         .font(.system(size: 20, weight: .heavy, design: .default))
-                                    
                                     
                                     Text(index.tariffeEntrata.description) .font(.system(size: 30))
                                         .font(.system(.body, design: .monospaced))
@@ -128,13 +128,15 @@ struct Riepilogo: View {
                         }.padding()
                             .frame(width: geometry.size.width * 0.93, height: geometry.size.width * 1.4, alignment: .leading)
                         
-                        VStack{
+                        VStack {
                             Button(action: {
-                                Task{
+                                Task {
                                     try await eventModel.delete(idEvent: idEvent)
+                                    showingAlertDelete.toggle()
                                 }
-                            }, label: {                            Text("Delete Event").underline().foregroundColor(.red).padding()
-})
+                            }, label: {
+                                Text("Delete Event").underline().foregroundColor(.red).padding()
+                            })
                         }.frame(height: geometry.size.width * 0.4, alignment: .center)
                     }
                     .foregroundColor(.white)
@@ -143,22 +145,17 @@ struct Riepilogo: View {
                 }
                 .sheet(isPresented: $showSheet, onDismiss: {
                     showCaricamento = true
-
+                    
                     Task {
                         try await userModel.retrieveAllId(id: userSettings.id)
-
-                        print( userModel.user.first?.username ?? "prova")
+                        
                         showEvents = false
                         showEvents = try await retrieveMyEvents()
-                        print("SHOW Event: \(showEvents)")
-                        print("SHOW Caricamento: \(showCaricamento)")
-                        print("Event Model: \(eventModel.records)")
                         showCaricamento = false
-
-                        //                                   try await retrieveMyEvents()
+                        
                     }
                 }) {
-                    EditView( ParamentriRecap: $ParamentriRecap.first!) 
+                    EditView(ParamentriRecap: $ParamentriRecap.first!)
                 }
                 
                 if showCaricamento {
@@ -175,24 +172,26 @@ struct Riepilogo: View {
                 
                 NavigationLink("", isActive: $showEvents, destination: {
                     IMieiEventi(eventModel: eventModel, roleModel: roleModel)})
-                    
                 
                 
-            
             }
             .onAppear(){
-                ParamentriRecap = [ParametriRiepilogo(titoloEvento: titolo, location: location, data: data,  prenotazioniDisponibili: String(prenotazioniDisponibili) , descrizioneEvento: descrizioneEvento, tariffeEntrata: tariffeEntrata.map{String($0) ?? ""}, idEvent: idEvent )]
-
+                ParamentriRecap = [ParametriRiepilogo(titoloEvento: titolo, location: location, data: data,  prenotazioniDisponibili: String(prenotazioniDisponibili) , descrizioneEvento: descrizioneEvento, tariffeEntrata: tariffeEntrata.map{String($0) }, idEvent: idEvent )]
+                
             }
-            
+            if (showingAlertDelete == true) {
+                AlertDelete(show: $showingAlertDelete)
+            }
         }
         
-        .toolbar{
-//            NavigationLink(destination: EditView( ParamentriRecap: $ParamentriRecap.first!) , label: {
-//                Text("Edit")
-//            }
-//            )
-            Button(action: {showSheet = true}, label: {      Text("Edit")})
+        .toolbar {
+            
+            Button(action: {
+                showSheet = true
+            }, label: {
+                Text("Edit")
+                
+            })
         }
         
     }

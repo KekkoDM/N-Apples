@@ -36,8 +36,6 @@ class UserModel: ObservableObject {
         
         let key = keyFromPassword(password)
         
-        print("KEY UPDATE: \(key)" )
-        
         let predicate: NSPredicate = NSPredicate(format: "username == %@ ", username)
         let query = CKQuery(recordType: User.recordType, predicate: predicate)
         
@@ -53,11 +51,10 @@ class UserModel: ObservableObject {
         
         for i in 0..<user.count {
             let tmpPass = try decryptStringToCodableOject(String.self, from: user[i].password, usingKey: key)
-//            let tmpEmail =  try decryptStringToCodableOject(String.self, from: user[i].email, usingKey: key)
+
 
             if(tmpPass == password){
                 user[i].password = tmpPass
-//                user[i].email = tmpEmail
 
             }
         }
@@ -177,8 +174,6 @@ class UserModel: ObservableObject {
         
         let key = keyFromPassword(password)
         
-        print("KEY Insert: \(key)" )
-        
         let encryptedPassword = try encryptCodableObject(password, usingKey: key)
         
         createUser.password = encryptedPassword
@@ -238,13 +233,12 @@ class UserModel: ObservableObject {
         
         var singleUser = User()
         singleUser.username = user.username
-        print("Password bella: " + password)
+        
         let key = keyFromPassword(password)
         
         let encryptedPassword = try encryptCodableObject(password, usingKey: key)
         
         singleUser.password = encryptedPassword
-        print("Password bella cryptata: " + singleUser.password)
         
         let _ = try await self.database.modifyRecords(saving: [singleUser.record], deleting: [user.record.recordID], savePolicy: .changedKeys, atomically: true)
         self.updateUser()

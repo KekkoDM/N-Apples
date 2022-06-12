@@ -15,15 +15,11 @@ struct AssignRoleView: View {
     @State var roleModel: RoleModel = RoleModel()
     @State var pushNotification: CloudkitPushNotificationViewModel = CloudkitPushNotificationViewModel()
     
-    
-    
     @Environment(\.dismiss)
     var dismiss
     var roles = ["Collaborator","PR", "Box-Office"]
     @State var selectedRole: String = "Collaborator"
     @State private var showPopUp = false
-    //    @State var shownInfo = false
-    //    @State var shown = false
     @State  var permission: Int = 0
     
     
@@ -85,17 +81,19 @@ struct AssignRoleView: View {
                     Task {
                         pushNotification.subscribe(textType: "Role", userName: users.user.first!.username)
                         if selectedRole == "Collaborator" {
-                            permission = 0  }
+                            permission = 0
+                        }
                         else if selectedRole == "PR" {
                             permission = 1
-                        }else if selectedRole == "Box-Office" {
+                        } else if selectedRole == "Box-Office" {
                             permission = 2
                         }
-//                        try await roleModel.insert(username: users.user.first!.username, permission: permission, idEvent: eventModel.event[i].id)
+
                         try await roleModel.update(usename: users.user.first!.username, idEvent: eventModel.event[i].id, permission: permission)
                         pushNotification.unsubscribe(userName: users.user.first!.username)
                         dismiss()
                     }
+                    
                 } label: {
                     Text( "Add")
                 }
@@ -136,7 +134,7 @@ struct AssignRoleView: View {
                         selection: $selectedRole,
                         label:
                             HStack{
-                                Text("Assegna ruolo")
+                                Text("Assign role")
                                 Text(selectedRole)
                                 
                             }

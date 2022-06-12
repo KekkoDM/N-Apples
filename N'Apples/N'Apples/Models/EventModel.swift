@@ -112,15 +112,14 @@ class EventModel: ObservableObject {
         
     }
     func delete(idEvent:String) async throws {
-    
 
         try await retrieveAllId(id: idEvent)
-
     
-            try await delete(at: 0)
+        try await delete(at: 0)
         
         try await roleModel.deleteCascade(idEvent: idEvent)
-            self.updateEvent()
+        
+        self.updateEvent()
         
     }
     func reset(){
@@ -129,7 +128,6 @@ class EventModel: ObservableObject {
     }
     
     func insertEvent(name: String, address: String, location: String, info: String, capability: Int, date: Date, timeForPrice: [Date], price: [Int], table: [String]) async throws {
-        print("insertevent 1")
         
         var createEvent = Event()
         createEvent.id = UUID().uuidString
@@ -144,23 +142,11 @@ class EventModel: ObservableObject {
         createEvent.table = table
         
         try await roleModel.insert(username: userModel.user.first!.username, permission: 3, idEvent: createEvent.id)
-        
-//        guard
-//            let image = imagePoster,
-//            let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first?.appendingPathComponent("Giorgio.jpeg"),
-//            let data = image.jpegData(compressionQuality: 1.0) else { return }
-        
-        print("insertevent 3")
+
         
         do {
-            print("insertevent 4")
-            
-//            try data.write(to: url)
-//            let asset = CKAsset(fileURL: url)
-//            createEvent.poster = asset
-            
+           
             let _ = try await database.save(createEvent.record)
-            print("insertevent 5")
             
         } catch let error {
             print(error)

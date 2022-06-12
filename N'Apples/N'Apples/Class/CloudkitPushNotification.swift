@@ -66,7 +66,7 @@ class CloudkitPushNotificationViewModel: ObservableObject{
         let predicate = NSPredicate(format: "content CONTAINS[c] %@", "userName")
 //        let predicate = NSPredicate(format: "%K == %@", argumentArray: ["recipient", userName])
         let subscription = CKQuerySubscription(recordType: textType, predicate: predicate, options: .firesOnRecordCreation)
-        print("userName: \(userName)")
+       
         let subscription1 = CKQuerySubscription(recordType: textType, predicate: predicate, subscriptionID: "event_added_to_database", options: .firesOnRecordDeletion)
   
         let notification = CKSubscription.NotificationInfo()

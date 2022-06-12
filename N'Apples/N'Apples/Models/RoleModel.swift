@@ -39,18 +39,14 @@ class RoleModel: ObservableObject {
         for tmp1 in tmp.matchResults {
             if let data = try? tmp1.1.get() {
                 self.records.append(data)
-                print(self.records)
-                print("mamma \(self.records.count)")
-
                 
             }
         }
         
         self.updateRole()
-        print("Conta" + "\(role.count)")
+      
     }
     
-
     
     func retrieveAllCollaborators(idEvent: String) async throws {
             records.removeAll()
@@ -58,7 +54,6 @@ class RoleModel: ObservableObject {
             let query = CKQuery(recordType: Role.recordType, predicate: predicate)
 
             let tmp = try await self.database.records(matching: query)
-            print("Collaborator count: (tmp.matchResults.count)")
 
             for tmp1 in tmp.matchResults{
                 if let data = try? tmp1.1.get() {
@@ -135,7 +130,6 @@ class RoleModel: ObservableObject {
         }
     
     
-    
     func delete(at index : Int) async throws {
         let recordId = self.role[index].record.recordID
         do {
@@ -148,6 +142,19 @@ class RoleModel: ObservableObject {
         self.updateRole()
         return
     }
+    
+    func deleteWithoutUpdate(at index : Int) async throws {
+        let recordId = self.role[index].record.recordID
+        do {
+            let _ = try await database.deleteRecord(withID: recordId)
+        } catch let error {
+            print(error)
+            return
+        }
+        deletedObjectIds.insert(recordId)
+        return
+    }
+    
     
     func update(usename: String, idEvent: String, permission: Int) async throws {
         var tmp: [Int]
@@ -170,22 +177,20 @@ class RoleModel: ObservableObject {
             try await insert(username: usename, permission: permission, idEvent: idEvent)
         }
     }
-    func deleteCascade(idEvent:String) async throws {
-        
+    
+    
+    func deleteCascade(idEvent: String) async throws {
 
         try await retrieveAllCollaborators(idEvent: idEvent)
 
-      
-
-        print("cancello elemento : \(roleModel.role.count)")
-//
-//        for i in 0..<roleModel.role.count{
-//            try await delete(at: i)
-//            print("cancello elemento : \(roleModel.role[i].username)")
-//        }
-          
-
-            self.updateRole()
+        print("conto : \(role.count)")
+        
+        for i in 0..<role.count {
+            print("Cancello \(role[i].username)")
+            try await deleteWithoutUpdate(at: i)
+        }
+    
+        self.updateRole()
         
     }
     

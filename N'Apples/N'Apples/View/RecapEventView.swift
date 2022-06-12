@@ -94,7 +94,7 @@ struct RecapEventView: View {
                 if(!reservationModel.reservation.isEmpty){
                     showReservation = true
                 }
-                print ("AMen \(roleModel.role)")
+                
             }
         }
     }

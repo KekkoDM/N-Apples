@@ -61,10 +61,8 @@ struct IMieiEventi: View {
                                 Task {
                                     try await userModel.retrieveAllId(id: userSettings.id)
                                     
-                                    print( userModel.user.first?.username ?? "prova")
                                     showEvents = false
                                     showEvents = try await retrieveMyEvents()
-                                    print("SHOW Event: \(showEvents)")
                                     
                                     showCaricamento = false
                                    
@@ -92,15 +90,11 @@ struct IMieiEventi: View {
                                 Task {
                                     try await userModel.retrieveAllId(id: userSettings.id)
                                     
-                                    print( userModel.user.first?.username ?? "prova")
                                     showEvents = false
                                     showEvents = try await retrieveMyEvents()
-                                    print("SHOW Event: \(showEvents)")
-                                    
+                                  
                                     showCaricamento = false
                                    
-                                    
-                                    //                                   try await retrieveMyEvents()
                                 }
                             }) {
                                 CreationView()

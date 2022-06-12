@@ -101,8 +101,7 @@ struct EventView: View {
     //        }
     
     var body: some View {
-        //
-//        if !showEvents {
+   
             NavigationView {
                 GeometryReader { geometry in
                     
@@ -137,25 +136,16 @@ struct EventView: View {
                         }
                         
                         
-//                        .sheet(isPresented: $showSheet) {
-//                            CreationView()
-//                        }
-                        
                         .sheet(isPresented: $showSheet, onDismiss: {
                             showCaricamento = true
 
                             Task {
                                 try await userModel.retrieveAllId(id: userSettings.id)
 
-                                print( userModel.user.first?.username ?? "prova")
                                 showEvents = false
                                 showEvents = try await retrieveMyEvents()
-                                print("SHOW Event: \(showEvents)")
-                                print("SHOW Caricamento: \(showCaricamento)")
-                                print("Event Model: \(eventModel.records)")
                                 showCaricamento = false
 
-                                //                                   try await retrieveMyEvents()
                             }
                         }) {
                             CreationView()
@@ -184,7 +174,7 @@ struct EventView: View {
                     .onAppear(){
                         
                         pushNotification.requestNotificationPermission()
-                        //            pushNotification.subscribe(textType: "Role", userName: userModel.user.first!.username)
+     
                         showCaricamento = true
                         
                         Task {
@@ -192,10 +182,10 @@ struct EventView: View {
                             
                             showEvents = false
                             showEvents = try await retrieveMyEvents()
-                            print("MAROOOO\(showEvents)")
+                          
                             showCaricamento = false
                             title = "My Events"
-                            //                                   try await retrieveMyEvents()
+            
                         }
                         
                     }
@@ -213,12 +203,7 @@ struct EventView: View {
                 
             }
             
-//        }
-        
-        
-        
-        
-        
+ 
     }
     
 }

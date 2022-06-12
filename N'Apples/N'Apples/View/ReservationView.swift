@@ -47,7 +47,6 @@ struct ReservationView: View {
                         image
                             .onLongPressGesture {
                                 show.toggle()
-                                print("Show e\(show)")
                                 let imageSaver = ImageSaver()
                                 imageSaver.writeToPhotoAlbum(image: qrImage)
                                

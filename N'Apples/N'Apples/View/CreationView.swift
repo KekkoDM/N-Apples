@@ -24,8 +24,8 @@ struct CreationView: View {
     @State var isPresenting: Bool = false
     @State var sourceType: UIImagePickerController.SourceType = .photoLibrary
     @State var pushNotification: CloudkitPushNotificationViewModel = CloudkitPushNotificationViewModel()
-
-
+    
+    
     @Environment(\.presentationMode) var presentationMode
     @State  var eventName : String = ""
     @State private var eventLocation : String = ""
@@ -33,7 +33,7 @@ struct CreationView: View {
     @State private var eventDescription : String = ""
     
     @State var presentIMieiEventi: Bool = false
- 
+    
     
     var body: some View {
         
@@ -160,14 +160,14 @@ struct CreationView: View {
                             
                             addPricesView(timePrices: $timePrices, prices: $prices)
                             ForEach( 1..<timePrices.count, id: \.self){ i in
-                                                        Text("\(formattedDate(date:timePrices[i],format: "HH:mm"))")
-                                                        DatePicker(selection: $timePrices[i], displayedComponents:.hourAndMinute, label: {
-                                                            Text("Time for prices")
-                                                                .fontWeight(.bold)
-                                                                .foregroundColor(.black)
-                                                        })
-                                                        TextField("prices", text:$prices[i])
-                                                    }
+                                Text("\(formattedDate(date:timePrices[i],format: "HH:mm"))")
+                                DatePicker(selection: $timePrices[i], displayedComponents:.hourAndMinute, label: {
+                                    Text("Time for prices")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.black)
+                                })
+                                TextField("prices", text:$prices[i])
+                            }
                             
                         }
                         .padding()
@@ -184,24 +184,20 @@ struct CreationView: View {
                                 try await eventModel.insertEvent(name: name, address: address, location: location, info: info, capability: Int(capability) ?? 0, date: dateEvents, timeForPrice: timePrices, price: prices.map{Int($0) ?? 0}, table: tables)
                                 
                                 presentationMode.wrappedValue.dismiss()
-//                                showEvents = true
-
+                               
                             }
-                          
+                            
                         }) {
                             Text("Save").fontWeight(.bold)
-                             
+                            
                             NavigationLink (destination: EventView(eventModel: eventModel, roleModel: roleModel), isActive: $presentIMieiEventi) {
-//                                Text("Save").fontWeight(.bold)
-                                
-
-                                    
+                               
                             }
-                                                            .disabled(eventName.isEmpty)
+                            .disabled(eventName.isEmpty)
                         } )
                     }
                 }
-               
+                
                 
             }
             .navigationTitle("New event")

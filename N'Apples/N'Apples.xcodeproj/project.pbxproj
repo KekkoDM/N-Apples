@@ -21,6 +21,7 @@
 		3E59823D283CEC3E006CB6D8 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59823C283CEC3E006CB6D8 /* UserSettings.swift */; };
 		3E636C06282A552E00CC0CED /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E636C05282A552E00CC0CED /* UpdateView.swift */; };
 		3E636C08282A584B00CC0CED /* CreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E636C07282A584B00CC0CED /* CreationView.swift */; };
+		3E8066E72855EB2200E1F644 /* AlertDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8066E62855EB2200E1F644 /* AlertDelete.swift */; };
 		3E8A6B952850E4410076C2F3 /* AlertRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A6B942850E4410076C2F3 /* AlertRole.swift */; };
 		3E8A6B972850EABC0076C2F3 /* IMieiEventi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A6B962850EABC0076C2F3 /* IMieiEventi.swift */; };
 		3E8A6B992850EB260076C2F3 /* Riepilogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A6B982850EB260076C2F3 /* Riepilogo.swift */; };
@@ -83,6 +84,7 @@
 		3E59823C283CEC3E006CB6D8 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		3E636C05282A552E00CC0CED /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		3E636C07282A584B00CC0CED /* CreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationView.swift; sourceTree = "<group>"; };
+		3E8066E62855EB2200E1F644 /* AlertDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDelete.swift; sourceTree = "<group>"; };
 		3E8A6B942850E4410076C2F3 /* AlertRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertRole.swift; sourceTree = "<group>"; };
 		3E8A6B962850EABC0076C2F3 /* IMieiEventi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMieiEventi.swift; sourceTree = "<group>"; };
 		3E8A6B982850EB260076C2F3 /* Riepilogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Riepilogo.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				3E3C33E6282BB6B30073B6E8 /* Alert.swift */,
 				3ED7937428369E2300E906F0 /* AlertError.swift */,
 				3E8A6B942850E4410076C2F3 /* AlertRole.swift */,
+				3E8066E62855EB2200E1F644 /* AlertDelete.swift */,
 			);
 			path = Alert;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				3E8A6B992850EB260076C2F3 /* Riepilogo.swift in Sources */,
 				3E3C33E2282BB5AC0073B6E8 /* ImageSaver.swift in Sources */,
 				41C63D9E284F5E9700DC9272 /* PriceCard.swift in Sources */,
+				3E8066E72855EB2200E1F644 /* AlertDelete.swift in Sources */,
 				3E636C06282A552E00CC0CED /* UpdateView.swift in Sources */,
 				3E8A6B9D2850EB900076C2F3 /* InsideList.swift in Sources */,
 				478586D0282D5DC00087B268 /* RoleModel.swift in Sources */,

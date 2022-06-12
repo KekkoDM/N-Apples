@@ -48,7 +48,6 @@ class ReservationModel: ObservableObject {
         let predicate: NSPredicate = NSPredicate(format: "id == %@", id)
         let query = CKQuery(recordType: Reservation.recordType, predicate: predicate)
         
-        
         let tmp = try await self.database.records(matching: query)
         print(tmp.matchResults)
         for tmp1 in tmp.matchResults{
@@ -129,8 +128,6 @@ class ReservationModel: ObservableObject {
         let predicate: NSPredicate = NSPredicate(format: "name == %@", name)
         let query = CKQuery(recordType: Reservation.recordType, predicate: predicate)
         
-        print(" OGGETTI PRIMA : \(reservation)")
-        
         let tmp = try await self.database.records(matching: query)
         
         for tmp1 in tmp.matchResults{
@@ -140,7 +137,6 @@ class ReservationModel: ObservableObject {
         }
         self.updateReservation()
         
-        print(" OGGETTI : \(reservation)")
     }
     
     func insert(event: String,id: String, name: String, surname: String, email: String, nameList: String, numFriends: Int) async throws {
@@ -290,7 +286,6 @@ class ReservationModel: ObservableObject {
         reservation.removeAll { errand in
             deletedObjectIds.contains(errand.record.recordID)
         }
-        print("NUMERO UPDATE : \(self.reservation.count)")
         
         self.reservation = reservation
         
