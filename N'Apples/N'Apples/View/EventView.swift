@@ -113,7 +113,7 @@ struct EventView: View {
                         VStack(spacing: 20){
                             Image("newevent")
                             
-                            Text("You haven’t organized an event yet")
+                            Text("You haven’t organized an event yet.")
                                 .foregroundColor(.white)
                                 .fontWeight(.bold)
                                 .frame(width: 250, height: 90)
@@ -143,6 +143,7 @@ struct EventView: View {
                                 try await userModel.retrieveAllId(id: userSettings.id)
 
                                 showEvents = false
+
                                 showEvents = try await retrieveMyEvents()
                                 showCaricamento = false
 
@@ -160,24 +161,26 @@ struct EventView: View {
                             
                                 .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.37)
                                 .background( Color(red: 11/255, green: 41/255, blue: 111/255))
-                            
+                                .onAppear() {
+                                    print("DENTRO SHOW CARICAMENTO IN EVENT VIEW")
+                                }
                         }
                         
                         NavigationLink("", isActive: $showEvents, destination: {
                             IMieiEventi(eventModel: eventModel, roleModel: roleModel)})
                             
                         
-                        
                     }
-                    
+                   
                     
                     .onAppear(){
-                        
                         pushNotification.requestNotificationPermission()
-     
+                        print("DENTRO ON APPEAR IN EVENT VIEW")
                         showCaricamento = true
                         
+                        
                         Task {
+                            
                             try await userModel.retrieveAllId(id: userSettings.id)
                             
                             showEvents = false
@@ -191,6 +194,7 @@ struct EventView: View {
                     }
                     
                     .navigationTitle(title)
+                   
                     .navigationBarItems(trailing: Button(action: {showSheet=true}) {
                         if !showCaricamento {
                             Image(systemName: "plus.circle.fill")
@@ -201,7 +205,7 @@ struct EventView: View {
                     
                 }
                 
-            }
+            } .navigationBarHidden(true)
             
  
     }

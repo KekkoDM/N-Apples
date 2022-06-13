@@ -11,20 +11,22 @@ import SwiftUI
 struct AlertDelete: View {
     
     @Binding var show: Bool
-    @State var presentIMieiEventi: Bool = false
+    @Binding var showEventView: Bool
    
     
     var body: some View {
         VStack {
+           
             
         }.alert(NSLocalizedString("Great!", comment: ""), isPresented: $show, actions: {
             Button("Ok", action: {
-            
-                
+                showEventView = true
+
             })
         }, message: {
             Text("Event successfully deleted.")
             
         })
+        
     }
 }

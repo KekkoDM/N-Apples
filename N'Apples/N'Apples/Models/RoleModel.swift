@@ -152,6 +152,7 @@ class RoleModel: ObservableObject {
             return
         }
         deletedObjectIds.insert(recordId)
+//        self.updateRole2()
         return
     }
     
@@ -182,11 +183,9 @@ class RoleModel: ObservableObject {
     func deleteCascade(idEvent: String) async throws {
 
         try await retrieveAllCollaborators(idEvent: idEvent)
-
-        print("conto : \(role.count)")
         
         for i in 0..<role.count {
-            print("Cancello \(role[i].username)")
+            
             try await deleteWithoutUpdate(at: i)
         }
     
@@ -219,6 +218,32 @@ class RoleModel: ObservableObject {
         role.removeAll { errand in
             deletedObjectIds.contains(errand.record.recordID)
         }
+        
+        self.role = role
+        
+        debugPrint("Tracking local objects \(self.insertedObjects) \(self.deletedObjectIds)")
+    }
+    
+    private func updateRole2() {
+        
+        var knownIds = Set(records.map { $0.recordID })
+        
+        // remove objects from our local list once we see them returned from the cloudkit storage
+        self.insertedObjects.removeAll { errand in
+            knownIds.contains(errand.record.recordID)
+        }
+        
+        knownIds.formUnion(self.insertedObjects.map { $0.record.recordID })
+        
+        // remove objects from our local list once we see them not being returned from storage anymore
+        self.deletedObjectIds.formIntersection(knownIds)
+        
+        var role = records.map { record in Role(record: record) }
+        
+        role.append(contentsOf: self.insertedObjects)
+//        role.removeAll { errand in
+//            deletedObjectIds.contains(errand.record.recordID)
+//        }
         
         self.role = role
         

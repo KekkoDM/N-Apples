@@ -37,7 +37,7 @@ struct Riepilogo: View {
     @State var stringaGif: String = "LoadingGif"
     @State private var showSheet : Bool = false
     @State private var showCaricamento : Bool = false
-    
+    @State var showEventView = false
     
     @State var ParamentriRecap: [ParametriRiepilogo] = [ParametriRiepilogo(titoloEvento: "", location: "", data: [Date()],  prenotazioniDisponibili: "0", descrizioneEvento: "", tariffeEntrata: ["0"], idEvent: "")]
     var body: some View {
@@ -131,8 +131,10 @@ struct Riepilogo: View {
                         VStack {
                             Button(action: {
                                 Task {
+                                    try await eventModel.retrieveAllName(name: titolo)
                                     try await eventModel.delete(idEvent: idEvent)
                                     showingAlertDelete.toggle()
+                                    
                                 }
                             }, label: {
                                 Text("Delete Event").underline().foregroundColor(.red).padding()
@@ -174,13 +176,17 @@ struct Riepilogo: View {
                     IMieiEventi(eventModel: eventModel, roleModel: roleModel)})
                 
                 
+                NavigationLink("", isActive: $showEventView, destination: {
+                    EventView(eventModel: eventModel, roleModel: roleModel)})
+                
+                
             }
             .onAppear(){
                 ParamentriRecap = [ParametriRiepilogo(titoloEvento: titolo, location: location, data: data,  prenotazioniDisponibili: String(prenotazioniDisponibili) , descrizioneEvento: descrizioneEvento, tariffeEntrata: tariffeEntrata.map{String($0) }, idEvent: idEvent )]
                 
             }
             if (showingAlertDelete == true) {
-                AlertDelete(show: $showingAlertDelete)
+                AlertDelete(show: $showingAlertDelete, showEventView: $showEventView)
             }
         }
         
