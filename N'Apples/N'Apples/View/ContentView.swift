@@ -83,6 +83,12 @@ struct ContentView: View {
                         
                     }
                 }
+                
+                
+
+                
+                
+                
                 VStack{
                     VStack {
                         HStack (spacing: 15){

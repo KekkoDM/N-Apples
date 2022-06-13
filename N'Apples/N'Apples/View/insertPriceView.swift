@@ -83,6 +83,7 @@ struct insertPriceView: View {
                 
             } // FINE ZSTACK DELLO SFONDO
         } // FINE DEL GEOMETRY READER
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .navigationTitle("Prices")
         .navigationBarTitleDisplayMode(.inline)
     } // FINE DEL BODY

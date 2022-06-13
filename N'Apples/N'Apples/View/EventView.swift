@@ -25,7 +25,7 @@ struct EventView: View {
     @State var title = ""
 
     @State var stringaGif: String = "LoadingGif"
-    @State private var showSheet : Bool = false
+    @State var showSheet : Bool = false
     @State private var showCaricamento : Bool = false
     
     

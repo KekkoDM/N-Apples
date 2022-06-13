@@ -21,6 +21,7 @@
 		3E59823D283CEC3E006CB6D8 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59823C283CEC3E006CB6D8 /* UserSettings.swift */; };
 		3E636C06282A552E00CC0CED /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E636C05282A552E00CC0CED /* UpdateView.swift */; };
 		3E636C08282A584B00CC0CED /* CreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E636C07282A584B00CC0CED /* CreationView.swift */; };
+		3E80318E28578FEC00837C39 /* AlertCancelPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E80318D28578FEC00837C39 /* AlertCancelPrice.swift */; };
 		3E8066E72855EB2200E1F644 /* AlertDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8066E62855EB2200E1F644 /* AlertDelete.swift */; };
 		3E8A6B952850E4410076C2F3 /* AlertRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A6B942850E4410076C2F3 /* AlertRole.swift */; };
 		3E8A6B972850EABC0076C2F3 /* IMieiEventi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8A6B962850EABC0076C2F3 /* IMieiEventi.swift */; };
@@ -84,6 +85,7 @@
 		3E59823C283CEC3E006CB6D8 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		3E636C05282A552E00CC0CED /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		3E636C07282A584B00CC0CED /* CreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationView.swift; sourceTree = "<group>"; };
+		3E80318D28578FEC00837C39 /* AlertCancelPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCancelPrice.swift; sourceTree = "<group>"; };
 		3E8066E62855EB2200E1F644 /* AlertDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDelete.swift; sourceTree = "<group>"; };
 		3E8A6B942850E4410076C2F3 /* AlertRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertRole.swift; sourceTree = "<group>"; };
 		3E8A6B962850EABC0076C2F3 /* IMieiEventi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMieiEventi.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				3ED7937428369E2300E906F0 /* AlertError.swift */,
 				3E8A6B942850E4410076C2F3 /* AlertRole.swift */,
 				3E8066E62855EB2200E1F644 /* AlertDelete.swift */,
+				3E80318D28578FEC00837C39 /* AlertCancelPrice.swift */,
 			);
 			path = Alert;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				3E3C33E1282BB5AC0073B6E8 /* CameraPreview.swift in Sources */,
 				3E8E317B283795D900564D80 /* EventView.swift in Sources */,
 				3E3C33F0282BB6B40073B6E8 /* ScannerViewModel.swift in Sources */,
+				3E80318E28578FEC00837C39 /* AlertCancelPrice.swift in Sources */,
 				41C63DA0284F5EDB00DC9272 /* EventDescriptionAnimation.swift in Sources */,
 				3E8A6B992850EB260076C2F3 /* Riepilogo.swift in Sources */,
 				3E3C33E2282BB5AC0073B6E8 /* ImageSaver.swift in Sources */,

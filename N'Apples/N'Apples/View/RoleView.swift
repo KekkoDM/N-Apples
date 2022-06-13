@@ -18,45 +18,94 @@ struct RoleView: View {
     @State var showingAlertRole: Bool = false
     var body: some View {
         
-        ZStack{
+        
+//        GeometryReader{ geometry in
+//        ZStack {
+//            Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255)
+//                .ignoresSafeArea()
+        ZStack {
             Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255)
                 .ignoresSafeArea()
-            GeometryReader{ geometry in
-                Spacer()
-                
-                Button {
+                VStack{
                     
-                    Task {
-                        try await users.retrieveAllEmail(email: userSeacrh + " ")
+                    
+                    VStack(spacing: 25.0){
                         
-                        if (!users.user.isEmpty){
+                        Text("Write the email of your collaborators")
+                        .font(.title2)
+                        
+                        TextField("", text: $userSeacrh)
+                            .placeholder(when: userSeacrh.isEmpty){
+                                Text("Write email").foregroundColor(.init(red: 0.72, green: 0.75, blue: 0.79, opacity: 1.00))
+                            }
+                            .padding(7)
+                            .padding(.horizontal, 25)
+                            .foregroundColor(.init(red: 0.72, green: 0.75, blue: 0.79, opacity: 1.00))
+                            .background(Color(red: 0.24, green: 0.30, blue: 0.59).opacity(0.9))
+                        
+                        
+                            .cornerRadius(20)
+                            .overlay(
+                                HStack {
+                                    Image(systemName: "magnifyingglass")
+                                        .foregroundColor(.init(red: 0.72, green: 0.75, blue: 0.79, opacity: 1.00))
+                                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                        .padding(.leading, 8)
+                                })
+
                             
-                            presentAssignRoleView.toggle()
+                    }
+                    .padding()
+             
+                    
+                    
+                    Button {
+                        
+                        Task {
+                            try await users.retrieveAllEmail(email: userSeacrh + " ")
                             
-                        } else {
-                            showingAlertRole.toggle()
+                            if (!users.user.isEmpty) {
+                                
+                                presentAssignRoleView.toggle()
+                                
+                            } else {
+                                showingAlertRole.toggle()
+                            }
+                            
                         }
                         
+                    } label: {
+                        RoundedRectangle(cornerRadius: 7)
+                        
+                            .foregroundColor(.orange)
+                            .overlay(Text("Search")
+                                .foregroundColor(.white))
+                            .frame(width: 200, height: 50, alignment: .center)
+                           
+//                            .padding(.leading, 170)
+                            .padding()
+                        
+                        
                     }
-                } label: {
-                    RoundedRectangle(cornerRadius: 7)
-                        .stroke(.white)
-                        .foregroundColor(.clear)
-                        .overlay(Text("Domenico Marino")
-                            .foregroundColor(.white))
-                        .frame(width: geometry.size.width*0.5, height: geometry.size.height*0.075)
-                    
-                    
-                    
-                }
-                .onAppear() {
-                    Task {
-                        try await userModel.retrieveAll()
+
+                    .onAppear() {
+                        Task {
+                            try await userModel.retrieveAll()
+                        }
                     }
+               
+            
+                    .navigationTitle("Assign a Role")
+                    .navigationBarTitleDisplayMode(.inline)
+                        
                     
-                }
-                .frame(width: geometry.size.width*0.5, height: geometry.size.height*0.055)
-                .position(x: geometry.size.width*0.3, y: geometry.size.height*0.14)
+                }.background(Color(red: 0.19, green: 0.28, blue: 0.51)
+                    .ignoresSafeArea())
+                .cornerRadius(20)
+                .padding()
+        }
+//                .frame(width: geometry.size.width*0.5, height: geometry.size.height*0.055)
+//                .position(x: geometry.size.width*0.3, y: geometry.size.height*0.14)
                 //                  List {
                 //                      ForEach(0..<roleModel.role.count) {i in
                 //                          Text(roleModel.role[i].username)
@@ -67,24 +116,40 @@ struct RoleView: View {
                 }
                 
                 
-            }
+//            }
             
             if (showingAlertRole == true) {
                 AlertRole(show: $showingAlertRole)
             }
             
-        }
+//        }
         
-        .searchable(text: $userSeacrh)
+        //        .searchable(text: $userSeacrh)
         
         
-        .navigationTitle("Assign a Role")
-        .navigationBarTitleDisplayMode(.inline)
+        
         
     }
     
+   
+    
     
 }
+
+
+extension View {
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+            
+            ZStack(alignment: alignment) {
+                placeholder().opacity(shouldShow ? 1 : 0)
+                self
+            }
+        }
+}
+
 //    var searchResults: [String] {
 //        if searchText.isEmpty {
 //            return email

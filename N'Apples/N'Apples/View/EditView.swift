@@ -23,7 +23,8 @@ struct EditView: View {
     
     @Binding var ParamentriRecap: ParametriRiepilogo
     
-    
+    @State var intero: Int = 0
+    @State var openAlert: Bool = false
     
     @Environment(\.presentationMode) var presentationMode
     @State var eventName : String = ""
@@ -51,43 +52,56 @@ struct EditView: View {
                     
                     ScrollView( showsIndicators: false){
                         
-                        VStack(alignment: .leading , spacing: 20 ){
+                        VStack(alignment: .leading , spacing: 30 ){
                             
                             
-                            TextFieldAnimation(name: $ParamentriRecap.titoloEvento)
+                            EventNameField(eventName: $ParamentriRecap.titoloEvento)
                             
-                            LocationFieldAnimation(nameLocation:$ParamentriRecap.location)
-                            
-                                .frame(width: geometry.size.width * 0.9, height: geometry.size.height *  0.2)
+                            LocationField(eventLocation:$ParamentriRecap.location)
                             
                             
-                            PickersView(birthDate: $ParamentriRecap.data[0])
-                                .frame(width: geometry.size.width*0.9, height: geometry.size.height*0.2)
+                            PickersView(birthDate:$ParamentriRecap.data[0])
+                               
+                            AvailableReservationField(availableReservation: $ParamentriRecap.prenotazioniDisponibili)
+                              
                             
                             
-                            AvailableAnimation(nameAvailable: $ParamentriRecap.prenotazioniDisponibili)
-                                .frame(width: geometry.size.width*0.9, height: geometry.size.height*0.2)
-                            
-                            
-                            EventDescriptionAnimation(nameDescription: $ParamentriRecap.descrizioneEvento)
-                                .foregroundColor(.gray).font(.system(size: 21))
-                                .frame(width: geometry.size.width * 0.9, height: geometry.size.height *  0.2)
-                                .overlay(RoundedRectangle(cornerRadius: 14)
-                                    .stroke(Color.white, lineWidth: 3)
-                                )
-                            
-                            addPricesView(timePrices: $ParamentriRecap.data, prices: $ParamentriRecap.tariffeEntrata)
-                            ForEach( 0..<$ParamentriRecap.data.count, id: \.self){ i in
+                            eventDescriptionField(eventDescription: $ParamentriRecap.descrizioneEvento)
                                 
-                                Text("\(formattedDate(date:ParamentriRecap.data[i],format: "HH:mm"))")
+                            
+                            addPricesView(timePrices:$ParamentriRecap.data, prices: $ParamentriRecap.tariffeEntrata)
+                                .padding(.top, 50)
+                            
+                            if ParamentriRecap.data.count > 1 {
                                 
-                                DatePicker(selection: $ParamentriRecap.data[i], displayedComponents:.hourAndMinute, label: {
-                                    Text("Time for prices")
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.black)
-                                })
-                                TextField("prices", text:$ParamentriRecap.tariffeEntrata[i])
+                            ForEach( 2 ..< ParamentriRecap.data.count, id: \.self){ i in
+                                if (i % 2 == 0) {
+
+                                        priceCard(orariocard: $ParamentriRecap.data[i-1], orariocardfine: $ParamentriRecap.data[i], prezzocard: $ParamentriRecap.tariffeEntrata[i])
+                                        .onLongPressGesture{
+                                            intero = i
+                                            openAlert.toggle()
+                                            
+                                        }
+
+                                    .frame(width: geometry.size.width * 0.92, height:geometry.size.height * 0.1)
+                                }
+                                
                             }
+                                
+                            }
+                            
+//                            ForEach( 0..<$ParamentriRecap.data.count, id: \.self){ i in
+//
+//                                Text("\(formattedDate(date:ParamentriRecap.data[i],format: "HH:mm"))")
+//
+//                                DatePicker(selection: $ParamentriRecap.data[i], displayedComponents:.hourAndMinute, label: {
+//                                    Text("Time for prices")
+//                                        .fontWeight(.bold)
+//                                        .foregroundColor(.black)
+//                                })
+//                                TextField("prices", text:$ParamentriRecap.tariffeEntrata[i])
+//                            }
                             
                         }
                         .padding()
@@ -132,6 +146,11 @@ struct EditView: View {
                         }) {
                             Text("Save").fontWeight(.bold)
                             
+                            if(openAlert){
+                                AlertCancelPrice(show: $openAlert, timePrices: $ParamentriRecap.data, prices: $ParamentriRecap.tariffeEntrata, intero: $intero)
+                            }
+                            
+                            
                             NavigationLink (destination: EventView(eventModel: eventModel, roleModel: roleModel), isActive: $presentIMieiEventi) {
                                 
                                 
@@ -157,5 +176,8 @@ struct EditView: View {
         return dateformatter.string(from: date)
     }
     
+    
 }
+
+
 

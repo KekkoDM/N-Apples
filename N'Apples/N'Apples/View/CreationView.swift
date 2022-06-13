@@ -24,7 +24,8 @@ struct CreationView: View {
     @State var isPresenting: Bool = false
     @State var sourceType: UIImagePickerController.SourceType = .photoLibrary
     @State var pushNotification: CloudkitPushNotificationViewModel = CloudkitPushNotificationViewModel()
-    
+    @State var intero: Int = 0
+    @State var openAlert: Bool = false
     
     @Environment(\.presentationMode) var presentationMode
     @State  var eventName : String = ""
@@ -125,7 +126,7 @@ struct CreationView: View {
             GeometryReader{geometry in
                 
                 
-                ZStack{
+                ZStack {
                     
                     
                     Color(red: 11/255, green: 41/255, blue: 111/255)
@@ -133,47 +134,43 @@ struct CreationView: View {
                     
                     ScrollView( showsIndicators: false){
                         
-                        VStack(alignment: .leading , spacing: 20 ){
+                        VStack(alignment: .leading , spacing: 30 ){
                             
                             
-                            TextFieldAnimation(name: $name)
+                            EventNameField(eventName: $name)
                             
-                            LocationFieldAnimation(nameLocation:$location)
-                            
-                                .frame(width: geometry.size.width * 0.9, height: geometry.size.height *  0.2)
-                            
+                            LocationField(eventLocation: $location)
                             
                             PickersView(birthDate: $timePrices[0])
-                                .frame(width: geometry.size.width*0.9, height: geometry.size.height*0.2)
-                            
-                            
-                            AvailableAnimation(nameAvailable: $capability)
-                                .frame(width: geometry.size.width*0.9, height: geometry.size.height*0.2)
-                            
-                            
-                            EventDescriptionAnimation(nameDescription: $info)
-                                .foregroundColor(.gray).font(.system(size: 21))
-                                .frame(width: geometry.size.width * 0.9, height: geometry.size.height *  0.2)
-                                .overlay(RoundedRectangle(cornerRadius: 14)
-                                    .stroke(Color.white, lineWidth: 3)
-                                )
+                                
+                            AvailableReservationField(availableReservation: $capability)
+                               
+                            eventDescriptionField(eventDescription: $info)
                             
                             addPricesView(timePrices: $timePrices, prices: $prices)
-                            ForEach( 1..<timePrices.count, id: \.self){ i in
-                                Text("\(formattedDate(date:timePrices[i],format: "HH:mm"))")
-                                DatePicker(selection: $timePrices[i], displayedComponents:.hourAndMinute, label: {
-                                    Text("Time for prices")
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.black)
-                                })
-                                TextField("prices", text:$prices[i])
+                                .padding(.top, 50)
+                            if timePrices.count > 1 {
+                                
+                            ForEach( 2 ..< timePrices.count, id: \.self){ i in
+                                if (i % 2 == 0) {
+
+                                        priceCard(orariocard: $timePrices[i-1], orariocardfine: $timePrices[i], prezzocard: $prices[i])
+                                        .onLongPressGesture{
+                                            intero = i
+                                            openAlert.toggle()
+                                            
+                                        }
+
+                                    .frame(width: geometry.size.width * 0.92, height:geometry.size.height * 0.1)
+                                }
+                                
+                            }
+                                
                             }
                             
                         }
                         .padding()
                         
-                        
-                        //                        .position(x: geometry.size.width*0.55, y: geometry.size.height*0.1)
                         
                         .navigationBarItems(leading:Button(action: { presentationMode.wrappedValue.dismiss()}) {
                             Text("Cancel").fontWeight(.bold)
@@ -189,6 +186,10 @@ struct CreationView: View {
                             
                         }) {
                             Text("Save").fontWeight(.bold)
+                            
+                            if(openAlert){
+                                AlertCancelPrice(show: $openAlert, timePrices: $timePrices, prices: $prices, intero: $intero)
+                            }
                             
                             NavigationLink (destination: EventView(eventModel: eventModel, roleModel: roleModel), isActive: $presentIMieiEventi) {
                                
@@ -249,5 +250,74 @@ struct AvailableReservationField: View {
             .overlay(RoundedRectangle(cornerRadius: 14)
                 .stroke(Color.white, lineWidth: 3)
             )
+    }
+}
+
+struct eventDescriptionField: View {
+    @Binding var eventDescription : String
+    var body: some View {
+        GeometryReader{geometry in
+            TextField("Event description", text: $eventDescription)
+                .foregroundColor(.white).font(.system(size: 21))
+                .padding()
+                .overlay(RoundedRectangle(cornerRadius: 14)
+                            .stroke(Color.white, lineWidth: 3)
+                )
+        }
+    }
+}
+
+struct addPricesView: View {
+    @Binding var timePrices: [Date]
+    @Binding var prices: [String]
+    var body: some View {
+        
+        HStack{
+            
+            Text("Prices")
+                .font(.system(size: 30))
+                .foregroundColor(.white)
+                .fontWeight(.semibold)
+            
+            NavigationLink(destination: insertPriceView(timePrices: $timePrices, prices: $prices)) {
+                Image(systemName: "plus.circle.fill")
+                    .font(.system(size: 25))
+                    .foregroundColor(.orange)
+            }
+            
+        }
+        
+    }
+}
+
+struct priceCard : View {
+//    @Binding var titolocard : String
+    @Binding var orariocard : Date
+    @Binding var orariocardfine : Date
+
+    @Binding var prezzocard : String
+    var body : some View {
+        
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .foregroundColor(.white)
+            HStack {
+                VStack(alignment:.leading){
+                    Text("Metti il table ciao")
+                        .fontWeight(.bold)
+                    Text("\(formattedDate(date:orariocard,format: "HH:mm")) - \(formattedDate(date:orariocardfine,format: "HH:mm"))")
+                }
+                Spacer()
+                Text(prezzocard)
+                    .fontWeight(.semibold)
+            }
+            .foregroundColor(.black)
+            .padding(.horizontal)
+        }
+    }
+    func formattedDate(date:Date,format:String)->String{
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = format
+        return dateformatter.string(from: date)
     }
 }

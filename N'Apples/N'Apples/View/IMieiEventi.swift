@@ -15,10 +15,11 @@ struct IMieiEventi: View {
     @State var roleModel: RoleModel
     @State var intero: Int = 0
     @State var showSheet = false
-    
+   
     @State var stringaGif: String = "LoadingGif"
     @State var showEvents = false
     @State private var showCaricamento : Bool = false
+   
     @ObservedObject var userSettings = UserSettings()
     var body: some View {
         
@@ -49,17 +50,19 @@ struct IMieiEventi: View {
                         
                         VStack(spacing: 20){
                             ScrollView(showsIndicators: false) {
-                                CardEvento(i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[0].name, location: eventModel.event[0].location, data: eventModel.event[0].timeForPrice, prenotazioniDisponibili: eventModel.event[0].capability, descrizioneEvento: eventModel.event[0].info, tariffeEntrata: eventModel.event[0].price, idEvent: eventModel.event[0].id )])
+                                if roleModel.role.first!.permission == [0,0,0]{
+                                    CardEvento(i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[0].name, location: eventModel.event[0].location, data: eventModel.event[0].timeForPrice, prenotazioniDisponibili: eventModel.event[0].capability, descrizioneEvento: eventModel.event[0].info, tariffeEntrata: eventModel.event[0].price, idEvent: eventModel.event[0].id )])}
                                 ForEach(1 ..< eventModel.event.count, id: \.self) { i in
+                                    if roleModel.role[i].permission == [0,0,0]{
                                     if(eventModel.event[i].name != eventModel.event[i-1].name && i != 0){
-                                    CardEvento(i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id )])
+                                        CardEvento(i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id )])
                                         .onAppear(perform: {
                                             print(i)
                                         })
                                         .onTapGesture {
                                             intero = i
                                             
-                                        }}
+                                        }}}
                                 }
                                 
                                 .refreshable {
@@ -89,24 +92,28 @@ struct IMieiEventi: View {
                                 //                            }
                                 
                                 
-                                .sheet(isPresented: $showSheet, onDismiss: {
-                                    showCaricamento = true
-                                    
-                                    Task {
-                                        try await userModel.retrieveAllId(id: userSettings.id)
-                                        
-                                        showEvents = false
-                                        
-                                        showEvents = try await retrieveMyEvents()
-                                        
-                                        showCaricamento = false
-                                        
-                                    }
-                                }) {
-                                    CreationView()
-                                }
+                                
                                 
                             }
+                            
+                            .sheet(isPresented: $showSheet, onDismiss: {
+                                showCaricamento = true
+                                
+                                Task {
+                                    try await userModel.retrieveAllId(id: userSettings.id)
+                                    
+                                    showEvents = false
+                                    
+                                    showEvents = try await retrieveMyEvents()
+                                    
+                                    showCaricamento = false
+                                    
+                                }
+                            }) {
+                                CreationView()
+                            }
+                            
+                            
                             //                        .position(x: geometry.size.width * 0.45, y: geometry.size.height*0.45)
                             //
                             
@@ -127,18 +134,22 @@ struct IMieiEventi: View {
                     
                 }
                 
-                //
+                .navigationTitle("My Events")
+                .navigationBarItems(trailing: Button(action: {
+                    showSheet=true
+                    print("UUUUUUUU")
+                }) {
+                    if !showCaricamento {
+                        Image(systemName: "plus.circle.fill")}
+                    
+                })
                 
                 
             }
             
-            .navigationTitle("My Events")
-            .navigationBarItems(trailing: Button(action: {showSheet=true}) {
-                if !showCaricamento {
-                    Image(systemName: "plus.circle.fill")}
-                
-            })
+           
             .background(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
+            
             
         }
         .navigationBarHidden(true)
@@ -164,7 +175,7 @@ struct IMieiEventi: View {
 
 struct CardEvento: View {
     //    let geometry: GeometryProxy
-    @Binding var i:Int
+    @Binding var i: Int
     @Binding var eventModel: EventModel
     
     struct ParametriCard: Identifiable {
@@ -228,6 +239,7 @@ struct CardEvento: View {
                                     Text("Roles")
                                         .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                     .font(.system(size: 16))})
+                               
                             }
                             
                         }
@@ -292,6 +304,7 @@ struct CardEvento: View {
                     )
             }
             
+           
             
         }
         

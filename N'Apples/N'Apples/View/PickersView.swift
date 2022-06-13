@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PickersView: View {
-    @Binding var birthDate:Date
+    @Binding var birthDate: Date
     
     var body: some View {
         
