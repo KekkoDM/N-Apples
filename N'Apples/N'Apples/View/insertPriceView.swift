@@ -23,6 +23,9 @@ struct insertPriceView: View {
     @State private var priceEndTime = Date()
     @Binding var timePrices: [Date]
     @Binding var prices: [String]
+    @Binding var tables: [String]
+ 
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -34,7 +37,7 @@ struct insertPriceView: View {
                     
                     TextField("Typology", text: $typology)
                         .padding()
-                        .foregroundColor(.gray).font(.system(size: 21))
+                        .foregroundColor(.white).font(.system(size: 21))
                         .overlay(RoundedRectangle(cornerRadius: 14)
                                     .stroke(Color.white, lineWidth: 3)
                         )
@@ -43,7 +46,7 @@ struct insertPriceView: View {
                     
                     TextField("Price", text: $priceAddition)
                         .padding()
-                        .foregroundColor(.gray).font(.system(size: 21))
+                        .foregroundColor(.white).font(.system(size: 21))
                         .overlay(RoundedRectangle(cornerRadius: 14)
                                     .stroke(Color.white, lineWidth: 3)
                         )
@@ -56,6 +59,8 @@ struct insertPriceView: View {
                     
                     pricePicker(priceStartTime: $priceStartTime, priceEndTime: $priceEndTime)
                         .padding(.top)
+                    
+                    
   
                 }
                 .padding()
@@ -71,18 +76,36 @@ struct insertPriceView: View {
 
                 } )
                 .navigationBarItems(trailing: Button(action: {
+                    
+                    tables.append(typology)
+                    tables.append(typology)
                     prices.append(priceAddition)
                     prices.append(priceAddition)
-                        timePrices.append(priceStartTime)
-                    timePrices.append( priceEndTime)
-                   
+                    timePrices.append(priceStartTime)
+                    timePrices.append(priceEndTime)
+                    presentationMode.wrappedValue.dismiss()
+                    
                 }) {
+                   
                     Text("Add")
                         .fontWeight(.bold)
                 })
                 
+               
+                
+                
+                
+                
+                
+
+                
             } // FINE ZSTACK DELLO SFONDO
+            
+            
         } // FINE DEL GEOMETRY READER
+        
+       
+        
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .navigationTitle("Prices")
         .navigationBarTitleDisplayMode(.inline)

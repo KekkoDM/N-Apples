@@ -18,7 +18,8 @@ struct ParametriRiepilogo: Identifiable {
     var prenotazioniDisponibili: String
     var descrizioneEvento: String
     var tariffeEntrata: [String]
-    var idEvent:String
+    var idEvent: String
+    var tables: [String]
     
 }
 
@@ -31,7 +32,8 @@ struct Riepilogo: View {
     var prenotazioniDisponibili: String
     var descrizioneEvento: String
     var tariffeEntrata: [Int]
-    var idEvent:String
+    var idEvent: String
+    var tables: [String]
     @State var showEvents = false
     @State var showingAlertDelete: Bool = false
     @State var stringaGif: String = "LoadingGif"
@@ -39,7 +41,7 @@ struct Riepilogo: View {
     @State private var showCaricamento : Bool = false
     @State var showEventView = false
     
-    @State var ParamentriRecap: [ParametriRiepilogo] = [ParametriRiepilogo(titoloEvento: "", location: "", data: [Date()],  prenotazioniDisponibili: "0", descrizioneEvento: "", tariffeEntrata: ["0"], idEvent: "")]
+    @State var ParamentriRecap: [ParametriRiepilogo] = [ParametriRiepilogo(titoloEvento: "", location: "", data: [Date()],  prenotazioniDisponibili: "0", descrizioneEvento: "", tariffeEntrata: ["0"], idEvent: "", tables: [""])]
     var body: some View {
         
         GeometryReader {
@@ -117,6 +119,9 @@ struct Riepilogo: View {
                                     
                                     Text(index.tariffeEntrata.description) .font(.system(size: 30))
                                         .font(.system(.body, design: .monospaced))
+                                    
+                                    Text(index.tables.description) .font(.system(size: 30))
+                                        .font(.system(.body, design: .monospaced))
                                 }
                                 
                                 
@@ -182,7 +187,7 @@ struct Riepilogo: View {
                 
             }
             .onAppear(){
-                ParamentriRecap = [ParametriRiepilogo(titoloEvento: titolo, location: location, data: data,  prenotazioniDisponibili: String(prenotazioniDisponibili) , descrizioneEvento: descrizioneEvento, tariffeEntrata: tariffeEntrata.map{String($0) }, idEvent: idEvent )]
+                ParamentriRecap = [ParametriRiepilogo(titoloEvento: titolo, location: location, data: data,  prenotazioniDisponibili: String(prenotazioniDisponibili) , descrizioneEvento: descrizioneEvento, tariffeEntrata: tariffeEntrata.map{String($0) }, idEvent: idEvent, tables: tables.map{String($0)})]
                 
             }
             if (showingAlertDelete == true) {

@@ -51,11 +51,11 @@ struct IMieiEventi: View {
                         VStack(spacing: 20){
                             ScrollView(showsIndicators: false) {
                                 if roleModel.role.first!.permission == [0,0,0]{
-                                    CardEvento(i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[0].name, location: eventModel.event[0].location, data: eventModel.event[0].timeForPrice, prenotazioniDisponibili: eventModel.event[0].capability, descrizioneEvento: eventModel.event[0].info, tariffeEntrata: eventModel.event[0].price, idEvent: eventModel.event[0].id )])}
+                                    CardEvento(i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[0].name, location: eventModel.event[0].location, data: eventModel.event[0].timeForPrice, prenotazioniDisponibili: eventModel.event[0].capability, descrizioneEvento: eventModel.event[0].info, tariffeEntrata: eventModel.event[0].price, idEvent: eventModel.event[0].id, tables: eventModel.event[0].table )])}
                                 ForEach(1 ..< eventModel.event.count, id: \.self) { i in
                                     if roleModel.role[i].permission == [0,0,0]{
                                     if(eventModel.event[i].name != eventModel.event[i-1].name && i != 0){
-                                        CardEvento(i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id )])
+                                        CardEvento(i: $intero, eventModel: $eventModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id, tables: eventModel.event[i].table )])
                                         .onAppear(perform: {
                                             print(i)
                                         })
@@ -137,7 +137,7 @@ struct IMieiEventi: View {
                 .navigationTitle("My Events")
                 .navigationBarItems(trailing: Button(action: {
                     showSheet=true
-                    print("UUUUUUUU")
+                   
                 }) {
                     if !showCaricamento {
                         Image(systemName: "plus.circle.fill")}
@@ -190,9 +190,10 @@ struct CardEvento: View {
         var descrizioneEvento: String
         var tariffeEntrata: [Int]
         var idEvent: String
+        var tables: [String]
     }
     
-    @State var Paramentri: [ParametriCard] = [ParametriCard(titoloEvento: "Arenile", location: "Caivano", data: [Date()],  prenotazioniDisponibili: 100, descrizioneEvento:"", tariffeEntrata: [0], idEvent: "")]
+    @State var Paramentri: [ParametriCard] = [ParametriCard(titoloEvento: "Arenile", location: "Caivano", data: [Date()],  prenotazioniDisponibili: 100, descrizioneEvento:"", tariffeEntrata: [0], idEvent: "", tables: [""])]
     
     
     var body: some View {
@@ -249,7 +250,7 @@ struct CardEvento: View {
                         
                         VStack (alignment: .leading, spacing: 10) {
                             
-                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: String(index.prenotazioniDisponibili), descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata,idEvent:index.idEvent)) {
+                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: String(index.prenotazioniDisponibili), descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata,idEvent:index.idEvent, tables: index.tables)) {
                                 Text("\(index.titoloEvento)  >")
                                     .underline()
                                     .font(.system(size: 22))

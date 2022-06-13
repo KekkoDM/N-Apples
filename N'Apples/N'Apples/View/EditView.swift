@@ -15,7 +15,7 @@ struct EditView: View {
     @State  var address: String = ""
     @State var timePrices: [Date] = [Date()]
     
-    @State  var tables: [String] = [""]
+//    @State  var tables: [String] = [""]
     @State var eventModel : EventModel = EventModel()
     @State var isPresenting: Bool = false
     @State var sourceType: UIImagePickerController.SourceType = .photoLibrary
@@ -69,7 +69,7 @@ struct EditView: View {
                             eventDescriptionField(eventDescription: $ParamentriRecap.descrizioneEvento)
                                 
                             
-                            addPricesView(timePrices:$ParamentriRecap.data, prices: $ParamentriRecap.tariffeEntrata)
+                            addPricesView(timePrices: $ParamentriRecap.data, prices: $ParamentriRecap.tariffeEntrata, tables: $ParamentriRecap.tables)
                                 .padding(.top, 50)
                             
                             if ParamentriRecap.data.count > 1 {
@@ -77,7 +77,7 @@ struct EditView: View {
                             ForEach( 2 ..< ParamentriRecap.data.count, id: \.self){ i in
                                 if (i % 2 == 0) {
 
-                                        priceCard(orariocard: $ParamentriRecap.data[i-1], orariocardfine: $ParamentriRecap.data[i], prezzocard: $ParamentriRecap.tariffeEntrata[i])
+                                    priceCard(orariocard: $ParamentriRecap.data[i-1], orariocardfine: $ParamentriRecap.data[i], prezzocard: $ParamentriRecap.tariffeEntrata[i], tables: $ParamentriRecap.tables[i])
                                         .onLongPressGesture{
                                             intero = i
                                             openAlert.toggle()
@@ -136,7 +136,7 @@ struct EditView: View {
                                             trailing:Button(action: {
                             Task {
                                 pushNotification.subscribeEvent(textType: "Event")
-                                try await eventModel.update(idEvent: ParamentriRecap.idEvent, name: ParamentriRecap.titoloEvento, address: ParamentriRecap.location, location: ParamentriRecap.location, info:  ParamentriRecap.descrizioneEvento,  capability: Int(ParamentriRecap.prenotazioniDisponibili) ?? 0, date: ParamentriRecap.data.first!, lists: [], table: [], price: ParamentriRecap.tariffeEntrata.map{Int($0) ?? 0}, timeForPrice: ParamentriRecap.data)
+                                try await eventModel.update(idEvent: ParamentriRecap.idEvent, name: ParamentriRecap.titoloEvento, address: ParamentriRecap.location, location: ParamentriRecap.location, info:  ParamentriRecap.descrizioneEvento,  capability: Int(ParamentriRecap.prenotazioniDisponibili) ?? 0, date: ParamentriRecap.data.first!, lists: [], table: ParamentriRecap.tables, price: ParamentriRecap.tariffeEntrata.map{Int($0) ?? 0}, timeForPrice: ParamentriRecap.data)
                                 
                                 presentationMode.wrappedValue.dismiss()
                                 

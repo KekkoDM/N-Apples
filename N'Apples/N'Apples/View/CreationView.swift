@@ -147,15 +147,16 @@ struct CreationView: View {
                                
                             eventDescriptionField(eventDescription: $info)
                             
-                            addPricesView(timePrices: $timePrices, prices: $prices)
+                            addPricesView(timePrices: $timePrices, prices: $prices, tables: $tables)
                                 .padding(.top, 50)
                             if timePrices.count > 1 {
                                 
                             ForEach( 2 ..< timePrices.count, id: \.self){ i in
+                                
                                 if (i % 2 == 0) {
 
-                                        priceCard(orariocard: $timePrices[i-1], orariocardfine: $timePrices[i], prezzocard: $prices[i])
-                                        .onLongPressGesture{
+                                    priceCard(orariocard: $timePrices[i-1], orariocardfine: $timePrices[i], prezzocard: $prices[i], tables: $tables[i])
+                                        .onLongPressGesture {
                                             intero = i
                                             openAlert.toggle()
                                             
@@ -178,7 +179,7 @@ struct CreationView: View {
                                             trailing:Button(action: {
                             Task {
                                 pushNotification.subscribeEvent(textType: "Event")
-                                try await eventModel.insertEvent(name: name, address: address, location: location, info: info, capability: Int(capability) ?? 0, date: dateEvents, timeForPrice: timePrices, price: prices.map{Int($0) ?? 0}, table: tables)
+                                try await eventModel.insertEvent(name: name, address: address, location: location, info: info, capability: Int(capability) ?? 0, date: dateEvents, timeForPrice: timePrices, price: prices.map{Int($0) ?? 0}, table: tables.map{String($0)})
                                 
                                 presentationMode.wrappedValue.dismiss()
                                
@@ -233,7 +234,7 @@ struct LocationField: View {
     @Binding var eventLocation : String
     var body: some View {
         TextField("Location", text: $eventLocation)
-            .foregroundColor(.gray).font(.system(size: 21))
+            .foregroundColor(.white).font(.system(size: 21))
             .padding()
             .overlay(RoundedRectangle(cornerRadius: 14)
                 .stroke(Color.white, lineWidth: 3)
@@ -245,7 +246,7 @@ struct AvailableReservationField: View {
     @Binding var availableReservation : String
     var body: some View {
         TextField("Available reservation", text: $availableReservation)
-            .foregroundColor(.gray).font(.system(size: 21))
+            .foregroundColor(.white).font(.system(size: 21))
             .padding()
             .overlay(RoundedRectangle(cornerRadius: 14)
                 .stroke(Color.white, lineWidth: 3)
@@ -256,7 +257,7 @@ struct AvailableReservationField: View {
 struct eventDescriptionField: View {
     @Binding var eventDescription : String
     var body: some View {
-        GeometryReader{geometry in
+        GeometryReader{ geometry in
             TextField("Event description", text: $eventDescription)
                 .foregroundColor(.white).font(.system(size: 21))
                 .padding()
@@ -270,6 +271,7 @@ struct eventDescriptionField: View {
 struct addPricesView: View {
     @Binding var timePrices: [Date]
     @Binding var prices: [String]
+    @Binding var tables: [String]
     var body: some View {
         
         HStack{
@@ -279,7 +281,7 @@ struct addPricesView: View {
                 .foregroundColor(.white)
                 .fontWeight(.semibold)
             
-            NavigationLink(destination: insertPriceView(timePrices: $timePrices, prices: $prices)) {
+            NavigationLink(destination: insertPriceView(timePrices: $timePrices, prices: $prices, tables: $tables)) {
                 Image(systemName: "plus.circle.fill")
                     .font(.system(size: 25))
                     .foregroundColor(.orange)
@@ -294,8 +296,9 @@ struct priceCard : View {
 //    @Binding var titolocard : String
     @Binding var orariocard : Date
     @Binding var orariocardfine : Date
-
+    
     @Binding var prezzocard : String
+    @Binding var tables: String
     var body : some View {
         
         ZStack {
@@ -303,7 +306,7 @@ struct priceCard : View {
                 .foregroundColor(.white)
             HStack {
                 VStack(alignment:.leading){
-                    Text("Metti il table ciao")
+                    Text(tables)
                         .fontWeight(.bold)
                     Text("\(formattedDate(date:orariocard,format: "HH:mm")) - \(formattedDate(date:orariocardfine,format: "HH:mm"))")
                 }
