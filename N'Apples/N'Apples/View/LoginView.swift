@@ -77,11 +77,14 @@ struct LoginView: View {
                         .onChange(of: signInApple, perform: {_ in
                             
                             Task {
+//                                let usrDef = UserDefaults.standard
+//                                usrDef.set(username, forKey: "Username")
+                                
                                 try await userModel.retrieveAllId(id: idApple)
                                 if (userModel.user.isEmpty) {
                                     try await userModel.insertApple(username: username, email: mail, id: idApple)
                                     userSettings.id = idApple
-                                    
+                                   
                                     presentEventView.toggle()
                                 } else {
                                     

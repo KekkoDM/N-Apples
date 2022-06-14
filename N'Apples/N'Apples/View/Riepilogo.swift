@@ -34,6 +34,7 @@ struct Riepilogo: View {
     var tariffeEntrata: [Int]
     var idEvent: String
     var tables: [String]
+    
     @State var showEvents = false
     @State var showingAlertDelete: Bool = false
     @State var stringaGif: String = "LoadingGif"
@@ -54,8 +55,8 @@ struct Riepilogo: View {
                     .ignoresSafeArea()
                 
                 
-                ForEach(ParamentriRecap) {
-                    index in
+//                ForEach(ParamentriRecap) {
+//                    ParametriRecap.first! in
                     
                     ScrollView{
                         
@@ -63,7 +64,7 @@ struct Riepilogo: View {
                             
                             VStack(alignment: .leading, spacing: 7) {
                                 
-                                Text("\(index.titoloEvento)")
+                                Text("\(ParamentriRecap.first!.titoloEvento )")
                                     .font(.system(size: 50, weight: .heavy, design: .default))
                             }
                             
@@ -72,7 +73,7 @@ struct Riepilogo: View {
                                 Text("Location")
                                     .font(.system(size: 20, weight: .heavy, design: .default))
                                 
-                                Text("\(index.location)")
+                                Text("\(ParamentriRecap.first!.location)")
                                     .font(.system(size: 30))
                                     .font(.system(.body, design: .monospaced))
                             }
@@ -81,14 +82,14 @@ struct Riepilogo: View {
                                 Text("Date")
                                     .font(.system(size: 20, weight: .heavy, design: .default))
                                 
-                                Text("\(formattedDate(date:index.data[0],format: "dd/MM" )) ") .font(.system(size: 30))
+                                Text("\(formattedDate(date:ParamentriRecap.first!.data[0],format: "dd/MM" )) ") .font(.system(size: 30))
                                     .font(.system(.body, design: .monospaced))
                             }
                             VStack(alignment: .leading, spacing: 7) {
                                 Text("Time")
                                     .font(.system(size: 20, weight: .heavy, design: .default))
                                 
-                                Text("\(formattedDate(date:index.data[0],format: "HH:mm" ))")
+                                Text("\(formattedDate(date:ParamentriRecap.first!.data[0],format: "HH:mm" ))")
                                     .font(.system(size: 30))
                                     .font(.system(.body, design: .monospaced))
                             }
@@ -97,7 +98,7 @@ struct Riepilogo: View {
                                 Text("Available Reservations")
                                     .font(.system(size: 20, weight: .heavy, design: .default))
                                 
-                                Text("\(index.prenotazioniDisponibili)")
+                                Text("\(ParamentriRecap.first!.prenotazioniDisponibili)")
                                     .font(.system(size: 30))
                                     .font(.system(.body, design: .monospaced))
                             }
@@ -107,7 +108,7 @@ struct Riepilogo: View {
                                 VStack(alignment: .leading, spacing: 7) {
                                     Text("Event Description") .font(.system(size: 20, weight: .heavy, design: .default))
                                     
-                                    Text("\(index.descrizioneEvento)")
+                                    Text("\(ParamentriRecap.first!.descrizioneEvento)")
                                         .font(.system(size: 30))
                                         .font(.system(.body, design: .monospaced))
                                     
@@ -116,13 +117,53 @@ struct Riepilogo: View {
                                 VStack(alignment: .leading, spacing: 7) {
                                     Text("Prices")
                                         .font(.system(size: 20, weight: .heavy, design: .default))
-                                    
-                                    Text(index.tariffeEntrata.description) .font(.system(size: 30))
+                                    Text("\(ParamentriRecap.first!.tariffeEntrata.description)") .font(.system(size: 30))
                                         .font(.system(.body, design: .monospaced))
-                                    
-                                    Text(index.tables.description) .font(.system(size: 30))
+                                    Text("\(ParamentriRecap.first!.tables.description)") .font(.system(size: 30))
                                         .font(.system(.body, design: .monospaced))
                                 }
+                                
+                                    
+                                    //                                    ForEach(0..<ParametriRecap.first!.tariffeEntrata.count) {
+                                    //                                        i in
+                                    //                                        Text("\(ParametriRecap.first!.tariffeEntrata[i])") .font(.system(size: 30))
+                                    //                                            .font(.system(.body, design: .monospaced))
+                                    //                                    }
+                                    //
+                                    
+//                                                                        ForEach(){ datino in
+//
+//                                                                        }
+                                    
+                                    
+//                                                                        if ParamentriRecap.first!.data.count > 1 {
+//
+//                                                                            ForEach( 2 ..< ParamentriRecap.first!.data.count, id: \.self){ i in
+//
+////                                                                            if (i % 2 == 0) {
+//
+//                                                                                priceCard(orariocard: ParamentriRecap.first!.data[i-1], orariocardfine: ParamentriRecap.first!.data[i], prezzocard: ParamentriRecap.first!.tariffeEntrata[i], tables: ParamentriRecap.first!.tables[i])
+//
+//                                                                                    .onLongPressGesture {
+//                                                                                        intero = i
+//                                                                                        openAlert.toggle()
+//
+//                                                                                    }
+//
+//                                                                                .frame(width: geometry.size.width * 0.92, height:geometry.size.height * 0.1)
+////                                                                            }
+//
+//                                                                        }
+//
+//                                                                        }
+                                    
+                                    
+//
+//                                                                        Text(ParametriRecap.first!.tables.description) .font(.system(size: 30))
+//                                                                            .font(.system(.body, design: .monospaced))
+//                                    priceCard2(orariocard: $ParamentriRecap.first!.data, prezzocard: $ParamentriRecap.first!.tariffeEntrata, tables: $ParamentriRecap.first!.tables)
+                                    
+                               
                                 
                                 
                             }
@@ -149,7 +190,7 @@ struct Riepilogo: View {
                     .foregroundColor(.white)
                     
                     
-                }
+//                }
                 .sheet(isPresented: $showSheet, onDismiss: {
                     showCaricamento = true
                     
@@ -212,9 +253,45 @@ struct Riepilogo: View {
         return dateformatter.string(from: date)
     }
 }
-
-//struct Riepilogo_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Riepilogo(titolo: "Titolo")
+//
+////
+//struct priceCard2 : View {
+//    //    @Binding var titolocard : String
+//    @Binding var orariocard : [Date]
+//
+//
+//    @Binding var prezzocard : [String]
+//    @Binding var tables: [String]
+//    var body : some View {
+//        Text("")
+//        if orariocard.count > 1 {
+//
+//            ForEach( 2 ..< orariocard.count, id: \.self){ i in
+//
+//                if (i % 2 == 0) {
+//                    ZStack {
+//                        RoundedRectangle(cornerRadius: 10)
+//                            .foregroundColor(.white)
+//                        HStack {
+//                            VStack(alignment:.leading){
+//                                Text(tables[i])
+//                                    .fontWeight(.bold)
+//                                Text("\(formattedDate(date:orariocard[i-1],format: "HH:mm")) - \(formattedDate(date:orariocard[i],format: "HH:mm"))")
+//                            }
+//                            Spacer()
+//                            Text(prezzocard[i])
+//                                .fontWeight(.semibold)
+//                        }
+//                        .foregroundColor(.black)
+//                        .padding(.horizontal)
+//                    }
+//                }
+//            }
+//
+//        }}
+//    func formattedDate(date:Date,format:String)->String{
+//        let dateformatter = DateFormatter()
+//        dateformatter.dateFormat = format
+//        return dateformatter.string(from: date)
 //    }
 //}

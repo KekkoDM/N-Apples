@@ -88,7 +88,12 @@ struct AssignRoleView: View {
                         } else if selectedRole == "Box-Office" {
                             permission = 2
                         }
-
+                        
+                        print("I in AssignRoleView: \(i)")
+                        
+//                        try await eventModel.retrieveAllName(name: eventModel.event[i].name)
+//                        print("NOME EV: \(eventModel.event.first!.name)")
+//                        try await eventModel.retrieveAllId(id: eventModel.event[i].id)
                         try await roleModel.update(usename: users.user.first!.username, idEvent: eventModel.event[i].id, permission: permission)
                         pushNotification.unsubscribe(userName: users.user.first!.username)
                         dismiss()

@@ -10,19 +10,16 @@ import SwiftUI
 
 
 struct RoleView: View {
+    
     @Binding var i: Int
     @Binding var eventModel: EventModel
     @State var users: UserModel = UserModel()
     @State var presentAssignRoleView: Bool = false
     @State var userSeacrh: String = ""
     @State var showingAlertRole: Bool = false
+    
     var body: some View {
         
-        
-//        GeometryReader{ geometry in
-//        ZStack {
-//            Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255)
-//                .ignoresSafeArea()
         ZStack {
             Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255)
                 .ignoresSafeArea()
@@ -81,8 +78,7 @@ struct RoleView: View {
                             .overlay(Text("Search")
                                 .foregroundColor(.white))
                             .frame(width: 200, height: 50, alignment: .center)
-                           
-//                            .padding(.leading, 170)
+       
                             .padding()
                         
                         
@@ -90,6 +86,7 @@ struct RoleView: View {
 
                     .onAppear() {
                         Task {
+                            print("I in RoleView: \(i)")
                             try await userModel.retrieveAll()
                         }
                     }
@@ -104,27 +101,18 @@ struct RoleView: View {
                 .cornerRadius(20)
                 .padding()
         }
-//                .frame(width: geometry.size.width*0.5, height: geometry.size.height*0.055)
-//                .position(x: geometry.size.width*0.3, y: geometry.size.height*0.14)
-                //                  List {
-                //                      ForEach(0..<roleModel.role.count) {i in
-                //                          Text(roleModel.role[i].username)
-                //                                 }
-                //                             }
+
                 .sheet(isPresented: $presentAssignRoleView) {
                     AssignRoleView(eventModel: $eventModel, i: $i, users: $users)
                 }
                 
-                
-//            }
+
             
             if (showingAlertRole == true) {
                 AlertRole(show: $showingAlertRole)
             }
             
-//        }
-        
-        //        .searchable(text: $userSeacrh)
+
         
         
         

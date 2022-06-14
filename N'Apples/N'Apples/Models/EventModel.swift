@@ -140,7 +140,12 @@ class EventModel: ObservableObject {
         createEvent.timeForPrice = timeForPrice
         createEvent.price = price
         createEvent.table = table
+//
+//        let usrDef = UserDefaults.standard
+//        let username = usrDef.value(forKey: "Username") as? String ?? "ububgbhgb"
+//
         
+//        try await roleModel.insert(username: username, permission: 3, idEvent: createEvent.id)
         try await roleModel.insert(username: userModel.user.first!.username, permission: 3, idEvent: createEvent.id)
 
         

@@ -12,6 +12,7 @@ import PassKit
 struct CreationView: View {
     
     @State var name: String = ""
+
     @State var location: String = ""
     @State var address: String = ""
     @State var info: String = ""
@@ -151,13 +152,13 @@ struct CreationView: View {
                                 .padding(.top, 50)
                             if timePrices.count > 1 {
                                 
-                            ForEach( 2 ..< timePrices.count, id: \.self){ i in
+                            ForEach( 2 ..< timePrices.count, id: \.self){ int in
                                 
-                                if (i % 2 == 0) {
+                                if (int % 2 == 0) {
 
-                                    priceCard(orariocard: $timePrices[i-1], orariocardfine: $timePrices[i], prezzocard: $prices[i], tables: $tables[i])
+                                    priceCard(orariocard: $timePrices[int-1], orariocardfine: $timePrices[int], prezzocard: $prices[int], tables: $tables[int])
                                         .onLongPressGesture {
-                                            intero = i
+                                            intero = int
                                             openAlert.toggle()
                                             
                                         }
@@ -178,9 +179,11 @@ struct CreationView: View {
                         } ,
                                             trailing:Button(action: {
                             Task {
+  
+                                
                                 pushNotification.subscribeEvent(textType: "Event")
                                 try await eventModel.insertEvent(name: name, address: address, location: location, info: info, capability: Int(capability) ?? 0, date: dateEvents, timeForPrice: timePrices, price: prices.map{Int($0) ?? 0}, table: tables.map{String($0)})
-                                
+                                 
                                 presentationMode.wrappedValue.dismiss()
                                
                             }
@@ -293,7 +296,7 @@ struct addPricesView: View {
 }
 
 struct priceCard : View {
-//    @Binding var titolocard : String
+
     @Binding var orariocard : Date
     @Binding var orariocardfine : Date
     

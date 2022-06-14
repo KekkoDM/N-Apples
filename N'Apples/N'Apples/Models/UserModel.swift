@@ -23,7 +23,6 @@ class UserModel: ObservableObject {
         }
     }
     
-    
     var onChange : (() -> Void)?
     var onError : ((Error) -> Void)?
     var notificationQueue = OperationQueue.main
