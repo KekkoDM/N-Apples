@@ -29,17 +29,7 @@ struct IMieiEventi: View {
                 geometry in
                 
                 ZStack {
-                    if showCaricamento {
-                        
-//                        GifImage(stringaGif)
-//                        
-//                            .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
-//                            .padding(.top, 200)
-//                        
-//                            .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
-//                            .background( Color(red: 11/255, green: 41/255, blue: 111/255))
-                        GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici)
-                    }
+                   
                     
                     
 //                    !showCaricamento &&
@@ -120,7 +110,6 @@ struct IMieiEventi: View {
                                         eventModel.records.removeAll()
                                         eventModel.event.removeAll()
                                        
-
                                         showEvents = try await retrieveMyEvents()
                                         print("Refresh")
                                         showCaricamento = false
@@ -156,9 +145,20 @@ struct IMieiEventi: View {
                             
                         }
                     }
-                    
+                    if showCaricamento {
+                        
+//                        GifImage(stringaGif)
+//
+//                            .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
+//                            .padding(.top, 200)
+//
+//                            .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
+//                            .background( Color(red: 11/255, green: 41/255, blue: 111/255))
+                        GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici)
+                    }
                     
                 }
+                
                 
                 .navigationTitle("My Events")
                 .navigationBarItems(trailing: Button(action: {

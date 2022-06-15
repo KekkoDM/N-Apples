@@ -121,7 +121,7 @@ struct Riepilogo: View {
                                         .font(.system(size: 20, weight: .heavy, design: .default))
                                     Text("\(ParamentriRecap.first!.tariffeEntrata.description)") .font(.system(size: 30))
                                         .font(.system(.body, design: .monospaced))
-                                    Text("\(ParamentriRecap.first!.tables.description)") .font(.system(size: 30))
+                                    Text("\(ParamentriRecap.first!.tables.description )") .font(.system(size: 30))
                                         .font(.system(.body, design: .monospaced))
                                 }
                                 
@@ -208,7 +208,7 @@ struct Riepilogo: View {
 //
 //                    }
                 }) {
-                    EditView(ParamentriRecap: $ParamentriRecap.first!)
+                    EditView(ParamentriRecap: $ParamentriRecap.first!, indici: $indici)
                 }
                 
 //                if showCaricamento {

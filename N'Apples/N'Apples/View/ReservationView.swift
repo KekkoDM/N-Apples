@@ -83,7 +83,7 @@ struct ReservationView: View {
             .navigationBarTitleDisplayMode(.inline)
 
             }
-        
+         
         if(show) {
             Alert(show: $show)
         }

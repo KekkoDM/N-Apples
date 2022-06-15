@@ -24,6 +24,7 @@ struct EditView: View {
     @Binding var ParamentriRecap: ParametriRiepilogo
     
     @State var intero: Int = 0
+    @Binding var indici: [Int]
     @State var openAlert: Bool = false
     
     @Environment(\.presentationMode) var presentationMode
@@ -33,18 +34,18 @@ struct EditView: View {
     @State private var eventDescription : String = ""
     
     @State var presentIMieiEventi: Bool = false
-    
+    @State var showCaricamento: Bool = false
     
     var body: some View {
         
         
-        NavigationView{
+        NavigationView {
             
             
-            GeometryReader{geometry in
+            GeometryReader {geometry in
                 
                 
-                ZStack{
+                ZStack {
                     
                     
                     Color(red: 11/255, green: 41/255, blue: 111/255)
@@ -138,8 +139,9 @@ struct EditView: View {
                                 
                                 presentationMode.wrappedValue.dismiss()
                                 
-                                
+//                                showCaricamento = true
                             }
+//                            showCaricamento = true
                             
                         }) {
                             Text("Save").fontWeight(.bold)
@@ -155,6 +157,18 @@ struct EditView: View {
                             }
                             .disabled(eventName.isEmpty)
                         } )
+                    }
+                    
+                    if showCaricamento {
+                        
+//                        GifImage(stringaGif)
+//
+//                            .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
+//                            .padding(.top, 200)
+//
+//                            .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
+//                            .background( Color(red: 11/255, green: 41/255, blue: 111/255))
+                        GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici)
                     }
                     
                 }
