@@ -104,6 +104,9 @@ class ReservationModel: ObservableObject {
     
  
     func retrieveAllId(id: String) async throws {
+        records.removeAll()
+        reservation.removeAll()
+        
         let predicate: NSPredicate = NSPredicate(format: "id == %@", id)
         let query = CKQuery(recordType: Reservation.recordType, predicate: predicate)
         
@@ -116,6 +119,11 @@ class ReservationModel: ObservableObject {
                 
             }
 
+        }
+        
+        if records.isEmpty{
+            print("OooooOOOOOOOOOOOOOO")
+            getSingleReservation(id: id)
         }
         
         self.updateReservation()
@@ -162,9 +170,10 @@ class ReservationModel: ObservableObject {
         return
     }
     
-    func insert(id: String, name: String, surname: String, email: String, nameList: String, numFriends: Int, numScan: Int) async throws {
+    func insertUpdate(event: String,id: String, name: String, surname: String, email: String, nameList: String, numFriends: Int, numScan: Int) async throws {
         
         var createReservation = Reservation()
+        createReservation.idEvent = event
         createReservation.id = id
         createReservation.name = name
         createReservation.surname = surname
@@ -172,6 +181,7 @@ class ReservationModel: ObservableObject {
         createReservation.nameList = nameList
         createReservation.numFriends = numFriends
         createReservation.numScan = numScan
+        print("UPDATEEEEEEEEEE")
         
         do {
             let _ = try await database.save(createReservation.record)
@@ -180,6 +190,7 @@ class ReservationModel: ObservableObject {
             return
         }
         self.insertedObjects.append(createReservation)
+        print(reservation)
         self.updateReservation()
         return
     }
@@ -231,40 +242,41 @@ class ReservationModel: ObservableObject {
     func updateNumScan(id:String,numscan:Int) async throws ->Bool{
         
         try await retrieveAllId(id: id)
-        
+        if(!reservation.isEmpty){
         var rec = reservation.first!
         
-        rec.numScan = numscan
+            rec.numScan = rec.numScan + 1
     
         for i in 0..<reservation.count{
             print("Cancello \(reservation[i].id)")
             try await delete(at: i)
         }
         
-        try await insert(id: rec.id, name: rec.name, surname: rec.surname, email: rec.email, nameList: rec.nameList, numFriends: rec.numFriends, numScan: rec.numScan)
+            try await insertUpdate(event: rec.idEvent, id: rec.id, name: rec.name, surname: rec.surname, email: rec.email, nameList: rec.nameList, numFriends: rec.numFriends, numScan: rec.numScan)
         
         
         try await retrieveAllIdDecrypt(id: id)
         
         self.updateReservation()
+        }
         return false
     }
     
-    func update(reservation1: Reservation, id: String, name: String, surname: String, email: String, nameList: String, timeScan: Date, numFriends: Int, numScan: Int) async throws {
-        
-
-        
-        try await retrieveAllId(id: id)
-        
-        if(!reservation.isEmpty){
-            try await delete(at: 0)
-            //            let _ = try await self.database.modifyRecords(saving: [singleReservation.record], deleting: [reservation1.record.recordID], savePolicy: .changedKeys, atomically: true)
-            
-            try await insert(id: id, name: name, surname: surname, email: email, nameList: nameList, numFriends: numFriends, numScan: numScan)
-            
-            self.updateReservation()
-        }
-    }
+//    func update(reservation1: Reservation, id: String, name: String, surname: String, email: String, nameList: String, timeScan: Date, numFriends: Int, numScan: Int) async throws {
+//        
+//
+//        
+//        try await retrieveAllId(id: id)
+//        
+//        if(!reservation.isEmpty){
+//            try await delete(at: 0)
+//            //            let _ = try await self.database.modifyRecords(saving: [singleReservation.record], deleting: [reservation1.record.recordID], savePolicy: .changedKeys, atomically: true)
+//            
+//            try await insert(id: id, name: name, surname: surname, email: email, nameList: nameList, numFriends: numFriends, numScan: numScan)
+//            
+//            self.updateReservation()
+//        }
+//    }
     
     func update2(reservation1: Reservation, id: String, name: String, surname: String, email: String, nameList: String, timeScan: Date, numFriends: Int, numScan: Int) async throws {
         

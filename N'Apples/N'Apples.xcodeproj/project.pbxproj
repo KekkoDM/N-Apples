@@ -68,6 +68,7 @@
 		41F3F623282E68FE003D0170 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F3F622282E68FE003D0170 /* ImagePicker.swift */; };
 		41F3F625282E6DB7003D0170 /* TestDownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F3F624282E6DB7003D0170 /* TestDownloadImage.swift */; };
 		41F3F628282FD72B003D0170 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41F3F627282FD72B003D0170 /* MapKit.framework */; };
+		4746F6BD285A5B9E002E59EA /* ServerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4746F6BC285A5B9E002E59EA /* ServerAPI.swift */; };
 		478586CE282D5CC20087B268 /* RoleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478586CD282D5CC20087B268 /* RoleEntity.swift */; };
 		478586D0282D5DC00087B268 /* RoleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478586CF282D5DC00087B268 /* RoleModel.swift */; };
 		47B3031E2834E71700BEE78D /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B3031D2834E71700BEE78D /* Crypto.swift */; };
@@ -139,6 +140,7 @@
 		41F3F624282E6DB7003D0170 /* TestDownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDownloadImage.swift; sourceTree = "<group>"; };
 		41F3F626282FD72B003D0170 /* N-Apples-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "N-Apples-Info.plist"; sourceTree = SOURCE_ROOT; };
 		41F3F627282FD72B003D0170 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		4746F6BC285A5B9E002E59EA /* ServerAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerAPI.swift; sourceTree = "<group>"; };
 		478586CD282D5CC20087B268 /* RoleEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleEntity.swift; sourceTree = "<group>"; };
 		478586CF282D5DC00087B268 /* RoleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleModel.swift; sourceTree = "<group>"; };
 		47B3031D2834E71700BEE78D /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 		3E3C33DD282BB5A00073B6E8 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				4746F6BC285A5B9E002E59EA /* ServerAPI.swift */,
 				47F118FA283501AE00D094B9 /* ApplePayController.swift */,
 				3E3C33DE282BB5AC0073B6E8 /* CameraPreview.swift */,
 				411DB3C82833A0380021869D /* CloudkitPushNotification.swift */,
@@ -391,6 +394,7 @@
 				3E8A6B972850EABC0076C2F3 /* IMieiEventi.swift in Sources */,
 				3E0406A0285924D800C420BE /* BigliettoNonValido.swift in Sources */,
 				3E8A6B9B2850EB5E0076C2F3 /* Lists.swift in Sources */,
+				4746F6BD285A5B9E002E59EA /* ServerAPI.swift in Sources */,
 				478586CE282D5CC20087B268 /* RoleEntity.swift in Sources */,
 				3E8A6B9F2850EBDF0076C2F3 /* CardLists.swift in Sources */,
 				411F7726282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift in Sources */,

@@ -93,6 +93,7 @@ class RoleModel: ObservableObject {
         }
         if (permission == 1) {
             createRole.permission = [0, 1, 0]
+            insertEventOnServer(idEvent: idEvent, nameList: username)
         }
         if (permission == 2) {
             createRole.permission = [0, 0, 1]

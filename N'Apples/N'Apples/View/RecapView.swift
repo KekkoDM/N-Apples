@@ -72,8 +72,11 @@ struct RecapView: View {
                 try await reservationModel.updateNumScan(id: viewModel.lastQrCode, numscan: numScan)
                 
 //                reservation = reservationModel.reservation.first!
+                print("A MAronn t' accupagn \(reservationModel.reservation)")
+                if(!reservationModel.records.isEmpty){
+                    showRecap.toggle()
+                }
                 
-                showRecap.toggle()
             }
         }
     }
