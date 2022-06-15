@@ -236,7 +236,7 @@ struct CardEvento: View {
                                     .padding(.leading, 290)
                                 
                                 NavigationLink(destination: {Lists()}, label: {
-                                    Text("Lists")
+                                    Text("Lists ")
                                         .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                     .font(.system(size: 16))})
                             }
@@ -417,7 +417,7 @@ struct CardEvento2: View {
                                     .padding(.leading, 290)
                                 
                                 NavigationLink(destination: {Lists()}, label: {
-                                    Text("Lists")
+                                    Text("Lists ")
                                         .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                     .font(.system(size: 16))})
                             }
@@ -432,7 +432,7 @@ struct CardEvento2: View {
                                 NavigationLink(destination: {
                                     ScannerView()
                                 }, label: {
-                                    Text("Scanner")
+                                    Text("Scan ")
                                         .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                     .font(.system(size: 16))})
                                 
@@ -568,7 +568,7 @@ struct CardEvento3: View {
                                     .padding(.leading, 290)
                                 
                                 NavigationLink(destination: {Lists()}, label: {
-                                    Text("Lists")
+                                    Text("Lists ")
                                         .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                     .font(.system(size: 16))})
                             }
@@ -583,9 +583,10 @@ struct CardEvento3: View {
                                 NavigationLink(destination: {
                                     ReservationView (event: eventModel.event.first ?? Event())
                                 }, label: {
-                                    Text("Reservazion")
+                                    Text("Book")
                                         .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
-                                    .font(.system(size: 16))})
+                                    .font(.system(size: 16))
+                                })
                                 
                             }
                             

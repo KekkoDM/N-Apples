@@ -19,7 +19,8 @@ struct ParametriRiepilogo: Identifiable {
     var descrizioneEvento: String
     var tariffeEntrata: [String]
     var idEvent: String
-    var tables: [String]
+    @State var tables: [String]
+    
     
 }
 
@@ -33,9 +34,13 @@ struct Riepilogo: View {
     var descrizioneEvento: String
     var tariffeEntrata: [Int]
     var idEvent: String
-    var tables: [String]
+    @State var tables: [String]
     @Binding var indici:[Int]
     @Binding var i: Int
+    
+    @State var descrizione: String = ""
+    @State var tariff: String = ""
+    
 
     @State var showEvents = false
     @State var showingAlertDelete: Bool = false
@@ -43,6 +48,9 @@ struct Riepilogo: View {
     @State private var showSheet : Bool = false
     @State private var showCaricamento : Bool = false
     @State var showEventView = false
+    
+//    var str = "An apple a day, keeps doctor away!"
+    
     
     @State var ParamentriRecap: [ParametriRiepilogo] = [ParametriRiepilogo(titoloEvento: "", location: "", data: [Date()],  prenotazioniDisponibili: "0", descrizioneEvento: "", tariffeEntrata: ["0"], idEvent: "", tables: [""])]
     var body: some View {
@@ -60,12 +68,12 @@ struct Riepilogo: View {
 //                ForEach(ParamentriRecap) {
 //                    ParametriRecap.first! in
                     
-                    ScrollView{
+                    ScrollView {
                         
                         VStack(alignment: .leading, spacing: 23) {
-                            
-                            VStack(alignment: .leading, spacing: 7) {
-                                
+                            Spacer()
+                            VStack(alignment: .leading, spacing: 10) {
+                                Spacer()
                                 Text("\(ParamentriRecap.first!.titoloEvento )")
                                     .font(.system(size: 50, weight: .heavy, design: .default))
                             }
@@ -116,13 +124,26 @@ struct Riepilogo: View {
                                     
                                 }
                                 
-                                VStack(alignment: .leading, spacing: 7) {
+                                VStack(alignment: .leading, spacing: 14) {
                                     Text("Prices")
                                         .font(.system(size: 20, weight: .heavy, design: .default))
-                                    Text("\(ParamentriRecap.first!.tariffeEntrata.description)") .font(.system(size: 30))
-                                        .font(.system(.body, design: .monospaced))
-                                    Text("\(ParamentriRecap.first!.tables.description )") .font(.system(size: 30))
-                                        .font(.system(.body, design: .monospaced))
+                                    
+                                    
+                                 
+                                    ForEach(1 ..< ParamentriRecap.first!.tables.count, id: \.self) {
+                                        i in
+                                        VStack(spacing: 10){
+                                            priceCard2(prezzocard: $ParamentriRecap.first!.tariffeEntrata[i], tables: $ParamentriRecap.first!.tables[i])
+                                            .frame(width: geometry.size.width * 0.86, height:geometry.size.height * 0.1)
+                                        }
+                                    }
+                                    
+                                    
+//                                    Text("\(tariff)") .font(.system(size: 30))
+//                                        .font(.system(.body, design: .monospaced))
+//
+//                                    Text("\(descrizione)") .font(.system(size: 30))
+//                                        .font(.system(.body, design: .monospaced))
                                 }
                                 
                                     
@@ -177,6 +198,7 @@ struct Riepilogo: View {
                             .frame(width: geometry.size.width * 0.93, height: geometry.size.width * 1.4, alignment: .leading)
                         
                         VStack {
+                            
                             Button(action: {
                                 Task {
 //                                    try await eventModel.retrieveAllName(name: titolo)
@@ -188,7 +210,8 @@ struct Riepilogo: View {
                             }, label: {
                                 Text("Delete Event").underline().foregroundColor(.red).padding()
                             })
-                        }.frame(height: geometry.size.width * 0.4, alignment: .center)
+                        }.padding(.top, 45)
+                        .frame(height: geometry.size.width * 0.4, alignment: .center)
                     }
                     .foregroundColor(.white)
                     
@@ -238,6 +261,17 @@ struct Riepilogo: View {
             .onAppear(){
                 ParamentriRecap = [ParametriRiepilogo(titoloEvento: titolo, location: location, data: data,  prenotazioniDisponibili: String(prenotazioniDisponibili) , descrizioneEvento: descrizioneEvento, tariffeEntrata: tariffeEntrata.map{String($0) }, idEvent: idEvent, tables: tables.map{String($0)})]
                 
+                
+//                descrizione = ParamentriRecap.first!.tables.description
+//                let removeCharacters: Set<Character> = ["[", ",", "\"", "]"]
+//                descrizione.removeAll(where: { removeCharacters.contains($0) } )
+//
+//
+//                tariff = ParamentriRecap.first!.tariffeEntrata.description
+//                let removeCharacter: Set<Character> = ["[", ",", "\"", "]"]
+//                tariff.removeAll(where: { removeCharacter.contains($0) } )
+//                tariff.removeFirst(1)
+            
             }
             if (showingAlertDelete == true) {
                 AlertDelete(show: $showingAlertDelete, showCaricamento: $showCaricamento)
@@ -261,45 +295,30 @@ struct Riepilogo: View {
         return dateformatter.string(from: date)
     }
 }
-//
-////
-//struct priceCard2 : View {
-//    //    @Binding var titolocard : String
-//    @Binding var orariocard : [Date]
-//
-//
-//    @Binding var prezzocard : [String]
-//    @Binding var tables: [String]
-//    var body : some View {
-//        Text("")
-//        if orariocard.count > 1 {
-//
-//            ForEach( 2 ..< orariocard.count, id: \.self){ i in
-//
-//                if (i % 2 == 0) {
-//                    ZStack {
-//                        RoundedRectangle(cornerRadius: 10)
-//                            .foregroundColor(.white)
-//                        HStack {
-//                            VStack(alignment:.leading){
-//                                Text(tables[i])
-//                                    .fontWeight(.bold)
-//                                Text("\(formattedDate(date:orariocard[i-1],format: "HH:mm")) - \(formattedDate(date:orariocard[i],format: "HH:mm"))")
-//                            }
-//                            Spacer()
-//                            Text(prezzocard[i])
-//                                .fontWeight(.semibold)
-//                        }
-//                        .foregroundColor(.black)
-//                        .padding(.horizontal)
-//                    }
-//                }
-//            }
-//
-//        }}
-//    func formattedDate(date:Date,format:String)->String{
-//        let dateformatter = DateFormatter()
-//        dateformatter.dateFormat = format
-//        return dateformatter.string(from: date)
-//    }
-//}
+
+
+struct priceCard2 : View {
+    
+    @Binding var prezzocard : String
+    @Binding var tables: String
+    
+    var body : some View {
+        
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .foregroundColor(.white)
+            HStack {
+                VStack(alignment:.leading){
+                    Text(tables)
+                        .fontWeight(.bold)
+                }
+                Spacer()
+                Text(prezzocard)
+                    .fontWeight(.semibold)
+            }
+            .foregroundColor(.black)
+            .padding(.horizontal)
+        }
+    }
+    
+}

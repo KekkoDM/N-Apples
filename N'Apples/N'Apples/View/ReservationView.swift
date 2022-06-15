@@ -32,33 +32,33 @@ struct ReservationView: View {
                     
                     VStack(alignment: .leading , spacing: 30 ){
                         GuestNameField(eventName: $name)
-                        GuestNameField(eventName: $surname)
+                        GuestSurNameField(eventSurName: $surname)
                         EmailField(availableReservation: $email)
-                        GuestNameField(eventName: $nameList)
-
-                         NumPeopleField(eventLocation: $numFriends)
+                        NameListField(eventNameList: $nameList)
+                        NumPeopleField(eventLocation: $numFriends)
                         
-                    
-                    let qrImage = generateQRCode(from: "\(qrNumber)")
-                    let image = Image(uiImage: qrImage)
-                        .interpolation(.none)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 200, height: 200)
-                    if(showqr){
-                        image
-                            .onLongPressGesture {
-                                show.toggle()
-                                let imageSaver = ImageSaver()
-                                imageSaver.writeToPhotoAlbum(image: qrImage)
-                               
-                                
-                            }
-                    }
-                 
-                       
-                       
                     }.padding()
+                    VStack(alignment: .center) {
+                        let qrImage = generateQRCode(from: "\(qrNumber)")
+                        let image = Image(uiImage: qrImage)
+                            .interpolation(.none)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 200, height: 200)
+                        if(showqr){
+                            image
+                                .onLongPressGesture {
+                                    show.toggle()
+                                    let imageSaver = ImageSaver()
+                                    imageSaver.writeToPhotoAlbum(image: qrImage)
+                                    
+                                    
+                                }
+                        }
+                    }
+                       
+                       
+                    
                     
                 }
         
@@ -70,10 +70,13 @@ struct ReservationView: View {
                 } label: {
                 Rectangle()
                     .frame(width: geometry.size.width*0.5, height: geometry.size.height*0.075)
+//                    .frame(width: 200, height: 50, alignment: .center)
                     .cornerRadius(10)
                     .overlay(Text("Add new Guest")
-                                .font(.system(size: 25))
+                            .foregroundColor(.white)
+                                .font(.system(size: 20))
                                 .bold()
+            
                     .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255)))
                             
             }
@@ -110,7 +113,31 @@ struct ReservationView: View {
 struct GuestNameField : View {
     @Binding var eventName : String
     var body: some View {
-        TextField("Guest Name", text: $eventName)
+        TextField("Guest name", text: $eventName)
+            .foregroundColor(.white).font(.system(size: 21))
+            .padding()
+            .overlay(RoundedRectangle(cornerRadius: 14)
+                        .stroke(Color.white, lineWidth: 3)
+            )
+    }
+}
+
+struct GuestSurNameField : View {
+    @Binding var eventSurName : String
+    var body: some View {
+        TextField("Guest surname", text: $eventSurName)
+            .foregroundColor(.white).font(.system(size: 21))
+            .padding()
+            .overlay(RoundedRectangle(cornerRadius: 14)
+                        .stroke(Color.white, lineWidth: 3)
+            )
+    }
+}
+
+struct NameListField: View {
+    @Binding var eventNameList : String
+    var body: some View {
+        TextField("Name list ", text: $eventNameList)
             .foregroundColor(.white).font(.system(size: 21))
             .padding()
             .overlay(RoundedRectangle(cornerRadius: 14)

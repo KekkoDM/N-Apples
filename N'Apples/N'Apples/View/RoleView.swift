@@ -102,25 +102,25 @@ struct RoleView: View {
                     .ignoresSafeArea())
                 .cornerRadius(20)
                 .padding()
+                .padding(.bottom,20)
                 
-                Text("ROLE RECAP")
-                    .font(.title)
+               
+                
+                Text("Role Recap")
+                    .font(.title3)
                 
                 
                 ScrollView {
-                    VStack {
-                        Spacer()
-                        
-                        Spacer()
-                    }
+                    
                     Spacer()
-                    VStack(spacing: 80.0){
+                    VStack(spacing: 60.0) {
                         ForEach(0 ..< roleModel.role.count, id: \.self) { i in
                             Divider()
                             
-                            RuoliView(roleModel: $roleModel, Ruoli:[RuoliView.ParametriRuoli(ruolo: roleModel.role[i].permission.map{String($0) }, nome: roleModel.role[i].username, cognome: roleModel.role[i].username)])
+                            RuoliView(roleModel: $roleModel, Ruoli:[RuoliView.ParametriRuoli(ruolo: roleModel.role[i].permission.map{String($0) }, email: roleModel.role[i].username)])
                         }
                     }
+                    Spacer()
                 }
             }
             if  showCaricamento {
@@ -140,9 +140,6 @@ struct RoleView: View {
         if (showingAlertRole == true) {
             AlertRole(show: $showingAlertRole)
         }
-        
-      
-
         
         
     }
@@ -210,6 +207,7 @@ extension View {
 struct RuoliView: View {
     
     @Binding var roleModel: RoleModel
+    @State var descrizione: String = ""
     
     struct ParametriRuoli:Identifiable {
         var id: [String] {
@@ -217,12 +215,13 @@ struct RuoliView: View {
             
         }
         var ruolo: [String]
-        var nome: String
-        var cognome: String
+        var email: String
+//        var nome: String
+//        var cognome: String
     }
     
     @State private var showingSheet = false
-    @State var Ruoli: [ParametriRuoli] = [ParametriRuoli(ruolo: ["PR"], nome: "Domenico", cognome: "Marino")]
+    @State var Ruoli: [ParametriRuoli] = [ParametriRuoli(ruolo: ["PR"], email: "simi@libero.it")]
     
     var body: some View {
         
@@ -232,34 +231,41 @@ struct RuoliView: View {
                 Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255)
                     .ignoresSafeArea()
                 
-                ForEach(Ruoli) {  index in
+//                ForEach(Ruoli) {  index in
                     
                     
-                    VStack(alignment: .leading,spacing: 15){
+                    VStack(alignment: .center, spacing: 10){
                         
-                        Text("\(index.ruolo.description)")
+                        Text("\(descrizione)")
                         
-                            .font(.title)
+                            .font(.system(size: 18))
+                            .foregroundColor(.orange)
                         
-                        Button {
-                            //           deve uscire la modale del profilo del tizio
-                        } label: {
-                            Rectangle()
-                                .cornerRadius(10, corners: [.topLeft, .bottomRight])
-                                .shadow(radius: 2, y: 2)
-                                .foregroundColor(Color(red: 0.19, green: 0.28, blue: 0.51))
-                                .overlay(Text("\(index.nome)  \(index.cognome)"))
-                            
-                                .foregroundColor(.white)
-                                .frame(width: geometry.size.width*0.5, height: geometry.size.height*0.055)
-                        }
-                    }
-                    .position(x: geometry.size.width*0.3, y: geometry.size.height*0.14)
+                        Text("\(Ruoli.first!.email)")
+                        Spacer()
+                          
+                    }.frame(width: 200, height: 50, alignment: .center)
+//                    .position(x: geometry.size.width*0.3, y: geometry.size.height*0.14)
                     
                     .foregroundColor(.white)
+//                }
+                
+                
+            }.onAppear(){
+                descrizione = Ruoli.first!.ruolo.description
+                let removeCharacters: Set<Character> = ["[", ",", "\"", "]"]
+                descrizione.removeAll(where: { removeCharacters.contains($0) } )
+                
+                
+                if(descrizione == "0 0 0") {
+                    descrizione = "Manager"
                 }
-                
-                
+                if(descrizione == "0 1 0") {
+                    descrizione = "Collaborator"
+                }
+                if(descrizione == "0 0 1") {
+                    descrizione = "Guardian"
+                }
             }
             
         }
