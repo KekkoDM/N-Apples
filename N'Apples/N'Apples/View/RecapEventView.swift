@@ -10,6 +10,7 @@ import SwiftUI
 
 struct RecapEventView: View {
     @Binding var eventModel: EventModel
+    @Binding var roleModel: RoleModel
     @State var reservationModel = ReservationModel()
     @Binding var i: Int
     @State var presentRoleView: Bool = false
@@ -54,7 +55,7 @@ struct RecapEventView: View {
                     
                     
                     
-                    NavigationLink (destination: RoleView(i: $i, eventModel: $eventModel), isActive: $presentRoleView) {
+                    NavigationLink (destination: RoleView(i: $i, eventModel: $eventModel, roleModel: $roleModel), isActive: $presentRoleView) {
                         
                         Text("Role")
                             .onTapGesture {

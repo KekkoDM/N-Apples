@@ -258,7 +258,7 @@ struct CardEvento: View {
                                     .font(.system(size: 28))
                                     .padding(.leading, 290)
                                 
-                                NavigationLink (destination: RoleView(i: $i, eventModel: $eventModel), isActive: $presentRoleView) {
+                                NavigationLink (destination: RoleView(i: $i, eventModel: $eventModel, roleModel: $roleModel), isActive: $presentRoleView) {
                                     Text("Roles")
                                         .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                         .font(.system(size: 16))

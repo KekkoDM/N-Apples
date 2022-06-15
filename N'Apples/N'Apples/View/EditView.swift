@@ -64,8 +64,6 @@ struct EditView: View {
                                
                             AvailableReservationField(availableReservation: $ParamentriRecap.prenotazioniDisponibili)
                               
-                            
-                            
                             eventDescriptionField(eventDescription: $ParamentriRecap.descrizioneEvento)
                                 
                             
