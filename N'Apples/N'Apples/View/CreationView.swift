@@ -27,7 +27,8 @@ struct CreationView: View {
     @State var pushNotification: CloudkitPushNotificationViewModel = CloudkitPushNotificationViewModel()
     @State var intero: Int = 0
     @State var openAlert: Bool = false
-    
+    @Binding var indici:[Int]
+
     @Environment(\.presentationMode) var presentationMode
     @State  var eventName : String = ""
     @State private var eventLocation : String = ""
@@ -180,7 +181,8 @@ struct CreationView: View {
                                             trailing:Button(action: {
                             Task {
   
-                                
+                                indici.append(indici.count + 1)
+
                                 pushNotification.subscribeEvent(textType: "Event")
                                 try await eventModel.insertEvent(name: name, address: address, location: location, info: info, capability: Int(capability) ?? 0, date: dateEvents, timeForPrice: timePrices, price: prices.map{Int($0) ?? 0}, table: tables.map{String($0)})
                                  

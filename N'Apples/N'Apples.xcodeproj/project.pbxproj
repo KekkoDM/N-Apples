@@ -159,8 +159,8 @@
 		3E04069C285924B000C420BE /* Biglietti */ = {
 			isa = PBXGroup;
 			children = (
-				3E04069D285924BE00C420BE /* BigliettoValido.swift */,
 				3E04069F285924D800C420BE /* BigliettoNonValido.swift */,
+				3E04069D285924BE00C420BE /* BigliettoValido.swift */,
 				3E9DB9B2285926E700C7CFDF /* InvitatoView.swift */,
 			);
 			path = Biglietti;
@@ -198,37 +198,37 @@
 		3E3C33F1282BBB7F0073B6E8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3E04069C285924B000C420BE /* Biglietti */,
+				41C63DA7284F5F8E00DC9272 /* addPricesView.swift */,
 				411F7725282E4B9A00B49E4D /* AppleSIgnUpCoordinator.swift */,
-				41C63DA3284F5F1900DC9272 /* PickersView.swift */,
-				41C63D9D284F5E9700DC9272 /* PriceCard.swift */,
 				3EC3C601283D2F1D0085F65F /* AssignRoleView.swift */,
 				41C63DA1284F5F0000DC9272 /* AvailableAnimation.swift */,
+				3E04069C285924B000C420BE /* Biglietti */,
+				3E8A6B9E2850EBDF0076C2F3 /* CardLists.swift */,
 				3EAD4F7C282679BF007496B8 /* ContentView.swift */,
 				3E636C07282A584B00CC0CED /* CreationView.swift */,
-				41C63DAB284F5FDE00DC9272 /* pricePicker.swift */,
-				41C63DA5284F5F3D00DC9272 /* LocationFieldAnimation.swift */,
-				3E8E317A283795D900564D80 /* EventView.swift */,
-				3E8E317828378CA800564D80 /* LoginView.swift */,
-				3E3C33E8282BB6B40073B6E8 /* QrCodeScannerView.swift */,
 				4180D0C62854E63B007451FB /* EditView.swift */,
-				3E3C33E7282BB6B40073B6E8 /* QrCodeView.swift */,
-				41C63DA7284F5F8E00DC9272 /* addPricesView.swift */,
-				3EC3C5FD283D24BF0085F65F /* RecapEventView.swift */,
-				41C63DA9284F5FC400DC9272 /* insertPriceView.swift */,
 				41C63D9F284F5EDB00DC9272 /* EventDescriptionAnimation.swift */,
+				3E8E317A283795D900564D80 /* EventView.swift */,
+				3E8A6B962850EABC0076C2F3 /* IMieiEventi.swift */,
+				41C63DA9284F5FC400DC9272 /* insertPriceView.swift */,
+				3E8A6B9C2850EB900076C2F3 /* InsideList.swift */,
+				3E8A6B9A2850EB5E0076C2F3 /* Lists.swift */,
+				41C63DA5284F5F3D00DC9272 /* LocationFieldAnimation.swift */,
+				3E8E317828378CA800564D80 /* LoginView.swift */,
+				41C63DA3284F5F1900DC9272 /* PickersView.swift */,
+				41C63D9D284F5E9700DC9272 /* PriceCard.swift */,
+				41C63DAB284F5FDE00DC9272 /* pricePicker.swift */,
+				3E3C33E8282BB6B40073B6E8 /* QrCodeScannerView.swift */,
+				3E3C33E7282BB6B40073B6E8 /* QrCodeView.swift */,
+				3EC3C5FD283D24BF0085F65F /* RecapEventView.swift */,
 				3E3C33E5282BB6B30073B6E8 /* RecapView.swift */,
 				3E3C33D9282B9F6C0073B6E8 /* ReservationView.swift */,
+				3E8A6B982850EB260076C2F3 /* Riepilogo.swift */,
 				3EC3C5FF283D296E0085F65F /* RoleView.swift */,
 				3E3C33E9282BB6B40073B6E8 /* ScannerView.swift */,
 				41F3F624282E6DB7003D0170 /* TestDownloadImage.swift */,
-				3E636C05282A552E00CC0CED /* UpdateView.swift */,
-				3E8A6B962850EABC0076C2F3 /* IMieiEventi.swift */,
-				3E8A6B982850EB260076C2F3 /* Riepilogo.swift */,
-				3E8A6B9A2850EB5E0076C2F3 /* Lists.swift */,
-				3E8A6B9C2850EB900076C2F3 /* InsideList.swift */,
-				3E8A6B9E2850EBDF0076C2F3 /* CardLists.swift */,
 				3E8A6BA02850EC000076C2F3 /* TuttiIPrenotatiCard.swift */,
+				3E636C05282A552E00CC0CED /* UpdateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

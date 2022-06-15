@@ -50,7 +50,7 @@ class EventModel: ObservableObject {
         let predicate: NSPredicate = NSPredicate(format: "id == %@", id)
         let query = CKQuery(recordType: Event.recordType, predicate: predicate)
         let tmp = try await self.database.records(matching: query)
-        
+        print("retirevallid event")
         for tmp1 in tmp.matchResults{
             if let data = try? tmp1.1.get() {
                 self.records.append(data)
@@ -61,9 +61,12 @@ class EventModel: ObservableObject {
     }
     
     func retrieveAll(name: String, location: String, date: Date) async throws {
+        reset()
         let predicate: NSPredicate = NSPredicate(format: "name == %@ AND location == %@ AND date == %@ ", name, location, date as CVarArg)
         let query = CKQuery(recordType: Event.recordType, predicate: predicate)
         let tmp = try await self.database.records(matching: query)
+        print("retirevall event")
+
         
         for tmp1 in tmp.matchResults{
             if let data = try? tmp1.1.get() {
@@ -112,14 +115,15 @@ class EventModel: ObservableObject {
         
     }
     func delete(idEvent:String) async throws {
-
+        reset()
         try await retrieveAllId(id: idEvent)
     
         try await delete(at: 0)
         
         try await roleModel.deleteCascade(idEvent: idEvent)
-        
+
         self.updateEvent()
+        
         
     }
     func reset(){
@@ -141,12 +145,12 @@ class EventModel: ObservableObject {
         createEvent.price = price
         createEvent.table = table
 //
-//        let usrDef = UserDefaults.standard
-//        let username = usrDef.value(forKey: "Username") as? String ?? "ububgbhgb"
+        let usrDef = UserDefaults.standard
+        let username = usrDef.value(forKey: "Username") as? String ?? "ububgbhgb"
 //
         
 //        try await roleModel.insert(username: username, permission: 3, idEvent: createEvent.id)
-        try await roleModel.insert(username: userModel.user.first!.username, permission: 3, idEvent: createEvent.id)
+        try await roleModel.insert(username: username, permission: 3, idEvent: createEvent.id)
 
         
         do {

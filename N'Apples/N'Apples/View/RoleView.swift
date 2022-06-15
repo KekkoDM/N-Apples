@@ -114,7 +114,7 @@ struct RoleView: View {
                     }
                     Spacer()
                     VStack(spacing: 80.0){
-                        ForEach(0 ..< roleModel.role.first!.permission.count, id: \.self) { i in
+                        ForEach(0 ..< roleModel.role.count, id: \.self) { i in
                             Divider()
                             
                             RuoliView(roleModel: $roleModel, Ruoli:[RuoliView.ParametriRuoli(ruolo: roleModel.role[i].permission.map{String($0) }, nome: roleModel.role[i].username, cognome: roleModel.role[i].username)])

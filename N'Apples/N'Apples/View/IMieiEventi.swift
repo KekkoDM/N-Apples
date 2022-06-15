@@ -19,7 +19,7 @@ struct IMieiEventi: View {
     @State var stringaGif: String = "LoadingGif"
     @State var showEvents = false
     @State private var showCaricamento : Bool = false
-    
+    @Binding var indici:[Int] 
     @ObservedObject var userSettings = UserSettings()
     var body: some View {
         
@@ -43,88 +43,69 @@ struct IMieiEventi: View {
                     
                     
                     
-                    if !showCaricamento {
+                    if !showCaricamento && !roleModel.role.isEmpty {
                         
                         VStack(spacing: 20){
                             ScrollView(showsIndicators: false) {
-                                if roleModel.role.first!.permission == [0,0,0] ||  roleModel.role.first!.permission == [1,0,0] {
-                                    
-                                    Button(action: {
-                                        intero = 0
-                                        print("INTERO: \(intero)")
-                                        print("INTERO EV: \(eventModel.event[intero].id)")
-                                    }, label: {
-                                        CardEvento(i: $intero, eventModel: $eventModel, roleModel: $roleModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[0].name, location: eventModel.event[0].location, data: eventModel.event[0].timeForPrice, prenotazioniDisponibili: eventModel.event[0].capability, descrizioneEvento: eventModel.event[0].info, tariffeEntrata: eventModel.event[0].price, idEvent: eventModel.event[0].id, tables: eventModel.event[0].table )])
-                                    })
-                                    
-                                    
-                                }
+//                                if roleModel.role.first!.permission == [0,0,0] ||  roleModel.role.first!.permission == [1,0,0] {
+//
+//                                        CardEvento(i: $indici[0], eventModel: $eventModel, roleModel: $roleModel, indici: $indici, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[0].name, location: eventModel.event[0].location, data: eventModel.event[0].timeForPrice, prenotazioniDisponibili: eventModel.event[0].capability, descrizioneEvento: eventModel.event[0].info, tariffeEntrata: eventModel.event[0].price, idEvent: eventModel.event[0].id, tables: eventModel.event[0].table )])
+//
+//
+//
+//                                }
+//
+//                                else  if roleModel.role.first!.permission == [0,0,1]  {
+//                                    CardEvento2(i: $indici[0], eventModel: $eventModel, roleModel: $roleModel, indici: $indici, Paramentri: [CardEvento2.ParametriCard(titoloEvento: eventModel.event[0].name, location: eventModel.event[0].location, data: eventModel.event[0].timeForPrice, prenotazioniDisponibili: eventModel.event[0].capability, descrizioneEvento: eventModel.event[0].info, tariffeEntrata: eventModel.event[0].price, idEvent: eventModel.event[0].id, tables: eventModel.event[0].table )])
+//
+//
+//
+//                                }
+//                                else  if roleModel.role.first!.permission == [0,1,0]  {
+//                                    CardEvento3(i: $indici[0], eventModel: $eventModel, roleModel: $roleModel, indici: $indici, Paramentri: [CardEvento3.ParametriCard(titoloEvento: eventModel.event[0].name, location: eventModel.event[0].location, data: eventModel.event[0].timeForPrice, prenotazioniDisponibili: eventModel.event[0].capability, descrizioneEvento: eventModel.event[0].info, tariffeEntrata: eventModel.event[0].price, idEvent: eventModel.event[0].id, tables: eventModel.event[0].table )])
+//
+//                                        .onAppear(perform: {
+//                                            intero = 0
+//                                        })
+//
+//                                }
                                 
-                                else  if roleModel.role.first!.permission == [0,0,1]  {
-                                    CardEvento2(i: $intero, eventModel: $eventModel, roleModel: $roleModel, Paramentri: [CardEvento2.ParametriCard(titoloEvento: eventModel.event[0].name, location: eventModel.event[0].location, data: eventModel.event[0].timeForPrice, prenotazioniDisponibili: eventModel.event[0].capability, descrizioneEvento: eventModel.event[0].info, tariffeEntrata: eventModel.event[0].price, idEvent: eventModel.event[0].id, tables: eventModel.event[0].table )])
-                                        .onAppear(perform: {
-                                            intero = 0
-                                        })
-                                      
+                                ForEach(0 ..< roleModel.role.count, id: \.self) { i in
                                     
-                                }
-                                else  if roleModel.role.first!.permission == [0,1,0]  {
-                                    CardEvento3(i: $intero, eventModel: $eventModel, roleModel: $roleModel, Paramentri: [CardEvento3.ParametriCard(titoloEvento: eventModel.event[0].name, location: eventModel.event[0].location, data: eventModel.event[0].timeForPrice, prenotazioniDisponibili: eventModel.event[0].capability, descrizioneEvento: eventModel.event[0].info, tariffeEntrata: eventModel.event[0].price, idEvent: eventModel.event[0].id, tables: eventModel.event[0].table )])
                                     
-                                        .onAppear(perform: {
-                                            intero = 0
-                                        })
-                                     
-                                }
-                                
-                                ForEach(1 ..< eventModel.event.count, id: \.self) { i in
                                     if roleModel.role[i].permission == [0,0,0] || roleModel.role.first!.permission == [1,0,0] {
-                                        if(eventModel.event[i].name != eventModel.event[i-1].name && i != 0){
+                                        
+//                                        if(eventModel.event[i].name != eventModel.event[i-1].name && i != 0){
                                             
-                                            Button(action: {
-                                                print("STO QUIIIII")
-                                                intero = i
-                                                print("INTERO: \(intero)")
-                                                print("INTERO EV: \(eventModel.event[intero].id)")
-                                                
-                                            }, label: {
-                                                
-                                                CardEvento(i: $intero, eventModel: $eventModel, roleModel: $roleModel, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id, tables: eventModel.event[i].table )])
-                                                
-                                            })
-                                           
-                                        }
+                                            CardEvento(i: $indici[i], eventModel: $eventModel, roleModel: $roleModel, indici: $indici, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id, tables: eventModel.event[i].table )])
+                                            
+                                            
+//                                        }
                                         
                                     }
                                     else  if roleModel.role.first!.permission == [0,0,1] {
-                                        if(eventModel.event[i].name != eventModel.event[i-1].name && i != 0){
-                                            CardEvento2(i: $intero, eventModel: $eventModel, roleModel: $roleModel, Paramentri: [CardEvento2.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id, tables: eventModel.event[i].table )]).onTapGesture {
-                                                intero = i
-                                                print("INTERi: \(intero)")
-                                                }
+//                                        if(eventModel.event[i].name != eventModel.event[i-1].name && i != 0){
+                                            CardEvento2(i: $indici[i], eventModel: $eventModel, roleModel: $roleModel, indici: $indici, Paramentri: [CardEvento2.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id, tables: eventModel.event[i].table )])
                                                 .onAppear(perform: {
-                                                    intero = i
+                                                    
                                                     print("INTERO ON APP: \(intero)")
                                                 })
                                                 
                                             
-                                        }
+//                                        }
                                         
                                     }
                                     else  if roleModel.role.first!.permission == [0,1,0] {
-                                        if(eventModel.event[i].name != eventModel.event[i-1].name && i != 0){
-                                            CardEvento3(i: $intero, eventModel: $eventModel, roleModel: $roleModel, Paramentri: [CardEvento3.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id, tables: eventModel.event[i].table )])
-                                                .onTapGesture {
-                                                intero = i
-                                                print("INTERi: \(intero)")
-                                            }
+//                                        if(eventModel.event[i].name != eventModel.event[i-1].name && i != 0){
+                                            CardEvento3(i: $indici[i], eventModel: $eventModel, roleModel: $roleModel, indici: $indici, Paramentri: [CardEvento3.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id, tables: eventModel.event[i].table )])
+                                                
                                                 .onAppear(perform: {
-                                                    intero = i
+                                                
                                                     print("INTERO ON APP: \(intero)")
                                                 })
                                                 
                                             
-                                        }
+//                                        }
                                         
                                     }
                                 }
@@ -132,9 +113,14 @@ struct IMieiEventi: View {
                                 .refreshable {
                                     
                                     Task {
+                                    
                                         try await userModel.retrieveAllId(id: userSettings.id)
                                         
                                         showEvents = false
+                                        eventModel.records.removeAll()
+                                        eventModel.event.removeAll()
+                                       
+
                                         showEvents = try await retrieveMyEvents()
                                         print("Refresh")
                                         showCaricamento = false
@@ -149,17 +135,21 @@ struct IMieiEventi: View {
                                 showCaricamento = true
                                 
                                 Task {
+//                                    indici.append(indici.count + 1)
+                                    
                                     try await userModel.retrieveAllId(id: userSettings.id)
                                     
                                     showEvents = false
-                                    
+                                    eventModel.records.removeAll()
+                                    eventModel.event.removeAll()
                                     showEvents = try await retrieveMyEvents()
                                     
                                     showCaricamento = false
+                               
                                     
                                 }
                             }) {
-                                CreationView()
+                                CreationView( indici: $indici)
                             }
                             
                             
@@ -218,7 +208,8 @@ struct CardEvento: View {
         var idEvent: String
         var tables: [String]
     }
-    
+    @Binding var indici:[Int]
+
     @State var Paramentri: [ParametriCard] = [ParametriCard(titoloEvento: "Arenile", location: "Caivano", data: [Date()],  prenotazioniDisponibili: 100, descrizioneEvento:"", tariffeEntrata: [0], idEvent: "", tables: [""])]
     @State var presentRoleView: Bool = false
     
@@ -300,7 +291,7 @@ struct CardEvento: View {
                         
                         VStack (alignment: .leading, spacing: 10) {
                             
-                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: String(index.prenotazioniDisponibili), descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata,idEvent:index.idEvent, tables: index.tables)) {
+                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: String(index.prenotazioniDisponibili), descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata,idEvent:index.idEvent, tables: index.tables, indici: $indici, i: $i)) {
                                 Text("\(index.titoloEvento)  >")
                                     .underline()
                                     .font(.system(size: 22))
@@ -382,7 +373,8 @@ struct CardEvento2: View {
     @Binding var i: Int
     @Binding var eventModel: EventModel
     @Binding var roleModel: RoleModel
-    
+    @Binding var indici:[Int]
+
     struct ParametriCard: Identifiable {
         var id: String {
             self.titoloEvento
@@ -455,7 +447,7 @@ struct CardEvento2: View {
                         
                         VStack (alignment: .leading, spacing: 10) {
                             
-                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: String(index.prenotazioniDisponibili), descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata,idEvent:index.idEvent, tables: index.tables)) {
+                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: String(index.prenotazioniDisponibili), descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata,idEvent:index.idEvent, tables: index.tables, indici: $indici, i: $i)) {
                                 Text("\(index.titoloEvento)  >")
                                     .underline()
                                     .font(.system(size: 22))
@@ -532,7 +524,8 @@ struct CardEvento3: View {
     @Binding var i: Int
     @Binding var eventModel: EventModel
     @Binding var roleModel: RoleModel
-    
+    @Binding var indici:[Int]
+
     struct ParametriCard: Identifiable {
         var id: String {
             self.titoloEvento
@@ -605,7 +598,7 @@ struct CardEvento3: View {
                         
                         VStack (alignment: .leading, spacing: 10) {
                             
-                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: String(index.prenotazioniDisponibili), descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata,idEvent:index.idEvent, tables: index.tables)) {
+                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: String(index.prenotazioniDisponibili), descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata,idEvent:index.idEvent, tables: index.tables, indici: $indici, i: $i)) {
                                 Text("\(index.titoloEvento)  >")
                                     .underline()
                                     .font(.system(size: 22))

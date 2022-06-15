@@ -34,7 +34,9 @@ struct Riepilogo: View {
     var tariffeEntrata: [Int]
     var idEvent: String
     var tables: [String]
-    
+    @Binding var indici:[Int]
+    @Binding var i: Int
+
     @State var showEvents = false
     @State var showingAlertDelete: Bool = false
     @State var stringaGif: String = "LoadingGif"
@@ -177,8 +179,9 @@ struct Riepilogo: View {
                         VStack {
                             Button(action: {
                                 Task {
-                                    try await eventModel.retrieveAllName(name: titolo)
+//                                    try await eventModel.retrieveAllName(name: titolo)
                                     try await eventModel.delete(idEvent: idEvent)
+                                    indici.remove(at: i)
                                     showingAlertDelete.toggle()
                                     
                                 }
@@ -198,6 +201,8 @@ struct Riepilogo: View {
                         try await userModel.retrieveAllId(id: userSettings.id)
                         
                         showEvents = false
+                        eventModel.records.removeAll()
+                        eventModel.event.removeAll()
                         showEvents = try await retrieveMyEvents()
                         showCaricamento = false
                         
@@ -219,7 +224,7 @@ struct Riepilogo: View {
                 }
                 
                 NavigationLink("", isActive: $showEvents, destination: {
-                    IMieiEventi(eventModel: eventModel, roleModel: roleModel)})
+                    IMieiEventi(eventModel: eventModel, roleModel: roleModel, indici: $indici)})
                 
                 
                 NavigationLink("", isActive: $showEventView, destination: {

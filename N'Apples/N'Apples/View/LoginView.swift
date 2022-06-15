@@ -21,6 +21,8 @@ func retrieveMyEvents() async throws -> Bool {
         if(roleModel.role.count == 0) {
             return false
         }
+        print("RUOLI: \(roleModel.role.count)")
+        print("EVENT: \(eventModel.event.count)")
         return true
     }
     else {
@@ -77,8 +79,8 @@ struct LoginView: View {
                         .onChange(of: signInApple, perform: {_ in
                             
                             Task {
-//                                let usrDef = UserDefaults.standard
-//                                usrDef.set(username, forKey: "Username")
+                                let usrDef = UserDefaults.standard
+                                usrDef.set(username, forKey: "Username")
                                 
                                 try await userModel.retrieveAllId(id: idApple)
                                 if (userModel.user.isEmpty) {

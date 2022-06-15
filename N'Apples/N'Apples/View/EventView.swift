@@ -21,7 +21,9 @@ struct EventView: View {
     @State var showEvents = false
     @ObservedObject var pushNotification: CloudkitPushNotificationViewModel = CloudkitPushNotificationViewModel()
     @ObservedObject var userSettings = UserSettings()
-    
+//    @State var indici:[Int] = [0,1,2,3,4,5,6,7,8,9]
+    @State var indici:[Int] = Array( repeating: 0,count: 300)
+
     @State var title = ""
 
     @State var stringaGif: String = "LoadingGif"
@@ -143,13 +145,19 @@ struct EventView: View {
                                 try await userModel.retrieveAllId(id: userSettings.id)
 
                                 showEvents = false
-
+                                print("tappend \(eventModel.event.count)")
+                                eventModel.records.removeAll()
+                                eventModel.event.removeAll()
                                 showEvents = try await retrieveMyEvents()
                                 showCaricamento = false
+                              
+                                     
+                               
 
                             }
+                            
                         }) {
-                            CreationView()
+                            CreationView(indici: $indici)
                         }
                         
                         if showCaricamento {
@@ -163,11 +171,14 @@ struct EventView: View {
                                 .background( Color(red: 11/255, green: 41/255, blue: 111/255))
                                 .onAppear() {
                                     print("DENTRO SHOW CARICAMENTO IN EVENT VIEW")
+                              
+                                        
+                                    
                                 }
                         }
                         
                         NavigationLink("", isActive: $showEvents, destination: {
-                            IMieiEventi(eventModel: eventModel, roleModel: roleModel)})
+                            IMieiEventi(eventModel: eventModel, roleModel: roleModel, indici: $indici)})
                             
                         
                     }
@@ -184,10 +195,19 @@ struct EventView: View {
                             try await userModel.retrieveAllId(id: userSettings.id)
                             
                             showEvents = false
+//                            eventModel.records.removeAll()
+//                            eventModel.event.removeAll()
                             showEvents = try await retrieveMyEvents()
                           
                             showCaricamento = false
                             title = "My Events"
+                            indici.removeAll()
+                            print("tappend \(roleModel.role.count)")
+                             for i in 0 ..< roleModel.role.count + 1{
+                                 print("tappend \(i)")
+                                 indici.append(i)
+                                 print("indice idea del secolo \(indici[i])")
+                             }
             
                         }
                         

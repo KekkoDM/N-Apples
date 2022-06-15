@@ -33,7 +33,8 @@ class RoleModel: ObservableObject {
     func retrieveAllUsername(username: String) async throws {
         let predicate: NSPredicate = NSPredicate(format: "username == %@", username)
         let query = CKQuery(recordType: Role.recordType, predicate: predicate)
-        
+        print("retirevallusername role")
+
         let tmp = try await self.database.records(matching: query)
         
         for tmp1 in tmp.matchResults {
@@ -54,6 +55,7 @@ class RoleModel: ObservableObject {
             let query = CKQuery(recordType: Role.recordType, predicate: predicate)
 
             let tmp = try await self.database.records(matching: query)
+        print("retirevallcollaborator role")
 
             for tmp1 in tmp.matchResults{
                 if let data = try? tmp1.1.get() {
@@ -68,7 +70,8 @@ class RoleModel: ObservableObject {
     func retrieveOneCollaborator(idEvent: String, username: String) async throws {
         let predicate: NSPredicate = NSPredicate(format: "idEvent == %@ AND username == %@", idEvent, username)
         let query = CKQuery(recordType: Role.recordType, predicate: predicate)
-        
+        print("retirevaone collaboratore role")
+
         let tmp = try await self.database.records(matching: query)
         
         for tmp1 in tmp.matchResults{
@@ -153,7 +156,7 @@ class RoleModel: ObservableObject {
             return
         }
         deletedObjectIds.insert(recordId)
-//        self.updateRole2()
+//        self.updateRole()
         return
     }
     
@@ -189,7 +192,7 @@ class RoleModel: ObservableObject {
     
     
     func deleteCascade(idEvent: String) async throws {
-
+        reset()
         try await retrieveAllCollaborators(idEvent: idEvent)
         
         for i in 0..<role.count {
