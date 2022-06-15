@@ -67,38 +67,3 @@ struct InvitatoView: View {
 }
 
 
-struct GuestNameField : View {
-    @Binding var eventName : String
-    var body: some View {
-        TextField("Guest Name", text: $eventName)
-            .foregroundColor(.white).font(.system(size: 21))
-            .padding()
-            .overlay(RoundedRectangle(cornerRadius: 14)
-                        .stroke(Color.white, lineWidth: 3)
-            )
-    }
-}
-
-struct NumPeopleField: View {
-    @Binding var eventLocation : String
-    var body: some View {
-        TextField("Number of people invited ", text: $eventLocation)
-            .foregroundColor(.white).font(.system(size: 21))
-            .padding()
-            .overlay(RoundedRectangle(cornerRadius: 14)
-                        .stroke(Color.white, lineWidth: 3)
-            )
-    }
-}
-
-struct EmailField: View {
-    @Binding var availableReservation : String
-    var body: some View {
-        TextField("Guest email", text: $availableReservation)
-            .foregroundColor(.white).font(.system(size: 21))
-            .padding()
-            .overlay(RoundedRectangle(cornerRadius: 14)
-                        .stroke(Color.white, lineWidth: 3)
-            )
-    }
-}

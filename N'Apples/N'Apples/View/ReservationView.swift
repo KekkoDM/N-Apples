@@ -22,20 +22,22 @@ struct ReservationView: View {
     
     var body: some View {
         
-        NavigationView {
+
+            GeometryReader{ geometry in
+
             ZStack {
-                VStack {
-                    ZStack {
-                        VStack {
-                            Text("My Reservation")
-                            TextField("Name", text: $name)
-                            TextField("Surname", text: $surname)
-                            TextField("Email", text: $email)
-                            TextField("Name List", text: $nameList)
-                            TextField("Number of friends", text: $numFriends)
-                        }
-                    }
+                Color(red: 11/255, green: 41/255, blue: 111/255)
+                    .ignoresSafeArea()
+                ScrollView( showsIndicators: false){
                     
+                    VStack(alignment: .leading , spacing: 30 ){
+                        GuestNameField(eventName: $name)
+                        GuestNameField(eventName: $surname)
+                        EmailField(availableReservation: $email)
+                        GuestNameField(eventName: $nameList)
+
+                         NumPeopleField(eventLocation: $numFriends)
+                        
                     
                     let qrImage = generateQRCode(from: "\(qrNumber)")
                     let image = Image(uiImage: qrImage)
@@ -53,42 +55,35 @@ struct ReservationView: View {
                                 
                             }
                     }
-                    Button(action: {
-                        Task{
-                            try await reservationModel.insert(event: event.id, id: qrNumber.uuidString, name: name, surname: surname, email: email, nameList: nameList, numFriends: Int(numFriends) ?? 0)
-                            showqr = true
-                        }
-                    }, label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 25)
-                                .foregroundColor(.blue)
-                                .frame(width: 200, height: 100, alignment: .center)
-                            Text("Confirm")
-                                .foregroundColor(.white)
-                        }.padding(.bottom, 40)
-                    })
+                 
+                       
+                       
+                    }.padding()
                     
-                    Button(action: {
-                        Task{
-                            try await reservationModel.retrieveAllId(id:qrNumber.uuidString)
-                            try await reservationModel.updateNumScan(id: qrNumber.uuidString)
-                            
-                        }
-                    }, label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 25)
-                                .foregroundColor(.blue)
-                                .frame(width: 200, height: 100, alignment: .center)
-                            Text("Update")
-                                .foregroundColor(.white)
-                        }.padding(.bottom, 40)
-                    })
                 }
+        
+                Button {
+                    Task{
+                        try await reservationModel.insert(event: event.id, id: qrNumber.uuidString, name: name, surname: surname, email: email, nameList: nameList, numFriends: Int(numFriends) ?? 0)
+                        showqr = true
+                    }
+                } label: {
+                Rectangle()
+                    .frame(width: geometry.size.width*0.5, height: geometry.size.height*0.075)
+                    .cornerRadius(10)
+                    .overlay(Text("Add new Guest")
+                                .font(.system(size: 25))
+                                .bold()
+                    .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255)))
+                            
             }
-            
-            
-                
-        }
+                .position(x: geometry.size.width*0.5, y: geometry.size.height*0.95)
+                }
+            .navigationTitle("New Guest")
+            .navigationBarTitleDisplayMode(.inline)
+
+            }
+        
         if(show) {
             Alert(show: $show)
         }
@@ -112,3 +107,38 @@ struct ReservationView: View {
 
 
 
+struct GuestNameField : View {
+    @Binding var eventName : String
+    var body: some View {
+        TextField("Guest Name", text: $eventName)
+            .foregroundColor(.white).font(.system(size: 21))
+            .padding()
+            .overlay(RoundedRectangle(cornerRadius: 14)
+                        .stroke(Color.white, lineWidth: 3)
+            )
+    }
+}
+
+struct NumPeopleField: View {
+    @Binding var eventLocation : String
+    var body: some View {
+        TextField("Number of people invited ", text: $eventLocation)
+            .foregroundColor(.white).font(.system(size: 21))
+            .padding()
+            .overlay(RoundedRectangle(cornerRadius: 14)
+                        .stroke(Color.white, lineWidth: 3)
+            )
+    }
+}
+
+struct EmailField: View {
+    @Binding var availableReservation : String
+    var body: some View {
+        TextField("Guest email", text: $availableReservation)
+            .foregroundColor(.white).font(.system(size: 21))
+            .padding()
+            .overlay(RoundedRectangle(cornerRadius: 14)
+                        .stroke(Color.white, lineWidth: 3)
+            )
+    }
+}

@@ -228,13 +228,13 @@ class ReservationModel: ObservableObject {
     
     
     
-    func updateNumScan(id:String) async throws {
+    func updateNumScan(id:String,numscan:Int) async throws ->Bool{
         
         try await retrieveAllId(id: id)
         
         var rec = reservation.first!
         
-        rec.numScan = rec.numScan+1
+        rec.numScan = numscan
     
         for i in 0..<reservation.count{
             print("Cancello \(reservation[i].id)")
@@ -247,6 +247,7 @@ class ReservationModel: ObservableObject {
         try await retrieveAllIdDecrypt(id: id)
         
         self.updateReservation()
+        return false
     }
     
     func update(reservation1: Reservation, id: String, name: String, surname: String, email: String, nameList: String, timeScan: Date, numFriends: Int, numScan: Int) async throws {
@@ -265,7 +266,21 @@ class ReservationModel: ObservableObject {
         }
     }
     
-    
+    func update2(reservation1: Reservation, id: String, name: String, surname: String, email: String, nameList: String, timeScan: Date, numFriends: Int, numScan: Int) async throws {
+        
+
+        var createReservation = Reservation()
+        createReservation.id = id
+        createReservation.name = name
+        createReservation.surname = surname
+        createReservation.email = email
+        createReservation.nameList = nameList
+        createReservation.numFriends = numFriends
+        createReservation.numScan = numScan + 1
+        let _ = try await self.database.modifyRecords(saving: [createReservation.record], deleting: [reservation1.record.recordID], savePolicy: .changedKeys, atomically: true)
+            self.updateReservation()
+        
+    }
     
     private func updateReservation() {
         
