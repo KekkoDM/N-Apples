@@ -31,19 +31,19 @@ struct IMieiEventi: View {
                 ZStack {
                     if showCaricamento {
                         
-                        GifImage(stringaGif)
-                        
-                            .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
-                            .padding(.top, 200)
-                        
-                            .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
-                            .background( Color(red: 11/255, green: 41/255, blue: 111/255))
-                        
+//                        GifImage(stringaGif)
+//                        
+//                            .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
+//                            .padding(.top, 200)
+//                        
+//                            .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
+//                            .background( Color(red: 11/255, green: 41/255, blue: 111/255))
+                        GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici)
                     }
                     
                     
-                    
-                    if !showCaricamento && !roleModel.role.isEmpty {
+//                    !showCaricamento &&
+                    if  !roleModel.role.isEmpty {
                         
                         VStack(spacing: 20){
                             ScrollView(showsIndicators: false) {
@@ -70,10 +70,10 @@ struct IMieiEventi: View {
 //
 //                                }
                                 
-                                ForEach(0 ..< roleModel.role.count, id: \.self) { i in
+                                ForEach(0 ..< eventModel.event.count, id: \.self) { i in
                                     
                                     
-                                    if roleModel.role[i].permission == [0,0,0] || roleModel.role.first!.permission == [1,0,0] {
+                                    if roleModel.role[i].permission == [0,0,0] || roleModel.role[i].permission == [1,0,0] {
                                         
 //                                        if(eventModel.event[i].name != eventModel.event[i-1].name && i != 0){
                                             
@@ -83,7 +83,7 @@ struct IMieiEventi: View {
 //                                        }
                                         
                                     }
-                                    else  if roleModel.role.first!.permission == [0,0,1] {
+                                    else  if roleModel.role[i].permission == [0,0,1] {
 //                                        if(eventModel.event[i].name != eventModel.event[i-1].name && i != 0){
                                             CardEvento2(i: $indici[i], eventModel: $eventModel, roleModel: $roleModel, indici: $indici, Paramentri: [CardEvento2.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id, tables: eventModel.event[i].table )])
                                                 .onAppear(perform: {
@@ -95,7 +95,7 @@ struct IMieiEventi: View {
 //                                        }
                                         
                                     }
-                                    else  if roleModel.role.first!.permission == [0,1,0] {
+                                    else  if roleModel.role[i].permission == [0,1,0] {
 //                                        if(eventModel.event[i].name != eventModel.event[i-1].name && i != 0){
                                             CardEvento3(i: $indici[i], eventModel: $eventModel, roleModel: $roleModel, indici: $indici, Paramentri: [CardEvento3.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id, tables: eventModel.event[i].table )])
                                                 
@@ -134,20 +134,20 @@ struct IMieiEventi: View {
                             .sheet(isPresented: $showSheet, onDismiss: {
                                 showCaricamento = true
                                 
-                                Task {
-//                                    indici.append(indici.count + 1)
-                                    
-                                    try await userModel.retrieveAllId(id: userSettings.id)
-                                    
-                                    showEvents = false
-                                    eventModel.records.removeAll()
-                                    eventModel.event.removeAll()
-                                    showEvents = try await retrieveMyEvents()
-                                    
-                                    showCaricamento = false
-                               
-                                    
-                                }
+//                                Task {
+////                                    indici.append(indici.count + 1)
+//
+//                                    try await userModel.retrieveAllId(id: userSettings.id)
+//
+//                                    showEvents = false
+//                                    eventModel.records.removeAll()
+//                                    eventModel.event.removeAll()
+//                                    showEvents = try await retrieveMyEvents()
+//
+//                                    showCaricamento = false
+//
+//
+//                                }
                             }) {
                                 CreationView( indici: $indici)
                             }
@@ -249,7 +249,7 @@ struct CardEvento: View {
                                     .font(.system(size: 28))
                                     .padding(.leading, 290)
                                 
-                                NavigationLink (destination: RoleView(i: $i, eventModel: $eventModel, roleModel: $roleModel), isActive: $presentRoleView) {
+                                NavigationLink (destination: RoleView(i: $i, eventModel: $eventModel, roleModel: $roleModel, indici: $indici), isActive: $presentRoleView) {
                                     Text("Roles")
                                         .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                         .font(.system(size: 16))
@@ -581,7 +581,7 @@ struct CardEvento3: View {
                                     .padding(.leading, 290)
                                 
                                 NavigationLink(destination: {
-                                    ReservationView (event: eventModel.event.first!)
+                                    ReservationView (event: eventModel.event.first ?? Event())
                                 }, label: {
                                     Text("Reservazion")
                                         .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))

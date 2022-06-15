@@ -11,7 +11,7 @@ import SwiftUI
 struct AlertDelete: View {
     
     @Binding var show: Bool
-    @Binding var showEventView: Bool
+    @Binding var showCaricamento: Bool
    
     
     var body: some View {
@@ -20,7 +20,7 @@ struct AlertDelete: View {
             
         }.alert(NSLocalizedString("Great!", comment: ""), isPresented: $show, actions: {
             Button("Ok", action: {
-                showEventView = true
+                showCaricamento = true
 
             })
         }, message: {

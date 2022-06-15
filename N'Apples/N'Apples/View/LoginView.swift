@@ -42,7 +42,7 @@ struct LoginView: View {
     @State var presentAlert: Bool = false
     @State var signInApple: Bool = false
     @State var idApple = ""
-    
+    @State var indici: [Int] = []
     var body: some View {
         
         ZStack {
@@ -216,6 +216,7 @@ struct LoginView: View {
                 }
             }
             if (presentEventView){
+//                GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici)
                 EventView (eventModel: eventModel, roleModel: roleModel)
             }
         }

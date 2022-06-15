@@ -17,7 +17,8 @@ struct RecapEventView: View {
     @State var presentReservationView: Bool = false
     @State var showReservation = false
     @State var showScannerView = false
-    
+    @Binding var indici: [Int]
+
     var body: some View {
         ScrollView {
             VStack {
@@ -55,7 +56,7 @@ struct RecapEventView: View {
                     
                     
                     
-                    NavigationLink (destination: RoleView(i: $i, eventModel: $eventModel, roleModel: $roleModel), isActive: $presentRoleView) {
+                    NavigationLink (destination: RoleView(i: $i, eventModel: $eventModel, roleModel: $roleModel, indici: $indici), isActive: $presentRoleView) {
                         
                         Text("Role")
                             .onTapGesture {

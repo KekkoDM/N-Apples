@@ -185,7 +185,7 @@ struct CreationView: View {
 
                                 pushNotification.subscribeEvent(textType: "Event")
                                 try await eventModel.insertEvent(name: name, address: address, location: location, info: info, capability: Int(capability) ?? 0, date: dateEvents, timeForPrice: timePrices, price: prices.map{Int($0) ?? 0}, table: tables.map{String($0)})
-                                 
+                                provacaricamento = true
                                 presentationMode.wrappedValue.dismiss()
                                
                             }
@@ -196,8 +196,12 @@ struct CreationView: View {
                             if(openAlert){
                                 AlertCancelPrice(show: $openAlert, timePrices: $timePrices, prices: $prices, intero: $intero)
                             }
-                            
-                            NavigationLink (destination: EventView(eventModel: eventModel, roleModel: roleModel), isActive: $presentIMieiEventi) {
+//                            GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici)
+//                            NavigationLink (destination: EventView(eventModel: eventModel, roleModel: roleModel), isActive: $presentIMieiEventi) {
+//
+//                            }
+//                            .disabled(eventName.isEmpty)
+                            NavigationLink (destination: GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici), isActive: $presentIMieiEventi) {
                                
                             }
                             .disabled(eventName.isEmpty)

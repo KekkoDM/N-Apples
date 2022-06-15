@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+var provacaricamento = true
 
 struct EventView: View {
     
@@ -25,7 +26,6 @@ struct EventView: View {
     @State var indici:[Int] = Array( repeating: 0,count: 300)
 
     @State var title = ""
-
     @State var stringaGif: String = "LoadingGif"
     @State var showSheet : Bool = false
     @State private var showCaricamento : Bool = false
@@ -141,20 +141,21 @@ struct EventView: View {
                         .sheet(isPresented: $showSheet, onDismiss: {
                             showCaricamento = true
 
-                            Task {
-                                try await userModel.retrieveAllId(id: userSettings.id)
-
-                                showEvents = false
-                                print("tappend \(eventModel.event.count)")
-                                eventModel.records.removeAll()
-                                eventModel.event.removeAll()
-                                showEvents = try await retrieveMyEvents()
-                                showCaricamento = false
-                              
-                                     
-                               
-
-                            }
+//                            Task {
+//                                try await userModel.retrieveAllId(id: userSettings.id)
+//
+//                                showEvents = false
+//                                print("tappend \(eventModel.event.count)")
+//                                eventModel.records.removeAll()
+//                                eventModel.event.removeAll()
+//                                showEvents = try await retrieveMyEvents()
+//                                showCaricamento = false
+//
+//
+//
+//
+//                            }
+                            
                             
                         }) {
                             CreationView(indici: $indici)
@@ -162,54 +163,58 @@ struct EventView: View {
                         
                         if showCaricamento {
                             
-                            GifImage(stringaGif)
-                            
-                                .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
-                                .padding(.top, 200)
-                            
-                                .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.37)
-                                .background( Color(red: 11/255, green: 41/255, blue: 111/255))
-                                .onAppear() {
-                                    print("DENTRO SHOW CARICAMENTO IN EVENT VIEW")
-                              
-                                        
-                                    
-                                }
+//                            GifImage(stringaGif)
+//
+//                                .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
+//                                .padding(.top, 200)
+//
+//                                .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.37)
+//                                .background( Color(red: 11/255, green: 41/255, blue: 111/255))
+//                                .onAppear() {
+//                                    print("DENTRO SHOW CARICAMENTO IN EVENT VIEW")
+//
+//
+//
+//                                }
+                            GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici)
                         }
                         
-                        NavigationLink("", isActive: $showEvents, destination: {
-                            IMieiEventi(eventModel: eventModel, roleModel: roleModel, indici: $indici)})
-                            
+//                        NavigationLink("", isActive: $showEvents, destination: {
+//                            IMieiEventi(eventModel: eventModel, roleModel: roleModel, indici: $indici)})
+//
                         
                     }
                    
                     
                     .onAppear(){
                         pushNotification.requestNotificationPermission()
-                        print("DENTRO ON APPEAR IN EVENT VIEW")
-                        showCaricamento = true
-                        
-                        
-                        Task {
-                            
-                            try await userModel.retrieveAllId(id: userSettings.id)
-                            
-                            showEvents = false
-//                            eventModel.records.removeAll()
-//                            eventModel.event.removeAll()
-                            showEvents = try await retrieveMyEvents()
-                          
-                            showCaricamento = false
-                            title = "My Events"
-                            indici.removeAll()
-                            print("tappend \(roleModel.role.count)")
-                             for i in 0 ..< roleModel.role.count + 1{
-                                 print("tappend \(i)")
-                                 indici.append(i)
-                                 print("indice idea del secolo \(indici[i])")
-                             }
-            
+//                        print("DENTRO ON APPEAR IN EVENT VIEW")
+                        if provacaricamento {
+                            showCaricamento = true
+                            provacaricamento = false
                         }
+                        title = "My Events"
+                        
+//                        Task {
+//
+//                            try await userModel.retrieveAllId(id: userSettings.id)
+//
+//                            showEvents = false
+////                            eventModel.records.removeAll()
+////                            eventModel.event.removeAll()
+//                            showEvents = try await retrieveMyEvents()
+//
+//                            showCaricamento = false
+//                            title = "My Events"
+//                            indici.removeAll()
+//                            print("tappend \(roleModel.role.count)")
+//                             for i in 0 ..< roleModel.role.count + 1{
+//                                 print("tappend \(i)")
+//                                 indici.append(i)
+//                                 print("indice idea del secolo \(indici[i])")
+//                             }
+//
+//                        }
                         
                     }
                     

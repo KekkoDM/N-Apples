@@ -18,7 +18,8 @@ struct RoleView: View {
     @State var presentAssignRoleView: Bool = false
     @State var userSeacrh: String = ""
     @State var showingAlertRole: Bool = false
-    
+    @State var  showCaricamento = false
+    @Binding var indici: [Int]
     var body: some View {
         
         ZStack {
@@ -104,7 +105,7 @@ struct RoleView: View {
                 
                 Text("ROLE RECAP")
                     .font(.title)
-                    
+                
                 
                 ScrollView {
                     VStack {
@@ -122,9 +123,15 @@ struct RoleView: View {
                     }
                 }
             }
+            if  showCaricamento {
+                GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici)
+
+            }
         }
         
-        .sheet(isPresented: $presentAssignRoleView) {
+        .sheet(isPresented: $presentAssignRoleView,onDismiss: {
+            showCaricamento = true
+        }) {
             AssignRoleView(eventModel: $eventModel, i: $i, users: $users)
         }
         
@@ -134,7 +141,8 @@ struct RoleView: View {
             AlertRole(show: $showingAlertRole)
         }
         
-        
+      
+
         
         
     }
