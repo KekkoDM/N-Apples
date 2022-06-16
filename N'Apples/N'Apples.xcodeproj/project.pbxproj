@@ -107,7 +107,7 @@
 		3E8E317828378CA800564D80 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3E8E317A283795D900564D80 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		3E9DB9B2285926E700C7CFDF /* InvitatoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitatoView.swift; sourceTree = "<group>"; };
-		3EAD4F77282679BF007496B8 /* N'Apples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "N'Apples.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EAD4F77282679BF007496B8 /* InNight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InNight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EAD4F7A282679BF007496B8 /* N_ApplesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = N_ApplesApp.swift; sourceTree = "<group>"; };
 		3EAD4F7C282679BF007496B8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3EAD4F7E282679C0007496B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -273,7 +273,7 @@
 		3EAD4F78282679BF007496B8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3EAD4F77282679BF007496B8 /* N'Apples.app */,
+				3EAD4F77282679BF007496B8 /* InNight.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -332,7 +332,7 @@
 			);
 			name = "N'Apples";
 			productName = "N'Apples";
-			productReference = 3EAD4F77282679BF007496B8 /* N'Apples.app */;
+			productReference = 3EAD4F77282679BF007496B8 /* InNight.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -597,7 +597,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.simonaettari.N-Apples";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = InNight;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -632,7 +632,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.simonaettari.N-Apples";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = InNight;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
