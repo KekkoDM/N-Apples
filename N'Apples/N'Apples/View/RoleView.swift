@@ -117,7 +117,7 @@ struct RoleView: View {
                         ForEach(0 ..< roleModel.role.count, id: \.self) { i in
                             Divider()
                             
-                            RuoliView(roleModel: $roleModel, Ruoli:[RuoliView.ParametriRuoli(ruolo: roleModel.role[i].permission.map{String($0) }, email: roleModel.role[i].username)])
+                            RuoliView(roleModel: $roleModel, i:$i, Ruoli:[RuoliView.ParametriRuoli(ruolo: roleModel.role[i].permission.map{String($0) }, email: roleModel.role[i].username)])
                         }
                     }
                     Spacer()
@@ -165,7 +165,7 @@ struct RuoliView: View {
     
     @Binding var roleModel: RoleModel
     @State var descrizione: String = ""
-    
+    @Binding var i :Int
     struct ParametriRuoli:Identifiable {
         var id: [String] {
             self.ruolo
@@ -198,7 +198,7 @@ struct RuoliView: View {
                             .font(.system(size: 18))
                             .foregroundColor(.orange)
                         
-                        Text("\(Ruoli.first!.email)")
+                        Text("\(roleModel.role[i].username)")
                         Spacer()
                           
                     }.frame(width: 200, height: 50, alignment: .center)

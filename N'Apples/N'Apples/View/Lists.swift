@@ -9,19 +9,18 @@ import Foundation
 import SwiftUI
 
 struct Lists: View {
-    
     @State var searchText: String = ""
     var TuttiIPrenotati = [1, 2, 3]
     @Binding var idEv: String
     @State var contoPren: Int = 0
-    
+    @State var carta = 0
     var body: some View {
         
         GeometryReader{
             
             geometry in
             
-        NavigationView {
+  
 
                     ScrollView(showsIndicators: false){
                         
@@ -29,7 +28,7 @@ struct Lists: View {
                             
                             HStack(spacing: 0){
                                 
-                                Text("Tutti i prenotati")
+                                Text("All the reservation")
                                     .font(.system(size: 28))
                                     .foregroundColor(.white)
                                     .frame(width: geometry.size.width*0.40)
@@ -56,10 +55,10 @@ struct Lists: View {
                         .padding(.top, geometry.size.height * 0.09)
                         
                         VStack(spacing: 10){
-//                            ForEach(reservationModel.reservation, id: \.self){i in
-                                CardLists(geometry: geometry)
+            
+                            CardLists(i: $carta, geometry: geometry)
                             
-//                            }
+                            
                         }
                         
                     }
@@ -67,10 +66,11 @@ struct Lists: View {
                     .background(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                     .navigationTitle("Liste")
                 
-        }.onAppear() {
+        .onAppear() {
             Task {                print("prenotati:\(reservationModel.reservation.count )")
-
                 try await reservationModel.retrieveAllEventIdDecrypt(idEvent: idEv)
+                carta = reservationModel.reservation.count
+
                 for i in 0 ..< reservationModel.reservation.count {
                     contoPren = contoPren + reservationModel.reservation[i].numFriends
                 }

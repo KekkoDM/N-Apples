@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct CardLists: View {
-//@Binding var i:Int
+@Binding var i:Int
     let geometry: GeometryProxy
     struct Card:Identifiable {
         var id: String {
@@ -26,12 +26,12 @@ struct CardLists: View {
         
         //            geometry in
         //            ScrollView{
-        ForEach(CardPrenotati){
+        ForEach(0 ..< reservationModel.reservation.count, id: \.self) { n in
             
-            index in
+           
             HStack{
                 
-                Text("\(index.nameCollaboratore) \(index.surnameCollaboratore)")
+                Text("\(reservationModel.reservation[n].name) \(reservationModel.reservation[n].surname)")
                     .font(.system(size: 28))
                     .foregroundColor(.white)
                 
@@ -41,7 +41,7 @@ struct CardLists: View {
                     .padding(.horizontal, geometry.size.width * 0.07)
                 
                 
-                Text("\(index.personeInLista)")
+                Text("\(reservationModel.reservation[n].numScan) / \(reservationModel.reservation[n].numFriends)")
                     .font(.system(size: 28))
                     .foregroundColor(.white)
                 
