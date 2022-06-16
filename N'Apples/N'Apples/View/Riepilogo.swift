@@ -248,13 +248,14 @@ struct Riepilogo: View {
                     EditView(ParamentriRecap: $ParamentriRecap.first!, indici: $indici)
                 }
 
-                if showCaricamento {
-                    GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici, endRetrieve: $showCaricamento, fromEdit: true)
-                        .ignoresSafeArea()
-                }
+//                if showCaricamento {
+//                    GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici, endRetrieve: $showCaricamento, fromEdit: true)
+//                        .ignoresSafeArea(.all)
+//                        
+//                }
                 
                 
-            }
+            }.fullScreenCover(isPresented: $showCaricamento, content: {GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici, endRetrieve: $showCaricamento, fromEdit: true)})
             .onAppear(){
                 ParamentriRecap = [ParametriRiepilogo(titoloEvento: titolo, location: location, data: data,  prenotazioniDisponibili: String(prenotazioniDisponibili) , descrizioneEvento: descrizioneEvento, tariffeEntrata: tariffeEntrata.map{String($0) }, idEvent: idEvent, tables: tables.map{String($0)})]
                 

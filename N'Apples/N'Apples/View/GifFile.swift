@@ -54,7 +54,8 @@ struct GifFile: View {
                         .background( Color(red: 11/255, green: 41/255, blue: 111/255))
                     
                     
-                }.onAppear() {
+                }.navigationBarHidden(true)
+                .onAppear() {
                     Task {
                     
                         

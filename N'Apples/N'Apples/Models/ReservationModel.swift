@@ -45,6 +45,9 @@ class ReservationModel: ObservableObject {
     }
     
     func retrieveAllIdDecrypt(id: String) async throws {
+        records.removeAll()
+        reservation.removeAll()
+        
         let predicate: NSPredicate = NSPredicate(format: "id == %@", id)
         let query = CKQuery(recordType: Reservation.recordType, predicate: predicate)
         
@@ -240,6 +243,9 @@ class ReservationModel: ObservableObject {
     
     
     func updateNumScan(id:String,numscan:Int) async throws ->Bool{
+        
+        
+        
         
         try await retrieveAllId(id: id)
         if(!reservation.isEmpty){

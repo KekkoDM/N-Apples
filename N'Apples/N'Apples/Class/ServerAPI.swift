@@ -67,12 +67,9 @@ func getSingleReservation(id: String){
     request.httpMethod = "POST"
     let postId = "id=" + id
     
-    print("MAMMMAMAMAMMAMAMAMAMAM")
-    
     
     request.httpBody = postId.data(using: String.Encoding.utf8)
-//    request.addValue(postId, forHTTPHeaderField: "Content-Type")
-    print("MAmma " + id + " PApa")
+
     let task = URLSession.shared.dataTask(with: request as URLRequest) {
         data, response, error in
         
@@ -86,9 +83,7 @@ func getSingleReservation(id: String){
             if let data = data {
                 let jsonDecoder = JSONDecoder()
                 do {
-                    print("GESUUUUU")
                     let res = try jsonDecoder.decode(ResponseRes.self, from: data)
-                    print("PAPAPPAPAPPAPAPPAPA")
                     print(res)
                     Task{
                         
@@ -98,8 +93,6 @@ func getSingleReservation(id: String){
                     }
                     
                 } catch {
-                    print("AAAAAAAAAAA")
-
                     print(error)
                 }
             }

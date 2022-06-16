@@ -11,6 +11,8 @@ import SwiftUI
 struct N_ApplesApp: App {
     @ObservedObject var userSettings = UserSettings()
 
+    
+    
     var body: some Scene {
         WindowGroup {
             if userSettings.id == ""{

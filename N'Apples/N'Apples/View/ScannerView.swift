@@ -56,7 +56,15 @@ struct ScannerView: View {
             if(backToContent){
                 RecapView(viewModel: viewModel)
             }
-        }.ignoresSafeArea(.all)
+        }
+        .onAppear {
+//            viewModel
+//            QrCodeScannerView()
+//                .found(r: self.viewModel.onFoundQrCode)
+//                .torchLight(isOn: self.viewModel.torchIsOn)
+//                .interval(delay: self.viewModel.scanInterval)
+        }
+        .ignoresSafeArea(.all)
             .navigationBarItems(trailing:
                 Button(action: {
                 self.viewModel.torchIsOn.toggle()

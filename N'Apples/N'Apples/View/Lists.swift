@@ -56,9 +56,10 @@ struct Lists: View {
                         .padding(.top, geometry.size.height * 0.09)
                         
                         VStack(spacing: 10){
-                            CardLists(geometry: geometry)
+//                            ForEach(reservationModel.reservation, id: \.self){i in
+                                CardLists(geometry: geometry)
                             
-                                                      
+//                            }
                         }
                         
                     }
@@ -67,7 +68,8 @@ struct Lists: View {
                     .navigationTitle("Liste")
                 
         }.onAppear() {
-            Task {
+            Task {                print("prenotati:\(reservationModel.reservation.count )")
+
                 try await reservationModel.retrieveAllEventIdDecrypt(idEvent: idEv)
                 for i in 0 ..< reservationModel.reservation.count {
                     contoPren = contoPren + reservationModel.reservation[i].numFriends

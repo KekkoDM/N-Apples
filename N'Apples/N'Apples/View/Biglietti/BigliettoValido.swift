@@ -20,7 +20,8 @@ struct BigliettoValido: View {
 //        @Binding var nomepr: String
 //        @Binding var email: String
     @Binding var reservation : Reservation
-    @Binding var viewModel:ScannerViewModel
+    @Binding var viewModel: ScannerViewModel
+    @Binding var showRecap: Bool
     @State var numScan:Int = 0
     @State var disable = false
     @State var nome = ""
@@ -28,6 +29,7 @@ struct BigliettoValido: View {
     @State var email = ""
     @State var numFriends = 0
     @State var list = ""
+    @State var tru = true
 //    }
     
 //    @State var Biglietto: [ParametriBiglietto] = [ParametriBiglietto(nome: "Domenico", cognome: "sdnsidn", numeropersone: 6, nomepr: "Nicola",email: "dom@gmail.com")]
@@ -39,14 +41,19 @@ struct BigliettoValido: View {
             Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255)
             .ignoresSafeArea()
                 VStack{
+                    HStack{
+                        Spacer()
         Text("Biglietto Valido")
                         .foregroundColor(.green)
                 .underline()
                 .foregroundColor(.white)
                 .font(.largeTitle)
-
-                }
-                .position(x: geometry.size.width*0.5, y: geometry.size.height*0.15)
+                .multilineTextAlignment(.center)
+                
+                        Spacer()
+                    }
+                
+//                .position(x: geometry.size.width*0.5, y: geometry.size.height*0.15)
                 
 //                ForEach(Biglietto){ index in
                     VStack(alignment: .leading, spacing: 12){
@@ -79,6 +86,8 @@ struct BigliettoValido: View {
                         Text("\(email )")
                             
                             .font(.title2)
+                        HStack{
+                        Spacer()
                         Button(action: {
                             Task{
                                 numScan = numScan + 1
@@ -90,20 +99,26 @@ struct BigliettoValido: View {
                             disable = true
 
                         }) {
-                            ZStack{
+                      
+                                ZStack{
                                 RoundedRectangle(cornerRadius: 25)
-                                    .foregroundColor(Color.blue)
+                                    .foregroundColor(Color.orange)
                                     
                                     .frame(width: 300, height: 50, alignment: .center)
                                 Text( "Add Ingress")
                                     .foregroundColor(Color.white)
-                            }
+                                }
+                            
                         }.disabled(disable)
-                    }
+                            Spacer()
+                        }.padding(.top, 50)
+                    }.padding(.leading, 30)
+                        .padding(.top, 30)
                     
                     
                     .foregroundColor(.white)
-                    .position(x: geometry.size.width*0.28, y: geometry.size.height*0.42)
+                }
+//                    .position(x: geometry.size.width*0.28, y: geometry.size.height*0.42)
                  
 //                }
                 
@@ -111,12 +126,15 @@ struct BigliettoValido: View {
             }
         }.onAppear{
             numScan = reservationModel.reservation.first!.numScan
-          nome = reservationModel.reservation.first!.name
-         cognome = reservationModel.reservation.first!.surname
-       email = reservationModel.reservation.first!.email
-           numFriends = reservationModel.reservation.first!.numFriends
-         list = reservationModel.reservation.first!.nameList
+            nome = reservationModel.reservation.first!.name
+            cognome = reservationModel.reservation.first!.surname
+            email = reservationModel.reservation.first!.email
+            numFriends = reservationModel.reservation.first!.numFriends
+            list = reservationModel.reservation.first!.nameList
+            showRecap = false
         }
+        
+        
     }
 }
 

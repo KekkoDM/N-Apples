@@ -8,8 +8,9 @@
 import Foundation
 import SwiftUI
 
+
 struct CardLists: View {
-    
+//@Binding var i:Int
     let geometry: GeometryProxy
     struct Card:Identifiable {
         var id: String {

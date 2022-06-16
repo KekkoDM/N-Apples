@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct BigliettoNonValido: View {
+    @Binding var showRecap: Bool
     var body: some View {
         ZStack{
             GeometryReader{ geometry in
@@ -27,12 +28,14 @@ struct BigliettoNonValido: View {
                 .frame(width: geometry.size.width*1.2)
                 .position(x: geometry.size.width*0.38, y: geometry.size.height*0.45)
         }
+        }.onAppear(){
+            showRecap = false
         }
     }
 }
 
-struct BigliettononvalidoView_Previews: PreviewProvider {
-    static var previews: some View {
-        BigliettoNonValido()
-    }
-}
+//struct BigliettononvalidoView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BigliettoNonValido()
+//    }
+//}

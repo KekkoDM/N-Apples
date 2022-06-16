@@ -60,11 +60,23 @@ struct LoginView: View {
                 
                     .position(x: geometry.size.width * 0.83, y: geometry.size.height * 0.0)
                 
-                Text("Benvenuto in nome app blabla")
-                    .frame(width: geometry.size.width * 1, height: geometry.size.width * 0.56, alignment: .leading)
-                    .padding()
-                    .multilineTextAlignment(.leading)
-                    .font(.system(size: 35))
+                VStack{
+                Text("Welcome to\n").font(.system(size: 35).weight(.semibold))
+                                    .foregroundColor(Color(red: 11/255, green: 41/255, blue: 111/255)) + Text("InNight").font(.system(size: 45).weight(.bold))
+                                    .foregroundColor(.orange)
+                }.frame(width: geometry.size.width * 1, height: geometry.size.width * 0.56, alignment: .center).padding(.top, 35).multilineTextAlignment(.center)
+
+                
+//                    .frame(width: geometry.size.width * 1, height: geometry.size.width * 0.56, alignment: .center)
+//                    .padding(.top, 25)
+//                    .multilineTextAlignment(.center)
+//                    .font(.system(size: 35).weight(.semibold))
+//                    .foregroundColor(.black)
+//                    .frame(width: geometry.size.width * 1, height: geometry.size.width * 0.56, alignment: .center)
+//                    .padding(.top, 25)
+//                    .multilineTextAlignment(.center)
+//                    .font(.system(size: 35).weight(.semibold))
+//                    .foregroundColor(.black)
                 
                 VStack{
                     
@@ -220,7 +232,7 @@ struct LoginView: View {
                 EventView (eventModel: eventModel, roleModel: roleModel)
                 
             }
-        }
+        }.background(Color(red: 0.91, green: 0.93, blue: 1))
         
     }
     
