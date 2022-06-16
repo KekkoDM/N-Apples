@@ -15,13 +15,21 @@ struct RecapView: View {
     @State var showRecap: Bool = false
     @State var ingress = 1
     @State var numScan = 0
+    @State var stringaGif: String = "LoadingGif"
+
     var body: some View {
+        
+        GeometryReader {
+            geometry in
         ZStack {
             VStack {
                 if(showRecap) {
-                    
-                    BigliettoValido(reservation: $reservation, viewModel: $viewModel)
-                        .padding(.leading,100)
+                    NavigationLink( destination: BigliettoValido(reservation: $reservation, viewModel: $viewModel), isActive: $showRecap){}
+         
+//                    NavigationLink (destination: GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici), isActive: $presentIMieiEventi) {
+//                       
+//                    }
+//                        .padding(.leading,100)
 //                    Text("Name: " + reservationModel.reservation.first!.name)
 //
 //                    Text("Surname: " + reservationModel.reservation.first!.surname)
@@ -55,7 +63,14 @@ struct RecapView: View {
 //                        }
 //                    }
                 } else {
-                    BigliettoNonValido()
+//                    BigliettoNonValido()
+                    GifImage(stringaGif)
+             
+                                         .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
+                                         .padding(.top, 200)
+             
+                                         .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
+                                         .background( Color(red: 11/255, green: 41/255, blue: 111/255))
                 }
             }
             
@@ -79,6 +94,6 @@ struct RecapView: View {
                 
             }
         }
-    }
+        }}
     
 }

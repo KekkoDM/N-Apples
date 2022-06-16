@@ -12,6 +12,8 @@ struct Lists: View {
     
     @State var searchText: String = ""
     var TuttiIPrenotati = [1, 2, 3]
+    @Binding var idEv: String
+    @State var contoPren: Int = 0
     
     var body: some View {
         
@@ -19,7 +21,7 @@ struct Lists: View {
             
             geometry in
             
-        NavigationView{
+        NavigationView {
 
                     ScrollView(showsIndicators: false){
                         
@@ -37,7 +39,7 @@ struct Lists: View {
                                     .padding(.horizontal, geometry.size.width * 0.07)
                                 
                                 
-                                Text("\(TuttiIPrenotati[0])")
+                                Text("\(contoPren)")
                                     .font(.system(size: 28))
                                     .foregroundColor(.white)
                                 
@@ -64,17 +66,24 @@ struct Lists: View {
                     .background(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                     .navigationTitle("Liste")
                 
+        }.onAppear() {
+            Task {
+                try await reservationModel.retrieveAllEventIdDecrypt(idEvent: idEv)
+                for i in 0 ..< reservationModel.reservation.count {
+                    contoPren = contoPren + reservationModel.reservation[i].numFriends
+                }
             }
+        }
         }
         .searchable(text: $searchText)
         
     }
     
-    init() {
-        let navBarAppearance = UINavigationBar.appearance()
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-    }
+//    init() {
+//        let navBarAppearance = UINavigationBar.appearance()
+//        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+//        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+//    }
     
 }
 
@@ -97,8 +106,8 @@ extension View {
 
 
 
-struct Lists_Previews: PreviewProvider {
-    static var previews: some View {
-        Lists()
-    }
-}
+//struct Lists_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Lists()
+//    }
+//}

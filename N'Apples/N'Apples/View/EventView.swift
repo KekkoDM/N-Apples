@@ -30,78 +30,6 @@ struct EventView: View {
     @State var showSheet : Bool = false
     @State private var showCaricamento : Bool = false
     
-    
-    //        NavigationView {
-    //            ZStack {Color.white
-    //
-    //                VStack (spacing: 70) {
-    //
-    //                    NavigationLink (destination: UpdateView(userModel: userModel), isActive: $presentUpdateView) {
-    //                        Text("My Self")
-    //                            .onTapGesture {
-    //                                presentUpdateView.toggle()
-    //                            }
-    //                    }
-    //
-    //                    VStack {
-    //                        if(showEvents){
-    //                            ForEach(0 ..< eventModel.event.count, id: \.self) { i in
-    //                                NavigationLink (destination: RecapEventView(eventModel: $eventModel, i: $intero), isActive: $presentRecapEventView) {
-    //                                    Text(eventModel.event[i].name)
-    //
-    //                                        .onTapGesture {
-    //                                            intero = i
-    //                                            presentRecapEventView.toggle()
-    //
-    //                                        }
-    //                                }
-    //
-    //                            }
-    //                        }
-    //                    }
-    //
-    //
-    //
-    //                    VStack (spacing: 20) {
-    //                        Button(action: {
-    //                            presentCreationView.toggle()
-    //                        }
-    //                               , label: {
-    //                            Text("Create Event")
-    //
-    //                        })
-    //
-    //
-    //                    }
-    //                }
-    //            }
-    //
-    //            .sheet(isPresented: $presentCreationView) {
-    //                CreationView()
-    //            }
-    //            .onAppear(){
-    //
-    //                pushNotification.requestNotificationPermission()
-    //                //            pushNotification.subscribe(textType: "Role", userName: userModel.user.first!.username)
-    //
-    //
-    //
-    //                Task {
-    //                    try await userModel.retrieveAllId(id: userSettings.id)
-    //
-    //                    print( userModel.user.first?.username ?? "prova")
-    //                    showEvents = false
-    //                    showEvents = try await retrieveMyEvents()
-    //
-    //                    //                                   try await retrieveMyEvents()
-    //                }
-    //
-    //            }
-    //
-    //            .navigationTitle("My Event")
-    //            .padding()
-    //        }
-    
     var body: some View {
    
             NavigationView {
@@ -132,56 +60,22 @@ struct EventView: View {
                                     .frame(width: 204, height: 59)
                                     .background(RoundedRectangle(cornerRadius: 7).foregroundColor(.accentColor))
                             }
-                            
-                            
-                            
                         }
                         
                         
                         .sheet(isPresented: $showSheet, onDismiss: {
                             showCaricamento = true
-
-//                            Task {
-//                                try await userModel.retrieveAllId(id: userSettings.id)
-//
-//                                showEvents = false
-//                                print("tappend \(eventModel.event.count)")
-//                                eventModel.records.removeAll()
-//                                eventModel.event.removeAll()
-//                                showEvents = try await retrieveMyEvents()
-//                                showCaricamento = false
-//
-//
-//
-//
-//                            }
-                            
-                            
                         }) {
                             CreationView(indici: $indici)
                         }
                         
                         if showCaricamento {
-                            
-//                            GifImage(stringaGif)
-//
-//                                .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
-//                                .padding(.top, 200)
-//
-//                                .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.37)
-//                                .background( Color(red: 11/255, green: 41/255, blue: 111/255))
-//                                .onAppear() {
-//                                    print("DENTRO SHOW CARICAMENTO IN EVENT VIEW")
-//
-//
-//
-//                                }
-                            GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici)
+                            GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici, endRetrieve: $showCaricamento)
                         }
                         
 //                        NavigationLink("", isActive: $showEvents, destination: {
 //                            IMieiEventi(eventModel: eventModel, roleModel: roleModel, indici: $indici)})
-//
+
                         
                     }
                    

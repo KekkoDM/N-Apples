@@ -201,7 +201,7 @@ struct CreationView: View {
 //
 //                            }
 //                            .disabled(eventName.isEmpty)
-                            NavigationLink (destination: GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici), isActive: $presentIMieiEventi) {
+                            NavigationLink (destination: GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici, endRetrieve: .constant(false)), isActive: $presentIMieiEventi) {
                                
                             }
                             .disabled(eventName.isEmpty)

@@ -56,9 +56,6 @@ struct ReservationView: View {
                                 }
                         }
                     }
-                       
-                       
-                    
                     
                 }
         

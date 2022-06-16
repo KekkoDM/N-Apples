@@ -23,6 +23,11 @@ struct BigliettoValido: View {
     @Binding var viewModel:ScannerViewModel
     @State var numScan:Int = 0
     @State var disable = false
+    @State var nome = ""
+    @State var cognome = ""
+    @State var email = ""
+    @State var numFriends = 0
+    @State var list = ""
 //    }
     
 //    @State var Biglietto: [ParametriBiglietto] = [ParametriBiglietto(nome: "Domenico", cognome: "sdnsidn", numeropersone: 6, nomepr: "Nicola",email: "dom@gmail.com")]
@@ -49,7 +54,7 @@ struct BigliettoValido: View {
                             .underline()
                             .font(.headline)
                             .foregroundColor(.gray)
-                        Text("\(reservationModel.reservation.first!.name)  \(reservationModel.reservation.first!.surname)")
+                        Text("\(nome)  \(cognome ?? "")")
                             .font(.title2)
                            
                         Text("N° of people invited")
@@ -57,21 +62,21 @@ struct BigliettoValido: View {
                             .underline()
                             .foregroundColor(.gray)
                         
-                        Text("\(numScan)/\(reservationModel.reservation.first!.numFriends)")
+                        Text("\( numScan)/\(numFriends )")
                             .font(.title2)
                             
                         Text("Promoter")
                             .underline()
                             .font(.headline)
                             .foregroundColor(.gray)
-                        Text("\(reservationModel.reservation.first!.nameList)")
+                        Text("\(list )")
                             .font(.title2)
                             
                         Text("E-mail")
                             .underline()
                             .font(.headline)
                             .foregroundColor(.gray)
-                        Text("\(reservationModel.reservation.first!.email)")
+                        Text("\(email )")
                             
                             .font(.title2)
                         Button(action: {
@@ -79,6 +84,7 @@ struct BigliettoValido: View {
                                 numScan = numScan + 1
                             disable = try await reservationModel.updateNumScan(id: viewModel.lastQrCode, numscan: numScan)
 
+                                numScan = reservationModel.reservation.first!.numScan
 
                             }
                             disable = true
@@ -105,6 +111,11 @@ struct BigliettoValido: View {
             }
         }.onAppear{
             numScan = reservationModel.reservation.first!.numScan
+          nome = reservationModel.reservation.first!.name
+         cognome = reservationModel.reservation.first!.surname
+       email = reservationModel.reservation.first!.email
+           numFriends = reservationModel.reservation.first!.numFriends
+         list = reservationModel.reservation.first!.nameList
         }
     }
 }

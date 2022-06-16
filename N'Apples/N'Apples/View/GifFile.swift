@@ -17,7 +17,8 @@ struct GifFile: View {
     @ObservedObject var userSettings = UserSettings()
     @Binding var indici: [Int]
     @State var presentEventView: Bool = false
-    
+    @Binding var endRetrieve: Bool
+    var fromEdit = false
     var body: some View {
         
             GeometryReader{
@@ -33,6 +34,7 @@ struct GifFile: View {
 //                        .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
 //                        .background( Color(red: 11/255, green: 41/255, blue: 111/255))
                     
+                    if !fromEdit{
                     if(showEvents) {
                         NavigationLink("", isActive: $showEvents, destination: {
                             IMieiEventi(eventModel: eventModel, roleModel: roleModel, indici: $indici)})
@@ -40,6 +42,7 @@ struct GifFile: View {
                         
                         NavigationLink ("", destination: EventView(eventModel: eventModel, roleModel: roleModel), isActive: $presentEventView)
                         
+                    }
                     }
                     
                     GifImage(stringaGif)
@@ -72,7 +75,12 @@ struct GifFile: View {
                              }
             
                         
-                        if(!showEvents) {
+                        if(showEvents) {
+                            if fromEdit{
+                            endRetrieve = false
+                            }
+                            print("ciaoooooo")
+                        } else {
                             presentEventView = true
                         }
                     }

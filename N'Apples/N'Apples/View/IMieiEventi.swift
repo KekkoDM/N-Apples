@@ -21,6 +21,8 @@ struct IMieiEventi: View {
     @State private var showCaricamento : Bool = false
     @Binding var indici:[Int] 
     @ObservedObject var userSettings = UserSettings()
+    @State var aggiorna = false
+    
     var body: some View {
         
         NavigationView {
@@ -67,7 +69,7 @@ struct IMieiEventi: View {
                                         
 //                                        if(eventModel.event[i].name != eventModel.event[i-1].name && i != 0){
                                             
-                                            CardEvento(i: $indici[i], eventModel: $eventModel, roleModel: $roleModel, indici: $indici, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id, tables: eventModel.event[i].table )])
+                                            CardEvento(i: $indici[i], eventModel: $eventModel, roleModel: $roleModel, indici: $indici, Paramentri: [CardEvento.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id, tables: eventModel.event[i].table )], updateMain: $aggiorna)
                                             
                                             
 //                                        }
@@ -75,9 +77,8 @@ struct IMieiEventi: View {
                                     }
                                     else  if roleModel.role[i].permission == [0,0,1] {
 //                                        if(eventModel.event[i].name != eventModel.event[i-1].name && i != 0){
-                                            CardEvento2(i: $indici[i], eventModel: $eventModel, roleModel: $roleModel, indici: $indici, Paramentri: [CardEvento2.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id, tables: eventModel.event[i].table )])
+                                            CardEvento2(i: $indici[i], eventModel: $eventModel, roleModel: $roleModel, indici: $indici, Paramentri: [CardEvento2.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id, tables: eventModel.event[i].table )], updateMain: $aggiorna)
                                                 .onAppear(perform: {
-                                                    
                                                     print("INTERO ON APP: \(intero)")
                                                 })
                                                 
@@ -87,10 +88,9 @@ struct IMieiEventi: View {
                                     }
                                     else  if roleModel.role[i].permission == [0,1,0] {
 //                                        if(eventModel.event[i].name != eventModel.event[i-1].name && i != 0){
-                                            CardEvento3(i: $indici[i], eventModel: $eventModel, roleModel: $roleModel, indici: $indici, Paramentri: [CardEvento3.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id, tables: eventModel.event[i].table )])
+                                            CardEvento3(i: $indici[i], eventModel: $eventModel, roleModel: $roleModel, indici: $indici, Paramentri: [CardEvento3.ParametriCard(titoloEvento: eventModel.event[i].name, location: eventModel.event[i].location, data: eventModel.event[i].timeForPrice, prenotazioniDisponibili: eventModel.event[i].capability, descrizioneEvento: eventModel.event[i].info, tariffeEntrata: eventModel.event[i].price, idEvent: eventModel.event[i].id, tables: eventModel.event[i].table )], updateMain: $aggiorna)
                                                 
                                                 .onAppear(perform: {
-                                                
                                                     print("INTERO ON APP: \(intero)")
                                                 })
                                                 
@@ -154,12 +154,14 @@ struct IMieiEventi: View {
 //
 //                            .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
 //                            .background( Color(red: 11/255, green: 41/255, blue: 111/255))
-                        GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici)
+                        GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici, endRetrieve: $showCaricamento)
+                    }
+                    
+                    if aggiorna{
+                        GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici, endRetrieve: $aggiorna)
                     }
                     
                 }
-                
-                
                 .navigationTitle("My Events")
                 .navigationBarItems(trailing: Button(action: {
                     showSheet=true
@@ -172,15 +174,12 @@ struct IMieiEventi: View {
                 
                 
             }
-            
-            
             .background(Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
             
             
         }
         .navigationBarHidden(true)
         .searchable(text: $searchText2)
-        
         
     }
     
@@ -213,6 +212,7 @@ struct CardEvento: View {
     @State var Paramentri: [ParametriCard] = [ParametriCard(titoloEvento: "Arenile", location: "Caivano", data: [Date()],  prenotazioniDisponibili: 100, descrizioneEvento:"", tariffeEntrata: [0], idEvent: "", tables: [""])]
     @State var presentRoleView: Bool = false
     
+    @Binding var updateMain: Bool
     var body: some View {
         
         
@@ -235,7 +235,7 @@ struct CardEvento: View {
                                     .font(.system(size: 28))
                                     .padding(.leading, 290)
                                 
-                                NavigationLink(destination: {Lists()}, label: {
+                                NavigationLink(destination: {Lists(idEv: $eventModel.event[i].id)}, label: {
                                     Text("Lists ")
                                         .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                     .font(.system(size: 16))})
@@ -291,7 +291,7 @@ struct CardEvento: View {
                         
                         VStack (alignment: .leading, spacing: 10) {
                             
-                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: String(index.prenotazioniDisponibili), descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata,idEvent:index.idEvent, tables: index.tables, indici: $indici, i: $i)) {
+                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: String(index.prenotazioniDisponibili), descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata,idEvent:index.idEvent, tables: index.tables, indici: $indici, i: $i, updateMain: $updateMain)) {
                                 Text("\(index.titoloEvento)  >")
                                     .underline()
                                     .font(.system(size: 22))
@@ -392,7 +392,8 @@ struct CardEvento2: View {
     
     @State var Paramentri: [ParametriCard] = [ParametriCard(titoloEvento: "Arenile", location: "Caivano", data: [Date()],  prenotazioniDisponibili: 100, descrizioneEvento:"", tariffeEntrata: [0], idEvent: "", tables: [""])]
     
-    
+    @Binding var updateMain: Bool
+
     var body: some View {
         
         
@@ -416,7 +417,7 @@ struct CardEvento2: View {
                                     .font(.system(size: 28))
                                     .padding(.leading, 290)
                                 
-                                NavigationLink(destination: {Lists()}, label: {
+                                NavigationLink(destination: {Lists( idEv: $eventModel.event[i].id)}, label: {
                                     Text("Lists ")
                                         .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                     .font(.system(size: 16))})
@@ -447,7 +448,7 @@ struct CardEvento2: View {
                         
                         VStack (alignment: .leading, spacing: 10) {
                             
-                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: String(index.prenotazioniDisponibili), descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata,idEvent:index.idEvent, tables: index.tables, indici: $indici, i: $i)) {
+                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: String(index.prenotazioniDisponibili), descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata,idEvent:index.idEvent, tables: index.tables, indici: $indici, i: $i, updateMain: $updateMain)) {
                                 Text("\(index.titoloEvento)  >")
                                     .underline()
                                     .font(.system(size: 22))
@@ -542,7 +543,8 @@ struct CardEvento3: View {
     }
     
     @State var Paramentri: [ParametriCard] = [ParametriCard(titoloEvento: "Arenile", location: "Caivano", data: [Date()],  prenotazioniDisponibili: 100, descrizioneEvento:"", tariffeEntrata: [0], idEvent: "", tables: [""])]
-    
+    @Binding var updateMain: Bool
+
     
     var body: some View {
         
@@ -567,7 +569,7 @@ struct CardEvento3: View {
                                     .font(.system(size: 28))
                                     .padding(.leading, 290)
                                 
-                                NavigationLink(destination: {Lists()}, label: {
+                                NavigationLink(destination: {Lists(idEv: $eventModel.event[i].id)}, label: {
                                     Text("Lists ")
                                         .foregroundColor( Color(red: 11 / 255, green: 41 / 255, blue: 111 / 255))
                                     .font(.system(size: 16))})
@@ -599,7 +601,7 @@ struct CardEvento3: View {
                         
                         VStack (alignment: .leading, spacing: 10) {
                             
-                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: String(index.prenotazioniDisponibili), descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata,idEvent:index.idEvent, tables: index.tables, indici: $indici, i: $i)) {
+                            NavigationLink(destination: Riepilogo(titolo: index.titoloEvento, location: index.location, data: index.data, prenotazioniDisponibili: String(index.prenotazioniDisponibili), descrizioneEvento: index.descrizioneEvento, tariffeEntrata: index.tariffeEntrata,idEvent:index.idEvent, tables: index.tables, indici: $indici, i: $i, updateMain: $updateMain)) {
                                 Text("\(index.titoloEvento)  >")
                                     .underline()
                                     .font(.system(size: 22))

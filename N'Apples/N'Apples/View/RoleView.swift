@@ -124,13 +124,13 @@ struct RoleView: View {
                 }
             }
             if  showCaricamento {
-                GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici)
+                GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici, endRetrieve: $showCaricamento)
 
             }
         }
         
         .sheet(isPresented: $presentAssignRoleView,onDismiss: {
-            showCaricamento = true
+//            showCaricamento = true
         }) {
             AssignRoleView(eventModel: $eventModel, i: $i, users: $users)
         }
@@ -143,8 +143,6 @@ struct RoleView: View {
         
         
     }
-    
-    
     
     
 }
@@ -162,47 +160,6 @@ extension View {
             }
         }
 }
-
-//    var searchResults: [String] {
-//        if searchText.isEmpty {
-//            return email
-//        } else {
-//            return email.filter { $0.contains(searchText) }
-//        }
-//    }
-
-
-//        ZStack {
-//            VStack {
-//
-//                HStack {
-//                    TextField("Search", text: $userSeacrh)
-//
-//
-//                    NavigationLink (destination: AssignRoleView(eventModel: $eventModel, i: $i, users: $users), isActive: $presentAssignRoleView) {
-//
-//                        Text("Search")
-//                            .onTapGesture {
-//                                Task {
-//                                    try await users.retrieveAllEmail(email: userSeacrh)
-//                                    print("EMAIL: " + userSeacrh)
-//                                    if (!users.user.isEmpty){
-//                                        print ("User Nicola: \(users.user.first!.username)")
-//                                        presentAssignRoleView.toggle()
-//                                    }
-//
-//                                }
-//
-//                            }
-//
-//                    }
-//
-//                }
-//
-//
-//            }
-//        }
-
 
 struct RuoliView: View {
     

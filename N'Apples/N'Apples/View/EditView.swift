@@ -139,9 +139,7 @@ struct EditView: View {
                                 
                                 presentationMode.wrappedValue.dismiss()
                                 
-//                                showCaricamento = true
                             }
-//                            showCaricamento = true
                             
                         }) {
                             Text("Save").fontWeight(.bold)
@@ -149,26 +147,11 @@ struct EditView: View {
                             if(openAlert){
                                 AlertCancelPrice(show: $openAlert, timePrices: $ParamentriRecap.data, prices: $ParamentriRecap.tariffeEntrata, intero: $intero)
                             }
-                            
-                            
-                            NavigationLink (destination: EventView(eventModel: eventModel, roleModel: roleModel), isActive: $presentIMieiEventi) {
-                                
-                                
-                            }
-                            .disabled(eventName.isEmpty)
                         } )
                     }
                     
                     if showCaricamento {
-                        
-//                        GifImage(stringaGif)
-//
-//                            .frame(width: geometry.size.width * 0.7, height: geometry.size.width * 0.7, alignment: .center)
-//                            .padding(.top, 200)
-//
-//                            .position(x: geometry.size.width * 0.68, y: geometry.size.height*0.45)
-//                            .background( Color(red: 11/255, green: 41/255, blue: 111/255))
-                        GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici)
+                        GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici, endRetrieve: $showCaricamento)
                     }
                     
                 }

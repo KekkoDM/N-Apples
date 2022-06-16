@@ -218,6 +218,7 @@ struct LoginView: View {
             if (presentEventView){
 //                GifFile(eventModel: eventModel, roleModel: roleModel, indici: $indici)
                 EventView (eventModel: eventModel, roleModel: roleModel)
+                
             }
         }
         
